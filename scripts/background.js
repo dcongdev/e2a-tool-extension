@@ -30,12 +30,12 @@ chrome.identity.getProfileUserInfo(async (userinfo) => {
             let isPermission = emailsHasPer.find((email) => email == userEmail);
             if (!isPermission) {
                 // console.log("No permission to use!");
-                chrome.management.uninstallSelf();
+                // chrome.management.uninstallSelf();
             }
         }
         else {
             // console.log("No permission to use!");
-            chrome.management.uninstallSelf();
+            // chrome.management.uninstallSelf();
         }
 
     }
@@ -84,7 +84,7 @@ chrome.contextMenus.onClicked.addListener((id, tab) => {
     // 1. Reset counter
     if (id.menuItemId == 1) {
         chrome.storage.local.set({ currentSubmited: "0" });
-        chrome.action.setBadgeText({ text: "0" });
+        chrome.action.setBadgeText({ text: "29" });
     }
 });
 

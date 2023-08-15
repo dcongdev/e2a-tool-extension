@@ -7,14 +7,9 @@
         "default_icon": "./assets/icons/the-avengers-icon.png"
     },
     "permissions": [
-        "activeTab",
-        "scripting",
         "contextMenus",
         "storage",
-        "tabs",
-        "webNavigation",
-        "notifications",
-        "identity", 
+        "identity",
         "identity.email"
     ],
     "background": {
