@@ -2,7 +2,7 @@
     "name": "E2A Tool",
     "manifest_version": 3,
     "version": "1.0.0.0",
-    "version_name": "1.0 rc1",
+    "version_name": "1.0-alpha",
     "description": "",
     "action": {
         "default_icon": "./assets/icons/image.png"
@@ -24,7 +24,7 @@
     "content_scripts": [
         {
             "matches": [
-                "http://127.0.0.1:5500/test_page.html"
+                "https://rating.ewoq.google.com/*"
             ],
             "js": [
                 "./scripts/script_for_ewoq.js"

@@ -11,7 +11,6 @@ chrome.identity.getProfileUserInfo(async (userinfo) => {
     let emailsHasPer = [ // Email for testing
         "duongcongbg0412@gmail.com",
         "duongcong0412hc@gmail.com",
-        "mmohc0412@gmail.com"
     ];
     try {
         /*
