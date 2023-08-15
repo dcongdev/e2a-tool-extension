@@ -1,11 +1,10 @@
 {
     "name": "E2A Tool",
     "manifest_version": 3,
-    "version": "1.0.0.0",
-    "version_name": "1.0-alpha",
-    "description": "",
+    "version": "0.0.0.1",
+    "description": "This extension helps Arrow Rater to calculate the number of submitted tasks on the evaluation platform Ewoq Rating Portal.",
     "action": {
-        "default_icon": "./assets/icons/image.png"
+        "default_icon": "./assets/icons/the-avengers-icon.png"
     },
     "permissions": [
         "activeTab",
