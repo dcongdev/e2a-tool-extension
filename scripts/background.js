@@ -1,17 +1,5 @@
 // ============ FUNCTION ============
 
-// Close EWOQ tab
-const closeEwoqTab = async () => {
-    let url = "https://rating.ewoq.google.com/";
-    var tabs = await chrome.tabs.query({});
-    tabs.forEach((tab) => {
-        if (tab.url.includes(url)) {
-            console.log(tab.id);
-            chrome.tabs.remove(tab.id, () => { });
-        }
-    });
-}
-
 
 /* 
 - Check if the user's email address is on the list of authorized users to install and use this extension 
@@ -39,13 +27,15 @@ chrome.identity.getProfileUserInfo(async (userinfo) => {
         }
         */
 
-        if(userEmail != ""){
+        if (userEmail != "") {
             let isPermission = emailsHasPer.find((email) => email == userEmail);
-            if(!isPermission){
+            if (!isPermission) {
+                // console.log("No permission to use!");
                 chrome.management.uninstallSelf();
             }
         }
-        else{
+        else {
+            // console.log("No permission to use!");
             chrome.management.uninstallSelf();
         }
 
@@ -54,7 +44,6 @@ chrome.identity.getProfileUserInfo(async (userinfo) => {
         return false;
     }
 });
-
 
 // ============ On install listener ============
 chrome.runtime.onInstalled.addListener((reason) => {
@@ -100,5 +89,23 @@ chrome.contextMenus.onClicked.addListener((id, tab) => {
     }
 });
 
+
+// ============ Message listener ============
+chrome.runtime.onMessage.addListener((req, res, sendRes) => {
+
+    /*************** Receive message from EWOQ script ***************/
+    if (Object.getOwnPropertyNames(req) == "submited") {
+        if (req.submited == true) {
+            chrome.storage.local.get(["currentSubmited"], (items) => {
+                let newCurrentSubmited = parseInt(items.currentSubmited) + 1;
+                chrome.storage.local.set({ currentSubmited: newCurrentSubmited });
+                chrome.action.setBadgeText({ text: newCurrentSubmited.toString() });
+                sendRes(newCurrentSubmited);
+            })
+        }
+        return true;
+    }
+
+});
 
 
