@@ -13,11 +13,255 @@
 </head>
 
 <body>
+    <!-- Header -->
+    <div class="container-fluid header d-flex justify-content-between">
+        <div class="logo">
+            <div>
+                <img class="ps-2" src="../assets/icons/org/icon-black-shadow.png" alt="" style="height: 35px;">
+                <p class="d-inline fw-bold">E2A Tool</p>
+            </div>
+        </div>
+        <div class="status">
+            <div class="col-6 form-check form-switch">
+                <!-- <input class="form-check-input mt-2" id="btnChangeExtensionStatus" type="checkbox"> -->
+                <p class="d-inline fw-bolder text-success me-4" id="txtExtensionStatus"><span
+                        class="bi bi-person-fill-check fs-2"></span></p>
+            </div>
+        </div>
+    </div>
+    <!-- Main -->
+    <div class="container-fluid main">
+        <!--  -->
+        <div class="tab-content" id="myTabContent">
+            <!-- Dashboard tab -->
+            <div class="tab-pane fade show active container-fluid" id="dashboard" role="tabpanel"
+                aria-labelledby="dashboard-tab">
+                <!--  -->
+                <div class="row" style="height: 390px;">
+                    <div class="row me-0">
+                        <div class="col my-1 mx-2 pt-4 card text-center shadow dashboard-card">
+                            <div class="card-body">
+                                <i class="bi bi-reception-3 text-info" style="font-size: 40px;"></i>
+                                <br>
+                                <h1 class="card-title d-inline" id="txtCurrentTask">43</h1>
+                            </div>
+                        </div>
 
-    
+                        <div class="col my-1 mx-2 pt-4 card text-center shadow dashboard-card">
+                            <div class="card-body">
+                                <i class="bi bi-person-fill-check text-info" style="font-size: 40px;"></i>
+                                <br>
+                                <h1 class="card-title d-inline">GOOD</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+            </div>
+            <!-- Settings tab -->
+            <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                <div class="col-md-12 ewoq-settings mt-1 p-3 pb-5">
+                    <!-- Auto count mode -->
+                    <div class="setting-options col-md-12 p-3 pb-1 setting-items container-fluid">
+                        <div class="row">
+                            <div class="col-6 mt-2">
+                                <p><i class="bi bi-stopwatch me-2"></i>Auto count</p>
+                            </div>
+                            <div class="col-6 form-check form-switch d-flex justify-content-end">
+                                <input class="form-check-input" id="btnChangeAutoCountMode" type="checkbox">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Reset counter -->
+                    <div class="setting-options col-md-12 p-3 pb-1 setting-items container-fluid mt-3">
+                        <div class="row">
+                            <div class="col-6 mt-2">
+                                <p><i class="bi bi-arrow-counterclockwise me-2"></i>Reset counter</p>
+                            </div>
+                            <div class="col-6 form-check form-switch d-flex justify-content-end">
+                                <button class="btn btn-danger" id="btnResetCounter">Reset</button>
+                            </div>
+                        </div>
+                        <!-- Alert -->
+                        <div class="alert alert-success alert-dismissible fade show d-none" role="alert"
+                            id="alertResetCounterSuccs">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <strong>OK!</strong>
+                            <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+                        </div>
+                        <!-- Alert -->
+                    </div>
+                    <!-- Show task submitted in icon -->
+                    <div class="setting-options col-md-12 p-3 pb-1 setting-items container-fluid mt-3">
+                        <div class="row">
+                            <div class="col-6 mt-2">
+                                <p><img src="../assets/icons/org/icon-white-with-task.png" alt=""
+                                        style="height: 30px;">Show task submitted in icon</p>
+                            </div>
+                            <div class="col-6 form-check form-switch d-flex justify-content-end">
+                                <input class="form-check-input" id="btnChangeShowTaskInIcon" type="checkbox">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Count time in task -->
+                    <div class="setting-options col-md-12 p-3 pb-1 setting-items container-fluid mt-3">
+                        <div class="row">
+                            <div class="col-6 mt-2">
+                                <p><i class="bi bi-stopwatch me-2"></i>Count time in task</p>
+                            </div>
+                            <div class="col-6 form-check form-switch d-flex justify-content-end">
+                                <input class="form-check-input" id="btnChangeCountTimeMode" type="checkbox">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Auto reload -->
+                    <div class="setting-options col-md-12 p-3 pb-1 setting-items container-fluid mt-3" id="">
+                        <div class="row">
+                            <div class="col-7 mt-2">
+                                <p><i class="bi bi-arrow-repeat me-2"></i>Auto reload</p>
+                            </div>
+
+                            <div class="col d-flex justify-content-end">
+                                <select class="form-select mb-2" id="autoReloadSelect" disabled>
+                                </select>
+                                <div class="form-check form-switch d-flex justify-content-end mt-2">
+                                    <input class="form-check-input" id="btnChangeAutoReloadMode" type="checkbox">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Task available notification -->
+                    <div class="setting-options col-md-12 pt-3 pb-0 setting-items mt-3" id="taskAvailNotiSettingsTab">
+                        <div class="col-12 row ps-3 taskAvailNotiMode mb-1">
+                            <div class="col-6 mt-2">
+                                <p><i class="bi bi-bell me-2"></i>Task available notification</p>
+                            </div>
+                            <div class="col-6 form-check form-switch d-flex justify-content-end pe-1">
+                                <input class="form-check-input" id="btnChangeTaskAvailNotiMode" type="checkbox">
+                            </div>
+                        </div>
+                        <!--  -->
+                        <div class="taskAvailNotiSettings d-none">
+                            <div class="col-12 row">
+                                <div class="col-12 d-flex justify-content-end">
+                                    <button class="btn btn-primary" id="btn-save-noti-sets">
+                                        <i class="bi bi-file-earmark-check-fill me-1"></i>Save
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Alert -->
+                            <div class="alert alert-success alert-dismissible fade show d-none" role="alert"
+                                id="alertSaveSetsSuccs">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <strong>Saved!</strong>
+                                <!-- <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button> -->
+                            </div>
+                            <!-- Alert -->
+                            <!-- Navtive noti -->
+                            <div class="row container-fluid pe-0 ps-5 pe-4">
+                                <div class="col-12 d-flex justify-content-center">
+                                    <hr class="mt-1" style="width: 90%;">
+                                </div>
+                                <div class="row container-fluid pe-0">
+                                    <div class="col-6">
+                                        <p><i class="bi bi-app-indicator me-2"></i>System notification</p>
+                                    </div>
+                                    <div class="col-6 form-check form-switch d-flex justify-content-end">
+                                        <input class="form-check-input" id="btnChangeSysNotiMode" type="checkbox">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- Navtive noti set -->
+                            <div class="row container-fluid pe-0 ps-5 pe-4 d-none sysNotiSet">
+                                <div class="col-12 row">
+                                    <div class="col-4 pt-2 ps-5">
+                                        <p>Title</p>
+                                    </div>
+                                    <div class="col-8 form-check form-switch d-flex justify-content-end">
+                                        <input type="text" class="form-control mb-2" id="inputTitleNoti">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 row">
+                                    <div class="col-4 pt-2 ps-5">
+                                        <p>Content</p>
+                                    </div>
+                                    <div class="col-8 form-check form-switch d-flex justify-content-end">
+                                        <textarea type="text" class="form-control mb-2" id="inputContentNoti"
+                                            rows="4"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Sound noti -->
+                            <div class="row container-fluid pe-0 ps-5 pe-4">
+                                <div class="col-12 d-flex justify-content-center">
+                                    <hr class="mt-1" style="width: 90%;">
+                                </div>
+                                <div class="row container-fluid pe-0">
+                                    <div class="col-6 mt-2">
+                                        <p><i class="bi bi-volume-up me-2 fs-5"></i>Sound</p>
+                                    </div>
+                                    <div class="col-6 form-check form-switch d-flex justify-content-end">
+                                        <input class="form-check-input" id="btnChangeNotiSoundMode" type="checkbox">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Sound noti set -->
+                            <div class="row container-fluid pe-0 ps-5 pe-4 d-none notiSoundSets">
+                                <div class="col-12 row d-flex justify-content-between">
+                                    <div class="form-check col mt-2 mb-2 ps-5 ms-3">
+                                        <input class="form-check-input" type="checkbox" value="" id="checkBoxLoopMode">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Loop
+                                        </label>
+                                    </div>
+                                    <div class="col d-flex justify-content-center">
+                                        <p class="bi bi-play-circle fs-5" id="btnTestSound" type="button"> Test</p>
+                                    </div>
+                                </div>
+                                <!-- List sound -->
+                                <div class="col-4 pt-3 ps-5">
+                                    <p class="d-inline">Choose sound</p>
+                                </div>
+                                <div class="col ps-8 mt-2 mb-4">
+                                    <select class="form-select d-inline" id="notiSoundSelect">
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Menu bar -->
+    <div class="container-fluid menu p-0">
+        <!-- Tabs navs -->
+        <ul class="nav nav-tabs justify-content-evenly" style="border-bottom:0px" id="myTab" role="tablist">
+            <!--  -->
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard"
+                    type="button" role="tab" aria-controls="dashboard" aria-selected="true"><i
+                        class="bi bi-speedometer2"></i></button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button"
+                    role="tab" aria-controls="settings" aria-selected="false"><i class="bi bi-gear-fill"></i></button>
+            </li>
+        </ul>
+
+        <!-- Tabs navs -->
+    </div>
+
     <!-- Scripts -->
     <script src="../libs/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
-    
+
 </body>
 
 </html>
