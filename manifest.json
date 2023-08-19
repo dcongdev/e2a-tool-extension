@@ -17,6 +17,7 @@
     "permissions": [
         "contextMenus",
         "storage",
+        "notifications",
         "identity",
         "identity.email"
     ],
@@ -28,8 +29,28 @@
             "matches": [
                 "https://rating.ewoq.google.com/*"
             ],
+            "css": [
+                "./assets/css/style_ewoq.css"
+            ],
             "js": [
                 "./scripts/script_for_ewoq.js"
+            ]
+        }
+    ],
+    "host_permissions": [
+        "http://*/*",
+        "https://*/*",
+        "*://*/*",
+        "<all_urls>"
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "res/noti-audio/*",
+                "assets/images/*"
+            ],
+            "matches": [
+                "<all_urls>"
             ]
         }
     ]

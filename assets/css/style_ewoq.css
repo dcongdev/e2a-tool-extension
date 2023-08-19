@@ -1,0 +1,84 @@
+/* Task time counter */
+#task-time {
+  top: 10px;
+  width: fit-content;
+  min-width: 100px;
+
+  background-color: rgb(68, 68, 68);
+  position: fixed;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+
+  padding: 10px;
+}
+
+#task-time::after {
+  content: "";
+  position: absolute;
+  top: -30px;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent transparent rgb(68, 68, 68) transparent;
+}
+
+/* Task available notification box */
+#task-avail-noti-box {
+  left: 40vw;
+  top: 10px;
+  width: fit-content;
+  min-width: 200px;
+
+  background-color: rgb(68, 68, 68);
+  position: fixed;
+  border-radius: 10px;
+
+  padding: 9px 10px 0px 10px;
+
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+#task-avail-noti-box::after {
+  content: "";
+  position: absolute;
+  top: -30px;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent transparent rgb(68, 68, 68) transparent;
+  left: 40%;
+}
+
+/* Auto reload box */
+#auto-reload-box {
+  left: 40vw;
+  top: 10px;
+  width: 200px;
+  height: 130px;
+
+  background-color: rgb(68, 68, 68);
+  position: fixed;
+  border-radius: 10px;
+  text-align: center;
+
+  padding: 9px 10px 9px 10px;
+}
+
+#auto-reload-box::after {
+  right: 40%;
+  content: "";
+  position: absolute;
+  top: -30px;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent transparent rgb(68, 68, 68) transparent;
+}
+
+#btn-cancel-auto-reload {
+  color: white;
+  margin-top: 0px;
+  font-weight: 800;
+  text-shadow: 1px 1px #992400;
+}
