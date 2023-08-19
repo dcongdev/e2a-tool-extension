@@ -1,3 +1,8 @@
+/* Copyright (C) 2023 Duong Cong - All Rights Reserved
+* Email: duongcong0412hc@gmail.com
+*/
+
+
 $(document).ready(function () {
     const extensionUrl = chrome.runtime.getURL("");
     /*************** SETTINGS ***************/
