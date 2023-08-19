@@ -1,3 +1,7 @@
+/* Copyright (C) 2023 Duong Cong - All Rights Reserved
+* Email: duongcong0412hc@gmail.com
+*/
+
 window.onload = () => {
     const extensionUrl = chrome.runtime.getURL("");
     console.log("Imported extension script!")
@@ -101,9 +105,9 @@ window.onload = () => {
         let autoReloadBox = document.createElement("div");
         let autoReloadBoxContent = '<div id="auto-reload-box" style="display:none">'
             + '<div><p style="color: white;">'
-            + '<img src="./reload-icon.png" alt="" style="height: 40px;"><br>'
+            + '<img src="' + extensionUrl + 'assets/images/reload-icon.png" alt="" style="height: 40px;"><br>'
             + '<strong style="color: rgb(0, 217, 255);font-size: 20px;" id="txt-time-count-reload">0</strong></p>'
-            + '</div><div><p type="button" id="btn-cancel-auto-reload">CANCEL</p></div></div>';
+            + '</div><div><p type="button" style="cursor: pointer;" id="btn-cancel-auto-reload">CANCEL</p></div></div>';
         autoReloadBox.innerHTML = autoReloadBoxContent;
         headerContainer.appendChild(autoReloadBox);
         let btn_cancel_auto_reload = document.getElementById("btn-cancel-auto-reload");
@@ -139,7 +143,7 @@ window.onload = () => {
             + '<br>'
             + '<p style="margin: 5px; display: inline;color: white;">Task available</p>'
             + '<br>'
-            + '<img id="btn-close-task-noti" type="button" src="' + extensionUrl + 'assets/images/cancel-icon-circle.png" style="width: 50px" alt="">'
+            + '<img id="btn-close-task-noti" type="button" style="cursor: pointer;width: 50px" src="' + extensionUrl + 'assets/images/cancel-icon-circle.png" alt="">'
             + '<div><p style="margin: 0 0 10px 0; color: white; font-size: 12px;"></p></div>'
             + '</div>'
             + '</div>';
@@ -196,7 +200,7 @@ window.onload = () => {
 
         let continueButton = document.getElementsByClassName("continue-button")[0];
         let submitButton = document.getElementsByClassName("submitTaskButton")[0];
-        let skipButton = document.getElementsByClassName("cancel-button")[0];
+        let skipButton = document.getElementsByClassName("skip-button")[0];
         let takeABreakButton = document.getElementsByClassName("skip-and-take-a-break-button")[0];
         let finishButton = document.getElementsByClassName("finish-button")[0];
 
@@ -221,7 +225,6 @@ window.onload = () => {
             finishButton.removeEventListener("click", resetTaskTimeCounter);
             finishButton.addEventListener("click", resetTaskTimeCounter);
         }
-
 
         // ===== WAITING =====
         if (startButton != null || requestAssignmentsButton != null) {
@@ -267,7 +270,11 @@ window.onload = () => {
                         // Hide noti
                         hideTaskNotiBox();
                         // Show auto reload
-                        if (autoReload.status == "OFF") { return; }
+                        if (autoReload.status == "OFF") {
+                            hideAutoReloadBox();
+                            resetAutoReloadCounter();
+                            return;
+                        }
                         if (isCancelAutoReload == true) { return; }
                         if (isAutoReloadCounting == false) {
                             resetAutoReloadCounter();
@@ -305,7 +312,7 @@ window.onload = () => {
                     }
                     // Show time counter
                     showTaskTimeCounterBox();
-                    taskTimeCounter += 1;
+                    ++taskTimeCounter;
                     // 
                 }
                 else {
