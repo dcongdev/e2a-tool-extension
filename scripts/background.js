@@ -1,3 +1,7 @@
+/* Copyright (C) 2023 Duong Cong - All Rights Reserved
+* Email: duongcong0412hc@gmail.com
+*/
+
 const extensionUrl = chrome.runtime.getURL("");
 // ============ FUNCTION ============
 // Format time to string
@@ -58,46 +62,36 @@ const setCurrSubmittedInIcon = () => {
     })
 }
 
-
 const checkUserStatus = async () => {
     chrome.identity.getProfileUserInfo(async (userinfo) => {
         let userEmail = userinfo.email;
         // console.log(userEmail)
-        let emailsHasPer = [ // Email for testing
-            "duongcongbg0412@gmail.com",
-            "duongcong0412hc@gmail.com",
-            "mmohc0412@gmail.com",
-        ];
         try {
-
             if (userEmail != "") {
-
-                // let data = {
-                //     userEmail: userEmail
-                // }
-                // let response = await fetch("" + userEmail);
-                // let result = await response.json();
-
-                // if (result.result == "Fail") {
-                //     console.log("No permission to use!");
-                //     // chrome.management.uninstallSelf();
-                // }
-
-                let isPermission = emailsHasPer.find((email) => email == userEmail);
-                if (!isPermission) {
-                    // console.log("No permission to use!");
-                    chrome.action.setBadgeBackgroundColor({ color: "red" });
-                    chrome.action.setBadgeText({ text: "!" });
-                    // chrome.management.uninstallSelf();
+                let response = await fetch("https://e2atool.com/api/extension/get-user-permission/" + userEmail);
+                let data = await response.json();
+                console.log(data.message);
+                if (data.status == "OK") {
+                    console.log(data.message);
+                    setCurrSubmittedInIcon();
                     return;
                 }
-                setCurrSubmittedInIcon();
+                if (data.status == "NOTFOUND") {
+                    console.log(data.message);
+                    chrome.management.uninstallSelf();
+                }
+                else if (data.status == "FORBIDDEN") {
+                    console.log(data.message);
+                    chrome.management.uninstallSelf();
+                }
+                else {
+                    console.log(data.message);
+                    chrome.management.uninstallSelf();
+                }
             }
             else {
-                // console.log("No permission to use!");
-                chrome.action.setBadgeBackgroundColor({ color: "red" });
-                chrome.action.setBadgeText({ text: "!" });
-                // chrome.management.uninstallSelf();
+                console.log("No permission to use!");
+                chrome.management.uninstallSelf();
             }
 
         }
@@ -143,12 +137,10 @@ const updateSettings = async () => {
 
         //
         await chrome.storage.sync.set(newSettings);
-
-        // if(newSettings.showTaskSubmittedInIcon == )
     })
 }
 
-checkUserStatus();
+setCurrSubmittedInIcon();
 
 /* 
 - Check if the user's email address is on the list of authorized users to install and use this extension 
@@ -167,7 +159,6 @@ chrome.runtime.onInstalled.addListener(async (reason) => {
     exitsNotiSound.push(["Phone off hook", "phone-off-hook.mp3"]);
     exitsNotiSound.push(["Telephone ring", "telephone-ring.mp3"]);
     exitsNotiSound.push(["Vintage telephone ringtone", "vintage-telephone-ringtone.mp3"]);
-
     // Install
     if (reason.reason == "install") {
         await checkUserStatus();
@@ -176,18 +167,13 @@ chrome.runtime.onInstalled.addListener(async (reason) => {
             "sumbitHistory": [],
             "soundExists": exitsNotiSound,
         })
-        //
         await updateSettings();
     }
-
     // Update
     if (reason.reason == "update") {
-        await checkUserStatus();
-        // await updateSettings();
-        chrome.storage.sync.set({"autoReload": {
-            "status": "ON",
-            "time": 25
-        }});
+        // await checkUserStatus();
+        await updateSettings();
+        setCurrSubmittedInIcon();
     }
 });
 
@@ -281,5 +267,3 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
 
 
 });
-
-
