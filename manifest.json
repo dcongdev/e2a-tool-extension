@@ -1,13 +1,12 @@
 {
     "name": "E2A Tool",
     "manifest_version": 3,
-    "version": "0.1.0.0",
-    "version_name": "1.0 Beta",
-    "description": "This extension helps Arrow Rater to calculate the number of submitted tasks on the evaluation platform Ewoq Rating Portal.",
+    "version": "1.0.0",
+    "version_name": "1.0 rc1",
+    "description": "E2A Tool is a task counter and time tracker for Arrow Rater (raters) working for Appen on the Ewoq Rating Portal.",
     "action": {
         "default_popup": "./pages/popup.html"
     },
-    "options_page": "./pages/popup.html",
     "icons": {
         "16": "./assets/icons/16x16/icon-black.png",
         "32": "./assets/icons/32x32/icon-black.png",
@@ -37,12 +36,6 @@
             ]
         }
     ],
-    "host_permissions": [
-        "http://*/*",
-        "https://*/*",
-        "*://*/*",
-        "<all_urls>"
-    ],
     "web_accessible_resources": [
         {
             "resources": [
@@ -50,7 +43,7 @@
                 "assets/images/*"
             ],
             "matches": [
-                "<all_urls>"
+                "https://rating.ewoq.google.com/*"
             ]
         }
     ]
