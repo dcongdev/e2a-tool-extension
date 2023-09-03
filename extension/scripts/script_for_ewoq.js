@@ -6,6 +6,8 @@ window.onload = () => {
     const extensionUrl = chrome.runtime.getURL("");
     console.log("Imported extension script!")
 
+
+
     var taskTitle = document.getElementsByClassName("taskTitle")[0];
     taskTitle.classList.add("notranslate")
 
@@ -15,6 +17,10 @@ window.onload = () => {
     var isSubmitBtnEnabled = false;
     var taskTimeCounter = 0;
     var isStartNewTask = false;
+
+    var autoSubmitCounter = 0;
+    var isAutoSubmitCounting = false;
+    var isCancelAutoSubmit = false;
 
     var autoReloadCounter = 0;
     var isAutoReloadCounting = false;
@@ -68,7 +74,6 @@ window.onload = () => {
             isSubmitBtnEnabled = false;
         }
     }
-
     // Submit button click event
     const submitButtonClick = () => {
         if (isSubmitBtnEnabled) {
@@ -83,6 +88,8 @@ window.onload = () => {
             })
         }
     }
+    eventHandler = (e) => { if (e.keyCode == 13 && e.ctrlKey) { submitButtonClick() } }
+    window.addEventListener('keydown', eventHandler, false);
 
     // =========== TASK TIME COUNTER ===========
     const createTaskTimeCounterBox = () => {
