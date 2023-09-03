@@ -51,29 +51,8 @@ $(document).ready(async function () {
         // console.log(currentTime)
     }
     /* ======= GET DATA ======= */
-    const getTestSubHis = async () => {
-        var response = await fetch('../testdata/test.json')
-        let testHis = await response.json();
-        // console.log(testHis)
-        // chrome.storage.local.set({
-        //     "sumbitHistory": testHis
-        // })
-
-        for (let i = 0; i < testHis.length; i++) {
-            if (testHis[i].date.includes("2024-08")) {
-                // testHis[i].data = []
-            }
-        }
-
-        for (let i = 0; i < 39; i++) {
-            // testHis.pop()
-
-        }
-
-        return testHis;
-    }
     const getSubmitHistory = async () => {
-        rawData = await getTestSubHis();
+        rawData = (await chrome.storage.local.get(["sumbitHistory"])).sumbitHistory;
         //
         if (rawData.length == 0) { return null };
         //
@@ -96,7 +75,6 @@ $(document).ready(async function () {
                 endMonth = endHis.month;
                 endWeek = endHis.weekNumber;
             }
-
             let weeks = []
             for (let k = startWeek; k <= endWeek; k++) { weeks.push(k); }
             weekList.push({ year: i, week: weeks })
@@ -123,6 +101,7 @@ $(document).ready(async function () {
         dataByDay.dataByTaskType = rawData[idx].data
         return dataByDay;
     }
+    
     const showDatePicker = () => {
         let datepicker = $('#date-picker');
         let currentDate = currentTime.toISODate();
