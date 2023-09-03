@@ -101,7 +101,7 @@ $(document).ready(async function () {
         dataByDay.dataByTaskType = rawData[idx].data
         return dataByDay;
     }
-    
+
     const showDatePicker = () => {
         let datepicker = $('#date-picker');
         let currentDate = currentTime.toISODate();
@@ -186,7 +186,7 @@ $(document).ready(async function () {
 
     // WEEK
     const getDataByWeek = (y, w) => {
-        let dataPerWeek = {week: "",data: { day: [], tasks: [], time: [] }, dataByTaskType: []};
+        let dataPerWeek = { week: "", data: { day: [], tasks: [], time: [] }, dataByTaskType: [] };
         // return
         let year = parseInt(y);
         let week = parseInt(w);
@@ -310,10 +310,10 @@ $(document).ready(async function () {
         }
         weekChartByType = new Chart("weekChartByType", {
             type: "pie",
-            data: {labels: dataByTaskType.taskType,datasets: [{label: 'Tasks',data: dataByTaskType.tasks,}]},
+            data: { labels: dataByTaskType.taskType, datasets: [{ label: 'Tasks', data: dataByTaskType.tasks, }] },
             options: {
-                legend: {display: true,},
-                plugins: {title: {display: true,text: "Statistics by task type"}},
+                legend: { display: true, },
+                plugins: { title: { display: true, text: "Statistics by task type" } },
                 maintainAspectRatio: false
             }
         });
@@ -339,12 +339,12 @@ $(document).ready(async function () {
             },
             options: {
                 legend: { display: false },
-                plugins: {title: {display: true,text: dataPerWeek.month}},
+                plugins: { title: { display: true, text: dataPerWeek.month } },
                 maxBarThickness: 45,
                 maintainAspectRatio: false,
                 scales: {
-                    x: {beginAtZero: true,title: {display: true,text: "Day"}},
-                    y: {beginAtZero: true,title: {display: true,text: "Tasks"}}
+                    x: { beginAtZero: true, title: { display: true, text: "Day" } },
+                    y: { beginAtZero: true, title: { display: true, text: "Tasks" } }
                 }
             }
         });
@@ -364,12 +364,12 @@ $(document).ready(async function () {
             },
             options: {
                 legend: { display: false },
-                plugins: {title: {display: true,text: dataPerWeek.month}},
+                plugins: { title: { display: true, text: dataPerWeek.month } },
                 maxBarThickness: 45,
                 maintainAspectRatio: false,
                 scales: {
-                    x: {beginAtZero: true,title: {display: true,text: "Day"}},
-                    y: {beginAtZero: true,title: {display: true,text: "Time (Minutes)"}}
+                    x: { beginAtZero: true, title: { display: true, text: "Day" } },
+                    y: { beginAtZero: true, title: { display: true, text: "Time (Minutes)" } }
                 }
             }
         });
@@ -409,7 +409,7 @@ $(document).ready(async function () {
 
     //  ============= MONTH =============
     const getDataByMonth = (y, m) => {
-        let dataPerMonth = {month: "",data: { day: [], tasks: [], time: [] }};
+        let dataPerMonth = { month: "", data: { day: [], tasks: [], time: [] } };
         let year = parseInt(y);
         let month = parseInt(m);
         let monthString = month < 10 ? (y + "-0" + m) : (y + "-" + m);
@@ -519,8 +519,8 @@ $(document).ready(async function () {
                 legend: { display: false },
                 maintainAspectRatio: false,
                 scales: {
-                    x: {beginAtZero: true,title: {display: true,text: "Day"}},
-                    y: {beginAtZero: true,title: {display: true,text: "Tasks"}}
+                    x: { beginAtZero: true, title: { display: true, text: "Day" } },
+                    y: { beginAtZero: true, title: { display: true, text: "Tasks" } }
                 }
             }
         });
@@ -542,8 +542,8 @@ $(document).ready(async function () {
                 legend: { display: false },
                 maintainAspectRatio: false,
                 scales: {
-                    x: {beginAtZero: true,title: {display: true,text: "Day"}},
-                    y: {beginAtZero: true,title: {display: true,text: "Time (Minutes)"}}
+                    x: { beginAtZero: true, title: { display: true, text: "Day" } },
+                    y: { beginAtZero: true, title: { display: true, text: "Time (Minutes)" } }
                 }
             }
         });
