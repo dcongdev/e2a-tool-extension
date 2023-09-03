@@ -4,6 +4,8 @@
 
 import { DateTime } from "../libs/luxon/es6_luxon.min.js";
 
+
+//  ========= TEST ==========
 const reloadTestPage = async () => {
     let url = "http://127.0.0.1:5500/test.html";
     var tabs = await chrome.tabs.query({});
@@ -22,8 +24,40 @@ const openStaPage = () => {
     let statisticsPageUrl = chrome.runtime.getURL("/pages/statistics.html");
     chrome.tabs.create({ url: statisticsPageUrl });
 }
+// openStaPage()
 
-openStaPage()
+const newSubmit = async (taskType, time) => {
+    let sumbitHistory = (await chrome.storage.local.get(["sumbitHistory"])).sumbitHistory;
+    let currTime = DateTime.utc().setZone("America/Los_Angeles");
+    let currDate = currTime.toISODate();
+    // console.log(currTime.toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS))
+    // Get current date index, create new if not found
+    let currDateIdx = sumbitHistory.findIndex(obj => obj.date == currDate);
+    if (currDateIdx == -1) {
+        sumbitHistory.push({ date: currDate, data: [] })
+        currDateIdx = sumbitHistory.length - 1;
+    }
+    // Get task type index, create new if not found
+    let taskTypeIdx = sumbitHistory[currDateIdx].data.findIndex(obj => obj.taskType == taskType);
+    if (taskTypeIdx == -1) {
+        sumbitHistory[currDateIdx].data.push({ taskType: taskType, tasks: 0, time: 0 })
+        taskTypeIdx = sumbitHistory[currDateIdx].data.length - 1;
+    }
+    // Increase tasks and time
+    sumbitHistory[currDateIdx].data[taskTypeIdx].tasks += 1;
+    sumbitHistory[currDateIdx].data[taskTypeIdx].time += time;
+    //
+    chrome.storage.local.set({ "sumbitHistory": sumbitHistory })
+}
+// newSubmit("SIgergU", 30)
+
+// chrome.storage.local.set({
+//     "sumbitHistory": []
+// })
+
+// chrome.storage.local.get(["extensionStatus"], (items) => {
+//     console.log(items.extensionStatus)
+// })
 
 const extensionUrl = chrome.runtime.getURL("");
 // ============ FUNCTION ============
@@ -132,135 +166,66 @@ const checkUserStatus = async () => {
     });
 }
 
-
 // Update settings
 const updateSettings = async () => {
     await chrome.storage.sync.get([
-        "autoCount",
         "showTaskSubmittedInIcon",
         "countTimeInTask",
         "autoReload",
-        "taskAvailNoti"
-    ], async (items) => {
-        //
-        let defaultTaskAvailNotiSettings = { // Task available notification mode
-            "status": "OFF",
-            "systemNoti": {
+        "autoSubmit",
+        "taskAvailNoti"],
+        async (items) => {
+            let defaultTaskAvailNotiSettings = { // Task available notification mode
                 "status": "OFF",
-                "title": "Attention",
-                "content": "Task available!",
-            },
-            "notiSound": {
-                "status": "OFF",
-                "loop": false,
-                "soundName": "vintage-telephone-ringtone.mp3",
-                "soundCustom": "OFF",
-                "soundCustomURL": "",
+                "systemNoti": { "status": "OFF", "title": "Attention", "content": "Task available!", },
+                "notiSound": {
+                    "status": "OFF",
+                    "loop": false,
+                    "soundName": "vintage-telephone-ringtone.mp3",
+                    "soundCustom": "OFF",
+                    "soundCustomURL": "",
+                }
             }
+            //
+            let newSettings = {
+                "showTaskSubmittedInIcon": items.showTaskSubmittedInIcon != undefined ? items.showTaskSubmittedInIcon : "OFF",
+                "countTimeInTask": items.countTimeInTask != undefined ? items.countTimeInTask : "OFF",
+                "autoReload": items.autoReload != undefined ? items.autoReload : { "status": "OFF", "time": 900 },
+                "autoSubmit": items.autoSubmit != undefined ? items.autoSubmit : { "status": "OFF", "time": 60 },
+                "taskAvailNoti": items.taskAvailNoti != undefined ? items.taskAvailNoti : defaultTaskAvailNotiSettings,
+            }
+            //
+            await chrome.storage.sync.set(newSettings);
+        })
+    // Local
+    chrome.storage.local.get(["extensionStatus",], (items) => {
+        if (items.extensionStatus == undefined) {
+            chrome.storage.local.set({ "extensionStatus": "OFF" });
         }
-        //
-        let newSettings = {
-            "autoCount": items.autoCount != undefined ? items.autoCount : "OFF",
-            "showTaskSubmittedInIcon": items.showTaskSubmittedInIcon != undefined ? items.showTaskSubmittedInIcon : "OFF",
-            "countTimeInTask": items.countTimeInTask != undefined ? items.countTimeInTask : "OFF",
-            "autoReload": items.autoReload != undefined ? items.autoReload : { "status": "OFF", "time": 900 },
-            "taskAvailNoti": items.taskAvailNoti != undefined ? items.taskAvailNoti : defaultTaskAvailNotiSettings,
-        }
-
-        //
-        await chrome.storage.sync.set(newSettings);
     })
 }
 
 // setCurrSubmittedInIcon();
 
-/* ====== TEST DATA ==========*/
-var arrType = [
-    "Search Experience to Ad Usefulness",
-    "Search Ads Evaluation: Landing Page Only",
-    "Search Experience to Product Usefulness",
-    "YouTube Video Inappropriateness Evaluation",
-    "Near Exact",
-    "Keyword - Query Relevance",
-    "Locale Agnostic Political Ads",
-    "YouTube Channel Relevance",
-    "YTSearchAds_query_video_relevance_pilot",
-    "Query landing page relevance",
-    "GLS Triggering",
-    "CQ Premium Task",
-    "Ad Inappropriateness"
-]
-
-function genDate(start, num) {
-    let date = new Date(start.getTime());
-    date.setDate(date.getDate() + num)
-    return date = DateTime.fromJSDate(date).toISODate();
-}
-
-const getTestSubHis = async () => {
-    var response = await fetch('../testdata/test.json')
-    let testHis = await response.json();
-    // console.log(testHis)
-    // chrome.storage.local.set({
-    //     "sumbitHistory": testHis
-    // })
-}
-
-getTestSubHis()
-
-/* ====== TEST DATA ==========*/
-
-const newSubmit = async (taskType, time) => {
-
-    let sumbitHistory = (await chrome.storage.local.get(["sumbitHistory"])).sumbitHistory;
-    let currTime = DateTime.utc()
-    let currDate = currTime.toISODate()
-
-    let currDateIndex = sumbitHistory.findIndex(obj => obj.date == currDate);
-    // console.log("before = " + currDateIndex)
-    if (currDateIndex == -1) {
-        sumbitHistory.push({
-            date: currDate,
-            data: []
-        })
-        currDateIndex = sumbitHistory.length - 1;
+const getDataByDay = async (d) => {
+    let rawData = (await chrome.storage.local.get(["sumbitHistory"])).sumbitHistory;
+    let dataByDay = {date: d,totalTasks: 0,totalTime: 0,dataByTaskType: []}
+    let totalTasks = 0;
+    let totalTime = 0;
+    let idx = rawData.findIndex(e => e.date == d);
+    if (idx == -1) { return dataByDay; }
+    //
+    for (let i = 0; i < rawData[idx].data.length; i++) {
+        totalTasks += rawData[idx].data[i].tasks;
+        totalTime += rawData[idx].data[i].time;
     }
-    // console.log("after = " + currDateIndex)
-
-    let taskTypeIndex = sumbitHistory[currDateIndex].data.findIndex(obj => obj.taskType == taskType);
-    // console.log("before = " + taskTypeIndex)
-    if (taskTypeIndex == -1) {
-        sumbitHistory[currDateIndex].data.push({
-            taskType: taskType,
-            tasks: 0,
-            time: 0
-        })
-        taskTypeIndex = sumbitHistory[currDateIndex].data.length - 1;
-    }
-    // console.log("after = " + taskTypeIndex)
-    sumbitHistory[currDateIndex].data[taskTypeIndex].tasks += 1;
-    sumbitHistory[currDateIndex].data[taskTypeIndex].time += time;
-
-    chrome.storage.local.set({
-        "sumbitHistory": sumbitHistory
-    })
+    dataByDay.totalTasks = totalTasks;
+    dataByDay.totalTime = totalTime;
+    dataByDay.dataByTaskType = rawData[idx].data;
+    return dataByDay;
 }
 
-// newSubmit()
-
-// chrome.storage.local.set({
-//     "sumbitHistory": []
-// })
-
-chrome.storage.local.get(["sumbitHistory"], (items) => {
-    let his = items.sumbitHistory;
-    // console.log(his)
-})
-
-chrome.runtime.onStartup.addListener(() => {
-    // console.log(`onStartup()`);
-});
-
+// getDataByDay("2023-09-03")
 
 /* 
 - Check if the user's email address is on the list of authorized users to install and use this extension 
@@ -282,17 +247,13 @@ chrome.runtime.onInstalled.addListener(async (reason) => {
     // Install
     if (reason.reason == "install") {
         // await checkUserStatus();
-        chrome.storage.local.set({
-            "currentSubmitted": 0,
-            "sumbitHistory": [],
-            "soundExists": exitsNotiSound,
-        })
+        chrome.storage.local.set({ "extensionStatus": "OFF", "sumbitHistory": [], "soundExists": exitsNotiSound });
         await updateSettings();
     }
     // Update
     if (reason.reason == "update") {
         // await checkUserStatus();
-        // await updateSettings();
+        await updateSettings();
         // setCurrSubmittedInIcon();
     }
 });
@@ -330,12 +291,9 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
     /*************** Receive message from EWOQ script ***************/
     // Submit
     if (Object.getOwnPropertyNames(req) == "submitted") {
-        chrome.storage.local.get(["currentSubmitted"], (items) => {
-            let newCurrentSubmitted = parseInt(items.currentSubmitted) + 1;
-            chrome.storage.local.set({ currentSubmitted: newCurrentSubmitted });
-            setCurrSubmittedInIcon();
-            sendRes(req.submitted);
-        })
+        let taskData = req.submitted;
+        newSubmit(taskData.taskType, taskData.time);
+        sendRes(taskData);
         return true;
     }
 
@@ -344,6 +302,7 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
     if (Object.getOwnPropertyNames(req) == "getAllSettings") {
         if (req.getAllSettings == true) {
             chrome.storage.local.get([
+                "extensionStatus",
                 "currentSubmitted",
                 "soundExists"
             ], (localSettings) => {
