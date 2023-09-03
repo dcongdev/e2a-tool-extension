@@ -2,6 +2,29 @@
 * Email: duongcong0412hc@gmail.com
 */
 
+import { DateTime } from "../libs/luxon/es6_luxon.min.js";
+
+const reloadTestPage = async () => {
+    let url = "http://127.0.0.1:5500/test.html";
+    var tabs = await chrome.tabs.query({});
+    tabs.forEach((tab) => {
+        if (tab.url.includes(url)) {
+            // console.log(tab.id);
+            var code = 'window.location.reload();';
+            chrome.tabs.reload(tab.id);
+            // chrome.tabs.remove(tab.id, () => { });
+        }
+    });
+}
+reloadTestPage();
+
+const openStaPage = () => {
+    let statisticsPageUrl = chrome.runtime.getURL("/pages/statistics.html");
+    chrome.tabs.create({ url: statisticsPageUrl });
+}
+
+openStaPage()
+
 const extensionUrl = chrome.runtime.getURL("");
 // ============ FUNCTION ============
 // Format time to string
@@ -68,30 +91,38 @@ const checkUserStatus = async () => {
         // console.log(userEmail)
         try {
             if (userEmail != "") {
-                let response = await fetch("https://e2atool.com/api/extension/get-user-permission/" + userEmail);
+                let response = await fetch("http://localhost:8080/get-user-permission/" + userEmail);
                 let data = await response.json();
-                console.log(data.message);
-                if (data.status == "OK") {
-                    console.log(data.message);
-                    setCurrSubmittedInIcon();
-                    return;
+                console.log(response.status);
+                if (response.status == 200) {
+                    if (data.status == "ok") {
+                        console.log(data.message);
+                        // setCurrSubmittedInIcon();
+                        return;
+                    }
                 }
-                if (data.status == "NOTFOUND") {
-                    console.log(data.message);
-                    chrome.management.uninstallSelf();
-                }
-                else if (data.status == "FORBIDDEN") {
-                    console.log(data.message);
-                    chrome.management.uninstallSelf();
-                }
-                else {
-                    console.log(data.message);
-                    chrome.management.uninstallSelf();
+                else if (data.status == "error" || response.status == 403) {
+                    console.log(data.message + "NOO");
+                    if (data.message == "Your account has been deleted.") {
+                        // chrome.management.uninstallSelf();
+                    }
+                    else if (data.message == "Your account has been locked.") {
+
+                    }
+                    else if (data.message == "License expired.") {
+
+                    }
+                    else if (data.message == "Email has been deleted.") {
+
+                    }
+                    else if (data.message == "Email has been locked.") {
+
+                    }
                 }
             }
             else {
                 console.log("No permission to use!");
-                chrome.management.uninstallSelf();
+                // chrome.management.uninstallSelf();
             }
 
         }
@@ -100,6 +131,7 @@ const checkUserStatus = async () => {
         }
     });
 }
+
 
 // Update settings
 const updateSettings = async () => {
@@ -140,7 +172,95 @@ const updateSettings = async () => {
     })
 }
 
-setCurrSubmittedInIcon();
+// setCurrSubmittedInIcon();
+
+/* ====== TEST DATA ==========*/
+var arrType = [
+    "Search Experience to Ad Usefulness",
+    "Search Ads Evaluation: Landing Page Only",
+    "Search Experience to Product Usefulness",
+    "YouTube Video Inappropriateness Evaluation",
+    "Near Exact",
+    "Keyword - Query Relevance",
+    "Locale Agnostic Political Ads",
+    "YouTube Channel Relevance",
+    "YTSearchAds_query_video_relevance_pilot",
+    "Query landing page relevance",
+    "GLS Triggering",
+    "CQ Premium Task",
+    "Ad Inappropriateness"
+]
+
+function genDate(start, num) {
+    let date = new Date(start.getTime());
+    date.setDate(date.getDate() + num)
+    return date = DateTime.fromJSDate(date).toISODate();
+}
+
+const getTestSubHis = async () => {
+    var response = await fetch('../testdata/test.json')
+    let testHis = await response.json();
+    // console.log(testHis)
+    // chrome.storage.local.set({
+    //     "sumbitHistory": testHis
+    // })
+}
+
+getTestSubHis()
+
+/* ====== TEST DATA ==========*/
+
+const newSubmit = async (taskType, time) => {
+
+    let sumbitHistory = (await chrome.storage.local.get(["sumbitHistory"])).sumbitHistory;
+    let currTime = DateTime.utc()
+    let currDate = currTime.toISODate()
+
+    let currDateIndex = sumbitHistory.findIndex(obj => obj.date == currDate);
+    // console.log("before = " + currDateIndex)
+    if (currDateIndex == -1) {
+        sumbitHistory.push({
+            date: currDate,
+            data: []
+        })
+        currDateIndex = sumbitHistory.length - 1;
+    }
+    // console.log("after = " + currDateIndex)
+
+    let taskTypeIndex = sumbitHistory[currDateIndex].data.findIndex(obj => obj.taskType == taskType);
+    // console.log("before = " + taskTypeIndex)
+    if (taskTypeIndex == -1) {
+        sumbitHistory[currDateIndex].data.push({
+            taskType: taskType,
+            tasks: 0,
+            time: 0
+        })
+        taskTypeIndex = sumbitHistory[currDateIndex].data.length - 1;
+    }
+    // console.log("after = " + taskTypeIndex)
+    sumbitHistory[currDateIndex].data[taskTypeIndex].tasks += 1;
+    sumbitHistory[currDateIndex].data[taskTypeIndex].time += time;
+
+    chrome.storage.local.set({
+        "sumbitHistory": sumbitHistory
+    })
+}
+
+// newSubmit()
+
+// chrome.storage.local.set({
+//     "sumbitHistory": []
+// })
+
+chrome.storage.local.get(["sumbitHistory"], (items) => {
+    let his = items.sumbitHistory;
+    // console.log(his)
+})
+
+chrome.runtime.onStartup.addListener(() => {
+    // console.log(`onStartup()`);
+});
+
 
 /* 
 - Check if the user's email address is on the list of authorized users to install and use this extension 
@@ -161,7 +281,7 @@ chrome.runtime.onInstalled.addListener(async (reason) => {
     exitsNotiSound.push(["Vintage telephone ringtone", "vintage-telephone-ringtone.mp3"]);
     // Install
     if (reason.reason == "install") {
-        await checkUserStatus();
+        // await checkUserStatus();
         chrome.storage.local.set({
             "currentSubmitted": 0,
             "sumbitHistory": [],
@@ -172,8 +292,8 @@ chrome.runtime.onInstalled.addListener(async (reason) => {
     // Update
     if (reason.reason == "update") {
         // await checkUserStatus();
-        await updateSettings();
-        setCurrSubmittedInIcon();
+        // await updateSettings();
+        // setCurrSubmittedInIcon();
     }
 });
 
@@ -182,10 +302,26 @@ chrome.contextMenus.removeAll(() => {
     // 1
     chrome.contextMenus.create({
         id: "1",
+        title: "Statistics",
+        contexts: ["action"],
+    });
+
+    // 2
+    chrome.contextMenus.create({
+        id: "2",
         title: "Develop by: duongcongit",
         contexts: ["action"],
     });
 
+});
+
+// === Context menu click event
+chrome.contextMenus.onClicked.addListener((id, tab) => {
+    // 1. Open Statistics page
+    if (id.menuItemId == 1) {
+        let statisticsPageUrl = chrome.runtime.getURL("/pages/statistics.html");
+        chrome.tabs.create({ url: statisticsPageUrl });
+    }
 });
 
 // ============ Message listener ============
@@ -194,14 +330,12 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
     /*************** Receive message from EWOQ script ***************/
     // Submit
     if (Object.getOwnPropertyNames(req) == "submitted") {
-        if (req.submitted == true) {
-            chrome.storage.local.get(["currentSubmitted"], (items) => {
-                let newCurrentSubmitted = parseInt(items.currentSubmitted) + 1;
-                chrome.storage.local.set({ currentSubmitted: newCurrentSubmitted });
-                setCurrSubmittedInIcon();
-                sendRes(newCurrentSubmitted);
-            })
-        }
+        chrome.storage.local.get(["currentSubmitted"], (items) => {
+            let newCurrentSubmitted = parseInt(items.currentSubmitted) + 1;
+            chrome.storage.local.set({ currentSubmitted: newCurrentSubmitted });
+            setCurrSubmittedInIcon();
+            sendRes(req.submitted);
+        })
         return true;
     }
 
@@ -263,7 +397,6 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
 
     }
 
-
-
-
 });
+
+
