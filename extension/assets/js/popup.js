@@ -2,8 +2,27 @@
 * Email: duongcong0412hc@gmail.com
 */
 
+var DateTime = luxon.DateTime;
+
 
 $(document).ready(function () {
+
+    // let currDatetime = new Date()
+    // let a = DateTime.fromJSDate(currDatetime);
+    // let b = a.setZone("America/Los_Angeles");
+    // $("#txtCurrentTask").text(b)
+
+    // chrome.storage.local.get([
+    //     "sumbitHistory",
+    // ], (items) => {
+    //     let sumbitHistory = items.sumbitHistory;
+    //     let time = sumbitHistory[0].datetime
+    //     console.log(time)
+    //     let a = DateTime.fromMillis(time);
+    //     let b = a.setZone("America/Los_Angeles");
+    //     $("#txtCurrentTask").text(b)
+    // })
+
     const extensionUrl = chrome.runtime.getURL("");
     /*************** SETTINGS ***************/
     // ======= Check mode on load =======
@@ -116,7 +135,7 @@ $(document).ready(function () {
     $(document).on("click", "#btnResetCounter", () => {
         chrome.storage.sync.get(["showTaskSubmittedInIcon"], (items) => {
             // reset
-            chrome.storage.local.set({"currentSubmitted": 0});
+            chrome.storage.local.set({ "currentSubmitted": 0 });
             // Show
             let showTaskSubmittedInIcon = items.showTaskSubmittedInIcon;
             if (showTaskSubmittedInIcon == "OFF") {

@@ -5,14 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
+    <!-- CSS -->
     <link rel="stylesheet" href="../libs/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../libs/bootstrap-icons-1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/css/popup.css">
+    <!-- JS -->
     <script src="../libs/jquery/jquery-3.7.0.min.js"></script>
+    <script src="../libs/luxon/luxon.min.js"></script>
+    <script src="../libs/chartjs/chart.umd.min.js"></script>
     <script src="../assets/js/popup.js"></script>
 </head>
 
 <body>
+    <!-- <canvas id="myChart" style="width:100%;max-width:700px"></canvas> -->
     <!-- Header -->
     <div class="container-fluid header d-flex justify-content-between">
         <div class="logo">
@@ -131,7 +136,8 @@
                         </div>
                     </div>
                     <!-- Task available notification -->
-                    <div class="setting-options col-md-12 pt-3 pb-0 setting-items mt-3 shadow" id="taskAvailNotiSettingsTab">
+                    <div class="setting-options col-md-12 pt-3 pb-0 setting-items mt-3 shadow"
+                        id="taskAvailNotiSettingsTab">
                         <div class="col-12 row ps-3 taskAvailNotiMode mb-1">
                             <div class="col-6 mt-2">
                                 <p><i class="bi bi-bell me-2"></i>Task available notification</p>
