@@ -6,6 +6,9 @@ window.onload = () => {
     const extensionUrl = chrome.runtime.getURL("");
     console.log("Imported extension script!")
 
+    var taskTitle = document.getElementsByClassName("taskTitle")[0];
+    taskTitle.classList.add("notranslate")
+
     // Global variable
     var headerContainer = document.getElementsByClassName("dense-header")[0];
     var audioElement = document.createElement('audio');
@@ -20,6 +23,12 @@ window.onload = () => {
     var isSendNotiToSystem = false;
     var isCancelNoti = false;
     var isNotiSoundPlaying = false;
+    var currTaskType = null;
+
+    // Worker
+    var blob = new Blob(["setInterval(function() {postMessage('');}, 1000); "]);
+    var counterWorker = new Worker(window.URL.createObjectURL(blob));
+    var submitBtnWorker = new Worker(window.URL.createObjectURL(blob));
 
     /********** FUCNTION **********/
     // Function convert time
@@ -42,10 +51,11 @@ window.onload = () => {
 
     // =========== AUTO COUNT Submit button ===========
     // Check if submit button is enabled or not
-    setInterval(() => {
+    submitBtnWorker.onmessage = () => {
         let submitButton = document.getElementsByClassName("submitTaskButton")[0];
         if (submitButton != undefined) {
             if (!submitButton.classList.contains("is-disabled")) {
+                checkNewTaskType();
                 submitButton.removeEventListener("click", submitButtonClick);
                 submitButton.addEventListener("click", submitButtonClick);
                 isSubmitBtnEnabled = true;
@@ -57,13 +67,17 @@ window.onload = () => {
         else {
             isSubmitBtnEnabled = false;
         }
-    }, 100)
+    }
 
     // Submit button click event
     const submitButtonClick = () => {
         if (isSubmitBtnEnabled) {
-            chrome.runtime.sendMessage({ "submitted": true }, (response) => {
-                // console.log(response)
+            let submitData = {
+                time: taskTimeCounter,
+                taskType: currTaskType
+            }
+            chrome.runtime.sendMessage({ "submitted": submitData }, (response) => {
+                console.log(response)
                 isStartNewTask = true;
                 resetTaskTimeCounter();
             })
@@ -98,6 +112,16 @@ window.onload = () => {
     const resetTaskTimeCounter = () => {
         isStartNewTask = true;
         taskTimeCounter = 0;
+    }
+
+    //
+    const resetTaskType = () => {
+        currTaskType = null;
+    }
+
+    //
+    const checkNewTaskType = () => {
+        currTaskType = taskTitle.innerText;
     }
 
     // =========== AUTO RELOAD COUNTER ===========
@@ -155,7 +179,6 @@ window.onload = () => {
             hideTaskNotiBox();
         })
 
-
     }
 
     const showTaskNotiBox = () => {
@@ -193,8 +216,7 @@ window.onload = () => {
     createTaskNotiBox();
     createTaskTimeCounterBox();
 
-    setInterval(() => {
-
+    counterWorker.onmessage = () => {
         let startButton = document.getElementsByClassName("start-button")[0];
         let requestAssignmentsButton = document.getElementsByClassName("request-assignments")[0];
 
@@ -231,6 +253,7 @@ window.onload = () => {
             // Hide and reset task time counter
             hideTaskTimeCounterBox();
             resetTaskTimeCounter();
+            // resetTaskType();
 
             chrome.runtime.sendMessage({ "getAllSettings": true }, (res) => {
                 let autoReload = res.autoReload;
@@ -321,6 +344,9 @@ window.onload = () => {
                 }
             })
         }
+    }
 
-    }, 1000);
+
+
+
 };
