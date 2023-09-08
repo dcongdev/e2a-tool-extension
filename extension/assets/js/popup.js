@@ -3,290 +3,348 @@
 */
 
 var DateTime = luxon.DateTime;
+const extensionUrl = chrome.runtime.getURL("");
 
+$(document).ready(async function () {
 
-$(document).ready(function () {
+    // Timezone
+    var response = await fetch("../../assets/js/timezone.json");
+    let tzList = await response.json();
+    // console.log(tzList)
+    var timezone = (await chrome.storage.sync.get(["DateTime"])).DateTime.Timezone
+    // timezone = "Asia/Ho_Chi_Minh"
 
-    // let currDatetime = new Date()
-    // let a = DateTime.fromJSDate(currDatetime);
-    // let b = a.setZone("America/Los_Angeles");
-    // $("#txtCurrentTask").text(b)
+    // Update real time clock
+    var blob = new Blob(["setInterval(function() {postMessage('');}, 1000); "]);
+    var counterWorker = new Worker(window.URL.createObjectURL(blob));
+    counterWorker.onmessage = async () => {
+        // timezone = (await chrome.storage.sync.get(["DateTime"])).DateTime.Timezone;
 
-    // chrome.storage.local.get([
-    //     "sumbitHistory",
-    // ], (items) => {
-    //     let sumbitHistory = items.sumbitHistory;
-    //     let time = sumbitHistory[0].datetime
-    //     console.log(time)
-    //     let a = DateTime.fromMillis(time);
-    //     let b = a.setZone("America/Los_Angeles");
-    //     $("#txtCurrentTask").text(b)
-    // })
+        let txtRealTime = document.getElementsByClassName("txt-real-time");
+        let txtCurrentTimezone = document.getElementsByClassName("txt-current-timezone");
+        if (timezone == "default") { timezone = DateTime.local().zoneName; }
+        txtCurrentTimezone[0].innerText = timezone
+        txtCurrentTimezone[1].innerText = timezone
 
-    const extensionUrl = chrome.runtime.getURL("");
-    /*************** SETTINGS ***************/
-    // ======= Check mode on load =======
-    chrome.storage.local.get([
-        "currentSubmitted",
-        "sumbitHistory",
-        "soundExists"
-    ], (items) => {
-        console.log(items)
-        let currentSubmitted = items.currentSubmitted
-        let sumbitHistory = items.sumbitHistory
-        let soundExists = items.soundExists
-        //
-        $("#txtCurrentTask").text(currentSubmitted);
-    });
-    //
-    chrome.storage.sync.get([
-        "autoCount",
-        "showTaskSubmittedInIcon",
-        "countTimeInTask",
-        "autoReload",
-        "taskAvailNoti"
-    ], (items) => {
-        console.log(items)
-        let autoCount = items.autoCount
-        let showTaskSubmittedInIcon = items.showTaskSubmittedInIcon
-        let countTimeInTask = items.countTimeInTask
-        let autoReload = items.autoReload
-        let taskAvailNoti = items.taskAvailNoti
-        //
-        if (autoCount == "ON") {
-            $("#btnChangeAutoCountMode").attr("checked", true);
-        }
-        //
-        if (showTaskSubmittedInIcon == "ON") {
-            $("#btnChangeShowTaskInIcon").attr("checked", true);
-        }
-        //
-        if (countTimeInTask == "ON") {
-            $("#btnChangeCountTimeMode").attr("checked", true);
-        }
-        //
-        if (autoReload.status == "ON") {
-            $("#btnChangeAutoReloadMode").attr("checked", true);
-            $("#autoReloadSelect").prop("disabled", false);
-        }
-        console.log(autoReload)
-        // Set auto reload select value
-        let autoReloadSelect = document.getElementById("autoReloadSelect");
-        let autoReloadSlInHtml = "";
-        for (let i = 5; i <= 60; i++) {
-            if (autoReload.time == i * 60) {
-                autoReloadSlInHtml += '<option value="' + i * 60 + '" selected>' + i + ' min</option>';
-            }
-            else {
-                autoReloadSlInHtml += '<option value="' + i * 60 + '">' + i + ' min</option>';
-            }
+        let time = DateTime.utc().setZone(timezone);
+        let dt = time.toLocaleString(DateTime.DATETIME_FULL_WITH_SECONDS);
+        txtRealTime[0].innerText = dt;
+        txtRealTime[1].innerText = dt;
+    };
 
-        }
-        autoReloadSelect.innerHTML = autoReloadSlInHtml;
-        //
-        if (taskAvailNoti.status == "ON") {
-            $("#btnChangeTaskAvailNotiMode").attr("checked", true);
-            $(".taskAvailNotiSettings").removeClass("d-none");
-        }
-        //
-        if (taskAvailNoti.systemNoti.status == "ON") {
-            $("#btnChangeSysNotiMode").attr("checked", true);
-            $(".sysNotiSet").removeClass("d-none");
-        }
-        // Noti title and content
-        $("#inputTitleNoti").val(items.taskAvailNoti.systemNoti.title)
-        $("#inputContentNoti").val(items.taskAvailNoti.systemNoti.content)
-        //
-        if (taskAvailNoti.notiSound.status == "ON") {
-            $("#btnChangeNotiSoundMode").attr("checked", true);
-            $(".notiSoundSets").removeClass("d-none");
-        }
-        if (taskAvailNoti.notiSound.loop == true) {
-            $("#checkBoxLoopMode").attr("checked", true);
-        }
-        // List sound
-        chrome.storage.local.get(["soundExists",], (items) => {
-            let soundSelect = document.getElementById("notiSoundSelect");
-            let soundSelectData = "";
-            let soundList = items.soundExists;
-            for (let i = 0; i < soundList.length; i++) {
-                soundSelectData += '<option value="' + soundList[i][1] + '" ';
-                if (taskAvailNoti.notiSound.soundName == soundList[i][1]) {
-                    soundSelectData += 'selected';
-                }
-                soundSelectData += '>' + soundList[i][0] + '</option>';
-            }
-            soundSelect.innerHTML = soundSelectData;
-        });
-        //
-    });
-
-    // ======= Switch mode =======
-    // Auto count mode
-    $(document).on("click", "#btnChangeAutoCountMode", () => {
-        if ($("#btnChangeAutoCountMode").is(":checked")) {
-            chrome.storage.sync.set({ "autoCount": "ON" });
-        }
-        else {
-            chrome.storage.sync.set({ "autoCount": "OFF" });
-        }
-    })
-    // Reset button
-    $(document).on("click", "#btnResetCounter", () => {
-        chrome.storage.sync.get(["showTaskSubmittedInIcon"], (items) => {
-            // reset
-            chrome.storage.local.set({ "currentSubmitted": 0 });
-            // Show
-            let showTaskSubmittedInIcon = items.showTaskSubmittedInIcon;
-            if (showTaskSubmittedInIcon == "OFF") {
-                chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
-                chrome.action.setBadgeText({ text: "" });
-                return
-            }
-            chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
-            chrome.action.setBadgeText({ text: "0" });
-        })
-
-        $("#alertResetCounterSuccs").removeClass("d-none");
-        setTimeout(() => {
-            $("#alertResetCounterSuccs").addClass("d-none");
-        }, 2000);
-    })
-    // Show task submitted in icon
-    $(document).on("click", "#btnChangeShowTaskInIcon", () => {
-        if ($("#btnChangeShowTaskInIcon").is(":checked")) {
-            chrome.storage.sync.set({ "showTaskSubmittedInIcon": "ON" });
-            chrome.storage.local.get(["currentSubmitted"], (items) => {
-                chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
-                chrome.action.setBadgeText({ text: items.currentSubmitted.toString() });
-            })
-        }
-        else {
-            chrome.storage.sync.set({ "showTaskSubmittedInIcon": "OFF" });
-            chrome.action.setBadgeText({ text: "" });
-        }
-    })
-    // Count time in task
-    $(document).on("click", "#btnChangeCountTimeMode", () => {
-        if ($("#btnChangeCountTimeMode").is(":checked")) {
-            chrome.storage.sync.set({ "countTimeInTask": "ON" });
-        }
-        else {
-            chrome.storage.sync.set({ "countTimeInTask": "OFF" });
-        }
-    })
-    // Auto reload
-    // Event change status
-    $(document).on("click", "#btnChangeAutoReloadMode", () => {
-        if ($("#btnChangeAutoReloadMode").is(":checked")) {
-            let autoReloadAfter = parseInt($("#autoReloadSelect option:selected").val());
-            chrome.storage.sync.set({
-                "autoReload": {
-                    "status": "ON",
-                    "time": autoReloadAfter
-                }
-            });
-            $("#autoReloadSelect").prop("disabled", false);
-        }
-        else {
-            let autoReloadAfter = parseInt($("#autoReloadSelect option:selected").val());
-            chrome.storage.sync.set({
-                "autoReload": {
-                    "status": "OFF",
-                    "time": autoReloadAfter
-                }
-            });
-            $("#autoReloadSelect").prop("disabled", true);
-        }
-    })
-    // Select time auto reload
-    $(document).on("change", "#autoReloadSelect", () => {
-        let autoReloadAfter = parseInt($("#autoReloadSelect option:selected").val());
-        chrome.storage.sync.set({
-            "autoReload": {
-                "status": "ON",
-                "time": autoReloadAfter
-            }
-        });
-    })
-    //
-    // Task available notification mode
-    $(document).on("click", "#btnChangeTaskAvailNotiMode", () => {
-        chrome.storage.sync.get(["taskAvailNoti"], (items) => {
-            let currSettings = items.taskAvailNoti;
-            if ($("#btnChangeTaskAvailNotiMode").is(":checked")) {
-                currSettings.status = "ON";
-                $(".taskAvailNotiSettings").removeClass("d-none");
-                chrome.storage.sync.set({ "taskAvailNoti": currSettings });
-            }
-            else {
-                currSettings.status = "OFF";
-                $(".taskAvailNotiSettings").addClass("d-none");
-                chrome.storage.sync.set({ "taskAvailNoti": currSettings });
-            }
-        })
-
-    })
-    // Task available system notification
-    $(document).on("click", "#btnChangeSysNotiMode", () => {
-        chrome.storage.sync.get(["taskAvailNoti"], (items) => {
-            let currSettings = items.taskAvailNoti;
-            if ($("#btnChangeSysNotiMode").is(":checked")) {
-                currSettings.systemNoti.status = "ON";
-                $(".sysNotiSet").removeClass("d-none");
-                chrome.storage.sync.set({ "taskAvailNoti": currSettings });
-            }
-            else {
-                currSettings.systemNoti.status = "OFF";
-                $(".sysNotiSet").addClass("d-none");
-                chrome.storage.sync.set({ "taskAvailNoti": currSettings });
-            }
-        })
-
-    })
-    // Task available sound notification
-    $(document).on("click", "#btnChangeNotiSoundMode", () => {
-        chrome.storage.sync.get(["taskAvailNoti"], (items) => {
-            let currSettings = items.taskAvailNoti;
-            if ($("#btnChangeNotiSoundMode").is(":checked")) {
-                currSettings.notiSound.status = "ON";
-                $(".notiSoundSets").removeClass("d-none");
-                chrome.storage.sync.set({ "taskAvailNoti": currSettings });
-            }
-            else {
-                currSettings.notiSound.status = "OFF";
-                $(".notiSoundSets").addClass("d-none");
-                chrome.storage.sync.set({ "taskAvailNoti": currSettings });
-            }
-        })
-
-    });
 
     // Test sound
     var playingTestSound = false;
     var testSoundEl = document.createElement("audio");
-    $(document).on("click", "#btnTestSound", () => {
+
+    /*************** SETTINGS ***************/
+    // ======= Check mode on load =======
+    // Local
+    chrome.storage.local.get(null, async (items) => {
+        // console.log(items)
+        // let sumbitHistory = items.sumbitHistory
+        let soundExists = items.soundExists;
+        for (let i = 0; i < soundExists.length; i++) {
+            // console.log(soundExists[i]);
+            $("#notiSysSoundSelect").append('<option value="' + soundExists[i][1] + '">' + soundExists[i][0] + '</option>');
+            let Sounds = (await chrome.storage.sync.get(["Sounds"])).Sounds;
+            let soundName = Sounds.TasksAvailable.SoundName;
+            $('#notiSysSoundSelect option[value="' + soundName + '"]').attr('selected', 'selected');
+        }
+    });
+
+    chrome.storage.sync.get(null, async (items) => {
+        // console.log(items)
+        let Statistics = items.Statistics;
+        let Notifications = items.Notifications;
+        let Sounds = items.Sounds;
+        let Timing = items.Timing;
+        let Automation = items.Automation;
+        let DateTime = items.DateTime;
+
+        // *** Statistics *** //
+        if (Statistics.ShowTasksSubmittedOnIcon == "ON") {
+            $("#btnChangeShowTasksOnIcon").attr("checked", true);
+        }
+
+        // *** Notifications *** //
+        if (Notifications.TasksAvailable == "ON") {
+            $("#btnChangeNotiTaskAvail").attr("checked", true);
+        }
+        if (Notifications.TaskIsSubmitted == "ON") {
+            $("#btnChangeNotiTaskSubmitted").attr("checked", true);
+        }
+
+        // *** Sounds *** //
+        if (Sounds.TaskIsSubmitted == "ON") {
+            $("#btnChangeNotiSoundTaskSubmitted").attr("checked", true);
+        }
+
+        console.log(Sounds.TasksAvailable.CustomSound)
+        // Select sound
+        if (Sounds.TasksAvailable.CustomSound == "ON") {
+            $("#radioChooseSoundCustom").attr("checked", true);
+        }
+        else {
+            $("#radioChooseSoundSystem").attr("checked", true);
+        }
+        // Custom sound url
+        $("#notiCusSoundInput").val(Sounds.TasksAvailable.CustomSoundUrl);
+        //
+        // Loop
+        if (Sounds.TasksAvailable.loop == true) {
+            $("#checkBoxLoopMode").attr("checked", true);
+        }
+        // All
+        if (Sounds.TasksAvailable.status == "ON") {
+            $("#btnChangeNotiSoundTaskAvail").attr("checked", true);
+            //
+            $("#radioChooseSoundSystem").prop("disabled", false);
+            //
+            $("#radioChooseSoundCustom").prop("disabled", false);
+            //
+            $("#checkBoxLoopMode").prop("disabled", false);
+
+            if (Sounds.TasksAvailable.CustomSound == "ON") {
+                $("#notiSysSoundSelect").prop("disabled", true);
+                $("#notiCusSoundInput").prop("disabled", false);
+            }
+            else {
+                $("#notiSysSoundSelect").prop("disabled", false);
+                $("#notiCusSoundInput").prop("disabled", true);
+            }
+
+        }
+
+
+        // *** Timing *** //
+        if (Timing.CountTimeClock == "ON") {
+            $("#btnChangeCountTimeCLock").attr("checked", true);
+        }
+
+        // *** Automation *** //
+        // === Auto reload
+        if (Automation.AutoReload.status == "ON") {
+            $("#btnChangeAutoReloadMode").attr("checked", true);
+            $("#autoReloadSelectHour").prop("disabled", false);
+            $("#autoReloadSelectMin").prop("disabled", false);
+        }
+        // Select
+        for (let i = 0; i < 60; i++) {
+            $("#autoReloadSelectHour").append('<option value="' + i + '">' + i + '</option>')
+        }
+        for (let i = 0; i < 60; i++) {
+            $("#autoReloadSelectMin").append('<option value="' + i + '">' + i + '</option>')
+        }
+        let autoReloadSecs = Automation.AutoReload.time;
+        $('#autoReloadSelectHour option[value=' + parseInt(autoReloadSecs / 3600) + ']').attr('selected', 'selected');
+        $('#autoReloadSelectMin option[value=' + parseInt((autoReloadSecs % 3600) / 60) + ']').attr('selected', 'selected');
+
+        // === Auto submit
+        if (Automation.AutoSubmit.status == "ON") {
+            $("#btnChangeAutoSubmitMode").attr("checked", true);
+            $("#autoSubmitSelectMin").prop("disabled", false);
+            $("#autoSubmitSelectSec").prop("disabled", false);
+        }
+        // Select
+        for (let i = 0; i < 60; i++) {
+            $("#autoSubmitSelectMin").append('<option value="' + i + '">' + i + '</option>')
+            $("#autoSubmitSelectSec").append('<option value="' + i + '">' + i + '</option>')
+        }
+        let autoSubmitSecs = Automation.AutoSubmit.time;
+        let autoSubmitMin = parseInt((autoSubmitSecs % 3600) / 60)
+        let autoSubmitsec = (autoSubmitSecs % 3600) % 60;
+        $('#autoSubmitSelectMin option[value=' + autoSubmitMin + ']').attr('selected', 'selected');
+        $('#autoSubmitSelectSec option[value=' + autoSubmitsec + ']').attr('selected', 'selected');
+
+        // *** DateTime *** //
+        let currTimezone = DateTime.Timezone;
+        $("#timezoneSelect").append('<option value="default">Default (local timezone)</option>')
+
+        for (let i = 0; i < tzList.length; i++) {
+            let name = tzList[i].name;
+            let zone = tzList[i].timezone;
+            $("#timezoneSelect").append('<option value="' + zone + '">' + name + '</option>')
+        }
+        $('#timezoneSelect option[value="' + currTimezone + '"]').attr('selected', 'selected');
+
+
+    })
+
+    // ======= SWITCH MODE =======
+    // *** Statistics *** //
+    // Show tasks submitted on extension icon
+    $(document).on("click", "#btnChangeShowTasksOnIcon", async () => {
+        let Statistics = (await chrome.storage.sync.get(["Statistics"])).Statistics;
+        if ($("#btnChangeShowTasksOnIcon").is(":checked")) {
+            Statistics.ShowTasksSubmittedOnIcon = "ON";
+            chrome.storage.sync.set({ "Statistics": Statistics });
+        }
+        else {
+            Statistics.ShowTasksSubmittedOnIcon = "OFF";
+            chrome.storage.sync.set({ "Statistics": Statistics });
+        }
+    })
+
+    // *** Notifications *** //
+    // When there are tasks available
+    $(document).on("click", "#btnChangeNotiTaskAvail", async () => {
+        let Notifications = (await chrome.storage.sync.get(["Notifications"])).Notifications;
+        if ($("#btnChangeNotiTaskAvail").is(":checked")) {
+            Notifications.TasksAvailable = "ON";
+            chrome.storage.sync.set({ "Notifications": Notifications });
+        }
+        else {
+            Notifications.TasksAvailable = "OFF";
+            chrome.storage.sync.set({ "Notifications": Notifications });
+        }
+    })
+
+    // When a task is submitted
+    $(document).on("click", "#btnChangeNotiTaskSubmitted", async () => {
+        let Notifications = (await chrome.storage.sync.get(["Notifications"])).Notifications;
+        if ($("#btnChangeNotiTaskSubmitted").is(":checked")) {
+            Notifications.TaskIsSubmitted = "ON";
+            chrome.storage.sync.set({ "Notifications": Notifications });
+        }
+        else {
+            Notifications.TaskIsSubmitted = "OFF";
+            chrome.storage.sync.set({ "Notifications": Notifications });
+        }
+    })
+
+    // *** Sounds *** //
+    // When a task is submitted
+    $(document).on("click", "#btnChangeNotiSoundTaskSubmitted", async () => {
+        let Sounds = (await chrome.storage.sync.get(["Sounds"])).Sounds;
+        if ($("#btnChangeNotiSoundTaskSubmitted").is(":checked")) {
+            Sounds.TaskIsSubmitted = "ON";
+            chrome.storage.sync.set({ "Sounds": Sounds });
+        }
+        else {
+            Sounds.TaskIsSubmitted = "OFF";
+            chrome.storage.sync.set({ "Sounds": Sounds });
+        }
+    })
+
+    // When there are tasks available
+    $(document).on("click", "#btnChangeNotiSoundTaskAvail", async () => {
+        let Sounds = (await chrome.storage.sync.get(["Sounds"])).Sounds;
+        if ($("#btnChangeNotiSoundTaskAvail").is(":checked")) {
+            Sounds.TasksAvailable.status = "ON";
+            chrome.storage.sync.set({ "Sounds": Sounds });
+            $("#radioChooseSoundSystem").prop("disabled", false);
+            //
+            $("#radioChooseSoundCustom").prop("disabled", false);
+            //
+            $("#checkBoxLoopMode").prop("disabled", false);
+
+            let type = $('[name=radioChooseSound]:checked').val()
+            if (type == "system") {
+                $("#notiSysSoundSelect").prop("disabled", false);
+                $("#notiCusSoundInput").prop("disabled", true);
+            }
+            if (type == "custom") {
+                $("#notiSysSoundSelect").prop("disabled", true);
+                $("#notiCusSoundInput").prop("disabled", false);
+            }
+
+        }
+        else {
+            Sounds.TasksAvailable.status = "OFF";
+            chrome.storage.sync.set({ "Sounds": Sounds });
+            $("#radioChooseSoundSystem").prop("disabled", true);
+            $("#notiSysSoundSelect").prop("disabled", true);
+            //
+            $("#radioChooseSoundCustom").prop("disabled", true);
+            $("#notiCusSoundInput").prop("disabled", true);
+            //
+            $("#checkBoxLoopMode").prop("disabled", true);
+        }
+    })
+
+    // Choose sound
+    $(document).on("click", "[name='radioChooseSound']", async () => {
+        let Sounds = (await chrome.storage.sync.get(["Sounds"])).Sounds;
+        let type = $('[name=radioChooseSound]:checked').val()
+        if (type == "system") {
+            Sounds.TasksAvailable.CustomSound = "OFF";
+            $("#notiSysSoundSelect").prop("disabled", false);
+            $("#notiCusSoundInput").prop("disabled", true);
+        }
+        if (type == "custom") {
+            Sounds.TasksAvailable.CustomSound = "ON";
+            $("#notiSysSoundSelect").prop("disabled", true);
+            $("#notiCusSoundInput").prop("disabled", false);
+        }
+        chrome.storage.sync.set({ "Sounds": Sounds });
+        //
+        $("#btnTestSound").removeClass("bi-pause-circle")
+        $("#btnTestSound").addClass("bi-play-circle")
+        testSoundEl.pause();
+        testSoundEl.currentTime = 0;
+        playingTestSound = false;
+    })
+
+    // Select system sound
+    $(document).on("change", "#notiSysSoundSelect", async () => {
+        let soundName = $("#notiSysSoundSelect option:selected").val();
+        let Sounds = (await chrome.storage.sync.get(["Sounds"])).Sounds;
+        Sounds.TasksAvailable.SoundName = soundName;
+        chrome.storage.sync.set({ "Sounds": Sounds });
+        $("#btnTestSound").removeClass("bi-pause-circle")
+        $("#btnTestSound").addClass("bi-play-circle")
+        testSoundEl.pause();
+        testSoundEl.currentTime = 0;
+        playingTestSound = false;
+    })
+
+    // Edit custom sound url
+    $(document).on("change", "#notiCusSoundInput", async () => {
+        let url = $("#notiCusSoundInput").val();
+        let Sounds = (await chrome.storage.sync.get(["Sounds"])).Sounds;
+        Sounds.TasksAvailable.CustomSoundUrl = url;
+        chrome.storage.sync.set({ "Sounds": Sounds });
+        //
+        $("#btnTestSound").removeClass("bi-pause-circle")
+        $("#btnTestSound").addClass("bi-play-circle")
+        testSoundEl.pause();
+        testSoundEl.currentTime = 0;
+        playingTestSound = false;
+    })
+    // Loop mode
+    $("#checkBoxLoopMode").on("click", async () => {
+        let check = $("#checkBoxLoopMode").is(':checked');
+        let Sounds = (await chrome.storage.sync.get(["Sounds"])).Sounds;
+        Sounds.TasksAvailable.loop = check;
+        chrome.storage.sync.set({ "Sounds": Sounds });
+    });
+
+    // Test sound
+    $(document).on("click", "#btnTestSound", async () => {
         if (playingTestSound == false) {
-            let soundName = $("#notiSoundSelect option:selected").val();
+            playingTestSound = true;
+
+            let Sounds = (await chrome.storage.sync.get(["Sounds"])).Sounds;
+            let url = extensionUrl + "res/noti-audio/" + Sounds.TasksAvailable.SoundName;
+
+            if (Sounds.TasksAvailable.CustomSound == "ON") {
+                url = Sounds.TasksAvailable.CustomSoundUrl;
+            }
+
             $("#btnTestSound").removeClass("bi-play-circle")
             $("#btnTestSound").addClass("bi-pause-circle")
+            testSoundEl.innerHTML = '<source src="' + url + '" type="audio/mpeg" />'
+            testSoundEl.load()
+            testSoundEl.play();
             //
-            chrome.runtime.sendMessage({ "getNotiSound": soundName }, (response) => {
-                testSoundEl.innerHTML = '<source src="' + response + '" type="audio/mpeg" />'
-                testSoundEl.load()
-                testSoundEl.play();
-                playingTestSound = true;
-                //
-                testSoundEl.onended = () => {
-                    $("#btnTestSound").removeClass("bi-pause-circle")
-                    $("#btnTestSound").addClass("bi-play-circle")
-                    testSoundEl.pause();
-                    testSoundEl.currentTime = 0;
-                    playingTestSound = false;
-                };
-            })
-
-
+            testSoundEl.onended = () => {
+                $("#btnTestSound").removeClass("bi-pause-circle")
+                $("#btnTestSound").addClass("bi-play-circle")
+                testSoundEl.pause();
+                testSoundEl.currentTime = 0;
+                playingTestSound = false;
+            };
         }
         else {
             $("#btnTestSound").removeClass("bi-pause-circle")
@@ -297,41 +355,123 @@ $(document).ready(function () {
         }
     })
 
-    // BUTTON SAVE NOTI SETTINGS
-    $(document).on("click", "#btn-save-noti-sets", () => {
-        let systemNoti_title = $("#inputTitleNoti").val();
-        let systemNoti_content = $("#inputContentNoti").val();
-        let notiSound_loop = $("#checkBoxLoopMode").is(':checked')
-        let notiSound_soundName = $("#notiSoundSelect option:selected").val();
-
-        chrome.storage.sync.get(["taskAvailNoti"], (items) => {
-            let currSettings = items.taskAvailNoti;
-            let newSettings = {
-                "status": currSettings.status,
-                "systemNoti": {
-                    "status": currSettings.systemNoti.status,
-                    "title": systemNoti_title,
-                    "content": systemNoti_content,
-                },
-                "notiSound": {
-                    "status": currSettings.notiSound.status,
-                    "loop": notiSound_loop,
-                    "soundName": notiSound_soundName,
-                    "soundCustom": currSettings.notiSound.soundCustom,
-                    "soundCustomURL": currSettings.notiSound.soundCustomURL,
-                }
-            }
-            //
-            chrome.storage.sync.set({ "taskAvailNoti": newSettings });
-            $("#alertSaveSetsSuccs").removeClass("d-none");
-            setTimeout(() => {
-                $("#alertSaveSetsSuccs").addClass("d-none");
-            }, 2000);
-
-        });
-
+    // *** Timing *** //
+    // Count time clock
+    $(document).on("click", "#btnChangeCountTimeCLock", async () => {
+        let Timing = (await chrome.storage.sync.get(["Timing"])).Timing;
+        if ($("#btnChangeCountTimeCLock").is(":checked")) {
+            Timing.CountTimeClock = "ON";
+            chrome.storage.sync.set({ "Timing": Timing });
+        }
+        else {
+            Timing.CountTimeClock = "OFF";
+            chrome.storage.sync.set({ "Timing": Timing });
+        }
     })
 
+
+    // *** Automation *** //
+    // === Auto reload
+    $(document).on("click", "#btnChangeAutoReloadMode", async () => {
+        let Automation = (await chrome.storage.sync.get(["Automation"])).Automation;
+        if ($("#btnChangeAutoReloadMode").is(":checked")) {
+            Automation.AutoReload.status = "ON";
+            chrome.storage.sync.set({ "Automation": Automation });
+            //
+            $("#autoReloadSelectHour").prop("disabled", false);
+            $("#autoReloadSelectMin").prop("disabled", false);
+        }
+        else {
+            Automation.AutoReload.status = "OFF";
+            chrome.storage.sync.set({ "Automation": Automation });
+            //
+            $("#autoReloadSelectHour").prop("disabled", true);
+            $("#autoReloadSelectMin").prop("disabled", true);
+        }
+    })
+
+    // Select auto reload hour and min
+    $(document).on("change", "#autoReloadSelectHour", async () => {
+        let hour = $("#autoReloadSelectHour option:selected").val();
+        let min = $("#autoReloadSelectMin option:selected").val();
+        let Automation = (await chrome.storage.sync.get(["Automation"])).Automation;
+        let time = hour * 3600 + min * 60;
+        Automation.AutoReload.time = time;
+        chrome.storage.sync.set({ "Automation": Automation });
+    })
+    //
+    $(document).on("change", "#autoReloadSelectMin", async () => {
+        let hour = $("#autoReloadSelectHour option:selected").val();
+        let min = $("#autoReloadSelectMin option:selected").val();
+        let Automation = (await chrome.storage.sync.get(["Automation"])).Automation;
+        let time = hour * 3600 + min * 60;
+        Automation.AutoReload.time = time;
+        chrome.storage.sync.set({ "Automation": Automation });
+    })
+
+    // === Auto submit
+    $(document).on("click", "#btnChangeAutoSubmitMode", async () => {
+        let Automation = (await chrome.storage.sync.get(["Automation"])).Automation;
+        if ($("#btnChangeAutoSubmitMode").is(":checked")) {
+            Automation.AutoSubmit.status = "ON";
+            chrome.storage.sync.set({ "Automation": Automation });
+            //
+            $("#autoSubmitSelectMin").prop("disabled", false);
+            $("#autoSubmitSelectSec").prop("disabled", false);
+        }
+        else {
+            Automation.AutoSubmit.status = "OFF";
+            chrome.storage.sync.set({ "Automation": Automation });
+            //
+            $("#autoSubmitSelectMin").prop("disabled", true);
+            $("#autoSubmitSelectSec").prop("disabled", true);
+        }
+    })
+    // Select auto submit min and sec
+    $(document).on("change", "#autoSubmitSelectMin", async () => {
+        let min = $("#autoSubmitSelectMin option:selected").val();
+        let sec = $("#autoSubmitSelectSec option:selected").val();
+        let Automation = (await chrome.storage.sync.get(["Automation"])).Automation;
+        let time = min * 60 + sec * 1;
+        Automation.AutoSubmit.time = time;
+        chrome.storage.sync.set({ "Automation": Automation });
+    })
+    //
+    $(document).on("change", "#autoSubmitSelectSec", async () => {
+        let min = $("#autoSubmitSelectMin option:selected").val();
+        let sec = $("#autoSubmitSelectSec option:selected").val();
+        let Automation = (await chrome.storage.sync.get(["Automation"])).Automation;
+        let time = min * 60 + sec * 1;
+        Automation.AutoSubmit.time = time;
+        chrome.storage.sync.set({ "Automation": Automation });
+    })
+
+
+    // *** Date & Time tab *** //
+    // Timezone
+    $(document).on("click", "#btnSetTimezone", async () => {
+        let statisticsPageUrl = chrome.runtime.getURL("/pages/statistics.html");
+        let newTimezone = $("#timezoneSelect option:selected").val();
+        timezone = newTimezone;
+
+        //
+        let NewDateTime = (await chrome.storage.sync.get(["DateTime"])).DateTime;
+        NewDateTime.Timezone = newTimezone;
+
+        await chrome.storage.sync.set({ "DateTime": NewDateTime });
+
+        window.location.reload();
+        var tabs = await chrome.tabs.query({});
+        tabs.forEach((tab) => {
+            if (tab.url.includes(statisticsPageUrl)) {
+                var code = 'window.location.reload();';
+                chrome.tabs.reload(tab.id);
+                // chrome.tabs.remove(tab.id, () => { });
+            }
+        });
+    })
+
+    
 });
 
 

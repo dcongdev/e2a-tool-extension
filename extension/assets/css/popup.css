@@ -23,6 +23,101 @@ body {
   /* color: white; */
 }
 
+/* *********** ERROR ************ */
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#notfound {
+  position: relative;
+  height: 100vh;
+}
+
+#notfound .notfound {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.notfound {
+  max-width: 410px;
+  width: 100%;
+  text-align: center;
+}
+
+.notfound .notfound-404 {
+  height: 280px;
+  position: relative;
+  z-index: -1;
+}
+
+.notfound .notfound-404 h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 230px;
+  margin: 0px;
+  font-weight: 900;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  background: url("../images/error_page_bg.jpg") no-repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: cover;
+  background-position: center;
+}
+
+.notfound h2 {
+  font-family: "Montserrat", sans-serif;
+  color: #000;
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 0;
+}
+
+.notfound p {
+  font-family: "Montserrat", sans-serif;
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  margin-top: 0px;
+}
+
+.notfound a {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+  text-transform: uppercase;
+  background: #0046d5;
+  display: inline-block;
+  padding: 15px 30px;
+  border-radius: 40px;
+  color: #fff;
+  font-weight: 700;
+  -webkit-box-shadow: 0px 4px 15px -5px #0046d5;
+  box-shadow: 0px 4px 15px -5px #0046d5;
+}
+
+@media only screen and (max-width: 767px) {
+  .notfound .notfound-404 {
+    height: 142px;
+  }
+  .notfound .notfound-404 h1 {
+    font-size: 112px;
+  }
+}
 
 /*  */
 .header {
@@ -51,34 +146,72 @@ body {
   /* border-color: rgb(63, 63, 63); */
   /* border-color: rgba(221, 221, 221, 0.788); */
   border-color: rgb(228, 228, 228);
-  overflow: auto;
+  overflow-y: auto;
+  /* overflow-x: hidden; */
 }
 
 /* Dashboard */
-/* #dashboard {
-  background-color: aquamarine;
-} */
-
 .dashboard-card {
-  margin: 20px;
-  height: 200px;
-  top:20%;
+  /* margin: 20px; */
+  height: 130px;
   border-radius: 10px;
 }
 
-/* Setting */
-.setting-options {
-  background-color: rgb(243, 243, 243);
-  /* background-color: rgb(63, 63, 63); */
-  border-radius: 5px;
+#btn-open-detailed-statistic {
+  width: max-content;
+  padding: 5px;
+  border-radius: 50px;
+  border: none;
 }
 
-/* Items */
 
+
+/* ========= Setting ============*/
+
+/* Side bar */
+.side-bar {
+  border-right: solid 1px;
+  height: 328px;
+  width: fit-content;
+  margin-right: 0px;
+}
+
+
+.side-bar-ul .nav-item .nav-link {
+  /* background-color: rgb(243, 243, 243); */
+  color: black;
+  border: none;
+  /* font-size: 20px; */
+  /* padding: 0px 20px; */
+  margin-top: 3px;
+  margin-bottom: 15px;
+  height: 44px;
+  border-radius: 10px;
+}
+
+.side-bar-ul .nav-item .nav-link.active {
+  background-color: white;
+  /* background-color: rgb(27, 27, 27); */
+}
+
+.side-bar-ul .nav-item .nav-link.active::after {
+  content: "";
+  width: 70%;
+  background-color: rgb(98, 146, 236);
+  height: 4px;
+  /* margin: 0px auto auto; */
+  margin-left: 20px;
+  display: block;
+  border-radius: 20px;
+}
+
+/* ==== */
 .setting-items {
   border-radius: 5px;
-  border: 1px solid;
-  border-color: rgba(236, 236, 236, 0.87);
+  border-bottom: 1px solid;
+  /* border-color: rgba(236, 236, 236, 0.87); */
+  border-color: rgba(184, 184, 184, 0.87);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .setting-items > div > div > i {
@@ -86,7 +219,8 @@ body {
   font-weight: bold;
 }
 
-/*  */
+
+/* ====================== */
 .menu {
   min-height: 50px;
   background-color: rgb(243, 243, 243);
@@ -124,4 +258,20 @@ body {
   margin: 0px auto auto;
   display: block;
   border-radius: 20px;
+}
+
+
+/*  */
+
+#autoReloadSelectHour,
+#autoReloadSelectMin,
+#autoSubmitSelectMin,
+#autoSubmitSelectSec {
+  border-radius: 7px;
+}
+
+#btnSetTimezone {
+  background-color: rgb(52, 56, 56);
+  color: white;
+  border-radius: 5px;
 }

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
     <!-- CSS -->
+    <!-- Google font -->
+    <link rel="stylesheet" href="../libs/google-fonts/Montserrat.css">
     <link rel="stylesheet" href="../libs/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../libs/bootstrap-icons-1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/css/popup.css">
@@ -17,252 +19,469 @@
 </head>
 
 <body>
-    <!-- <canvas id="myChart" style="width:100%;max-width:700px"></canvas> -->
-    <!-- Header -->
-    <div class="container-fluid header d-flex justify-content-between">
-        <div class="logo">
-            <div>
-                <img class="ps-2" src="../assets/icons/org/icon-black-shadow.png" alt="" style="height: 35px;">
-                <p class="d-inline fw-bold">E2A Tool</p>
+    <div id="notfound" class="d-none">
+        <div class="notfound">
+            <div class="notfound-404">
+                <h1>Oops!</h1>
             </div>
-        </div>
-        <div class="status">
-            <div class="col-6 form-check form-switch">
-                <!-- <input class="form-check-input mt-2" id="btnChangeExtensionStatus" type="checkbox"> -->
-                <p class="d-inline fw-bolder text-success me-4" id="txtExtensionStatus"><span
-                        class="bi bi-person-fill-check fs-2"></span></p>
-            </div>
+            <h2>403 - Forbidden</h2>
+            <p>You do not have permission to use this extension.
+                Or an error has occurred, please contact the administrator for support.
+            </p>
+            <!-- <a href="#">Contact</a> -->
         </div>
     </div>
-    <!-- Main -->
-    <div class="container-fluid main">
-        <!--  -->
-        <div class="tab-content" id="myTabContent">
-            <!-- Dashboard tab -->
-            <div class="tab-pane fade show active container-fluid" id="dashboard" role="tabpanel"
-                aria-labelledby="dashboard-tab">
-                <!--  -->
-                <div class="row" style="height: 390px;">
-                    <div class="row me-0">
-                        <div class="col my-1 mx-2 pt-4 card text-center shadow dashboard-card">
-                            <div class="card-body">
-                                <i class="bi bi-reception-3 text-info" style="font-size: 40px;"></i>
-                                <br>
-                                <h1 class="card-title d-inline" id="txtCurrentTask">0</h1>
-                            </div>
-                        </div>
 
-                        <div class="col my-1 mx-2 pt-4 card text-center shadow dashboard-card">
-                            <div class="card-body">
-                                <i class="bi bi-person-fill-check text-info" style="font-size: 40px;"></i>
-                                <br>
-                                <h1 class="card-title d-inline">GOOD</h1>
-                            </div>
-                        </div>
-                    </div>
+    <div class="">
+        <!-- Header -->
+        <div class="container-fluid header d-flex justify-content-between">
+            <div class="logo">
+                <div>
+                    <img class="ps-2" src="../assets/icons/org/icon-black-shadow.png" alt="" style="height: 35px;">
+                    <p class="d-inline fw-bold">E2A Tool</p>
                 </div>
-                <!--  -->
             </div>
-            <!-- Settings tab -->
-            <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-                <div class="col-md-12 ewoq-settings mt-1 p-3 pb-5">
-                    <!-- Auto count mode -->
-                    <div class="setting-options col-md-12 p-3 pb-1 setting-items container-fluid shadow">
-                        <div class="row">
-                            <div class="col-6 mt-2">
-                                <p><i class="bi bi-stopwatch me-2"></i>Auto count</p>
-                            </div>
-                            <div class="col-6 form-check form-switch d-flex justify-content-end">
-                                <input class="form-check-input" id="btnChangeAutoCountMode" type="checkbox">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Reset counter -->
-                    <div class="setting-options col-md-12 p-3 pb-1 setting-items container-fluid mt-3 shadow">
-                        <div class="row">
-                            <div class="col-6 mt-2">
-                                <p><i class="bi bi-arrow-counterclockwise me-2"></i>Reset counter</p>
-                            </div>
-                            <div class="col-6 form-check form-switch d-flex justify-content-end">
-                                <button class="btn btn-danger shadow" id="btnResetCounter">Reset</button>
-                            </div>
-                        </div>
-                        <!-- Alert -->
-                        <div class="alert alert-success alert-dismissible fade show d-none" role="alert"
-                            id="alertResetCounterSuccs">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <strong>OK!</strong>
-                            <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
-                        </div>
-                        <!-- Alert -->
-                    </div>
-                    <!-- Show task submitted in icon -->
-                    <div class="setting-options col-md-12 p-3 pb-1 setting-items container-fluid mt-3 shadow">
-                        <div class="row">
-                            <div class="col-6 mt-2">
-                                <p><img src="../assets/icons/org/icon-white-with-task.png" alt=""
-                                        style="height: 30px;">Show task submitted in icon</p>
-                            </div>
-                            <div class="col-6 form-check form-switch d-flex justify-content-end">
-                                <input class="form-check-input" id="btnChangeShowTaskInIcon" type="checkbox">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Count time in task -->
-                    <div class="setting-options col-md-12 p-3 pb-1 setting-items container-fluid mt-3 shadow">
-                        <div class="row">
-                            <div class="col-6 mt-2">
-                                <p><i class="bi bi-stopwatch me-2"></i>Count time in task</p>
-                            </div>
-                            <div class="col-6 form-check form-switch d-flex justify-content-end">
-                                <input class="form-check-input" id="btnChangeCountTimeMode" type="checkbox">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Auto reload -->
-                    <div class="setting-options col-md-12 p-3 pb-1 setting-items container-fluid mt-3 shadow" id="">
-                        <div class="row">
-                            <div class="col-7 mt-2">
-                                <p><i class="bi bi-arrow-repeat me-2"></i>Auto reload</p>
-                            </div>
-
-                            <div class="col d-flex justify-content-end">
-                                <select class="form-select mb-2" id="autoReloadSelect" disabled>
-                                </select>
-                                <div class="form-check form-switch d-flex justify-content-end mt-2">
-                                    <input class="form-check-input" id="btnChangeAutoReloadMode" type="checkbox">
+            <div class="status">
+                <div class="col-6 form-check form-switch">
+                    <!-- <input class="form-check-input mt-2" id="btnChangeExtensionStatus" type="checkbox"> -->
+                    <p class="d-inline fw-bolder text-success me-4" id="txtExtensionStatus"><span
+                            class="bi bi-person-fill-check fs-2"></span></p>
+                </div>
+            </div>
+        </div>
+        <!-- Main -->
+        <div class="container-fluid main">
+            <!--  -->
+            <div class="tab-content container-fluid p-0" id="myTabContent">
+                <!-- Dashboard tab -->
+                <div class="tab-pane fade container-fluid" id="dashboard" role="tabpanel"
+                    aria-labelledby="dashboard-tab">
+                    <!-- Current time -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="container-fluid p-0">
+                                <div class="col-md-12 real-time-container">
+                                    <div class="col-md-12 container d-flex justify-content-center pt-3">
+                                        <h6 id="txtTimezone">
+                                            Statistics by timezone: 
+                                            <span class="txt-current-timezone"></span>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-12 container d-flex justify-content-center">
+                                        <i class="bi bi-clock-fill text-danger fs-5 me-1"></i>
+                                        <!-- <p>Current time: </p> -->
+                                        <p class="txt-real-time">-:-:-</p>
+                                    </div>
+                                    <hr class="p-0 m-auto" style="width: 50%" />
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Task available notification -->
-                    <div class="setting-options col-md-12 pt-3 pb-0 setting-items mt-3 shadow"
-                        id="taskAvailNotiSettingsTab">
-                        <div class="col-12 row ps-3 taskAvailNotiMode mb-1">
-                            <div class="col-6 mt-2">
-                                <p><i class="bi bi-bell me-2"></i>Task available notification</p>
+                        <!-- Statistic -->
+                        <div class="col-12 row d-flex justify-content-center">
+                            <!--  -->
+                            <div class="col-5 mt-2 mx-2 pt-2 card text-center dashboard-card shadow">
+                                <div class="card-body">
+                                    <i class="bi bi-calendar2-week text-info me-1" style="font-size: 30px;"></i>
+                                    <strong>Today</strong>
+                                    <br>
+                                    <h5 class="card-title d-inline" id="txtToday">-:-:-</h5>
+                                </div>
                             </div>
-                            <div class="col-6 form-check form-switch d-flex justify-content-end pe-1">
-                                <input class="form-check-input" id="btnChangeTaskAvailNotiMode" type="checkbox">
+                            <!--  -->
+                            <div class="col-5 mt-2 mx-2 pt-2 card text-center dashboard-card shadow">
+                                <div class="card-body">
+                                    <i class="bi bi-clipboard-check text-info me-1" style="font-size: 30px;"></i>
+                                    <strong>Tasks Submitted</strong>
+                                    <br>
+                                    <h5 class="card-title d-inline" id="txtTasksSubmitted">0</h5>
+                                </div>
                             </div>
-                        </div>
-                        <!--  -->
-                        <div class="taskAvailNotiSettings d-none">
-                            <div class="col-12 row">
-                                <div class="col-12 d-flex justify-content-end">
-                                    <button class="btn btn-primary" id="btn-save-noti-sets">
-                                        <i class="bi bi-file-earmark-check-fill me-1"></i>Save
+                            <!--  -->
+                            <div class="col-5 mt-2 mx-2 pt-2 card text-center dashboard-card shadow">
+                                <div class="card-body">
+                                    <i class="bi bi-stopwatch text-info me-1" style="font-size: 30px;"></i>
+                                    <strong>Work time</strong>
+                                    <br>
+                                    <h5 class="card-title d-inline" id="txtWorkTime">0</h5>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="col-5 mt-2 mx-2 pt-2 card text-center dashboard-card shadow">
+                                <div class="card-body">
+                                    <i class="bi-graph-up-arrow text-info me-1" style="font-size: 30px;"></i>
+                                    <strong>Detailed statistics</strong>
+                                    <br>
+                                    <button class="bg-warning m-auto" id="btn-open-detailed-statistic">
+                                        <span>Open</span>
+                                        <i class="bi bi-box-arrow-up-right"></i>
                                     </button>
                                 </div>
                             </div>
-                            <!-- Alert -->
-                            <div class="alert alert-success alert-dismissible fade show d-none" role="alert"
-                                id="alertSaveSetsSuccs">
-                                <i class="bi bi-check-circle-fill"></i>
-                                <strong>Saved!</strong>
-                                <!-- <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button> -->
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <!-- Settings tab -->
+                <div class="tab-pane fade container-fluid show active p-0" id="settings" role="tabpanel"
+                    aria-labelledby="settings-tab">
+                    <div class="row">
+                        <!-- Side bar -->
+                        <div class="col-3 side-bar container-fluid ms-0">
+                            <!--  -->
+                            <ul class="nav nav-pills flex-column mb-auto side-bar-ul" id="" role="tablist">
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="statistics-tab" data-bs-toggle="tab"
+                                        data-bs-target="#statistics" type="button" role="tab" aria-controls="statistics"
+                                        aria-selected="true">
+                                        <i class="bi bi-graph-up-arrow me-1 text-info fs-5"></i>
+                                        <span>Statistics</span>
+                                    </button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="notifications-tab" data-bs-toggle="tab"
+                                        data-bs-target="#notifications" type="button" role="tab"
+                                        aria-controls="notifications" aria-selected="true">
+                                        <i class="bi bi-app-indicator me-1 text-info fs-5"></i>
+                                        <span>Notifications</span>
+                                    </button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="sounds-tab" data-bs-toggle="tab"
+                                        data-bs-target="#sounds" type="button" role="tab" aria-controls="sounds"
+                                        aria-selected="true">
+                                        <i class="bi bi-bell me-1 text-info fs-5"></i>
+                                        <span>Sounds</span>
+                                    </button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="timing-tab" data-bs-toggle="tab"
+                                        data-bs-target="#timing" type="button" role="tab" aria-controls="timing"
+                                        aria-selected="true">
+                                        <i class="bi bi-stopwatch me-1 text-info fs-5"></i>
+                                        <span>Timing</span>
+                                    </button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="automation-tab" data-bs-toggle="tab"
+                                        data-bs-target="#automation" type="button" role="tab" aria-controls="automation"
+                                        aria-selected="true">
+                                        <i class="bi bi-mouse me-1 text-info fs-5"></i>
+                                        <span>Automation</span>
+                                    </button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="datetime-tab" data-bs-toggle="tab"
+                                        data-bs-target="#datetime" type="button" role="tab" aria-controls="datetime"
+                                        aria-selected="true">
+                                        <i class="bi bi-globe-americas me-1 text-info fs-5"></i>
+                                        <span>Date & Time</span>
+                                    </button>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <!-- Content -->
+                        <div class="col-8 tab-content" style="width: 73%;">
+
+                            <!-- Statistics tab -->
+                            <div class="tab-pane fade container-fluid p-0 pt-3" id="statistics" role="tabpanel"
+                                aria-labelledby="statistics-tab">
+                                <!-- <h4>Statistics</h4> -->
+                                <div class="setting-options col-md-12 p-3 pb-1 setting-items container-fluid">
+                                    <div class="row">
+                                        <div class="col-10 mt-2">
+                                            <p>Show tasks submitted on extension icon</p>
+                                        </div>
+                                        <div class="col-2 mt-2 form-check form-switch d-flex justify-content-end">
+                                            <input class="form-check-input" id="btnChangeShowTasksOnIcon"
+                                                type="checkbox">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- Alert -->
-                            <!-- Navtive noti -->
-                            <div class="row container-fluid pe-0 ps-5 pe-4">
-                                <div class="col-12 d-flex justify-content-center">
-                                    <hr class="mt-1" style="width: 90%;">
-                                </div>
-                                <div class="row container-fluid pe-0">
-                                    <div class="col-6">
-                                        <p><i class="bi bi-app-indicator me-2"></i>System notification</p>
-                                    </div>
-                                    <div class="col-6 form-check form-switch d-flex justify-content-end">
-                                        <input class="form-check-input" id="btnChangeSysNotiMode" type="checkbox">
-                                    </div>
-                                </div>
 
-                            </div>
-                            <!-- Navtive noti set -->
-                            <div class="row container-fluid pe-0 ps-5 pe-4 d-none sysNotiSet">
-                                <div class="col-12 row">
-                                    <div class="col-4 pt-2 ps-5">
-                                        <p>Title</p>
-                                    </div>
-                                    <div class="col-8 form-check form-switch d-flex justify-content-end">
-                                        <input type="text" class="form-control mb-2" id="inputTitleNoti">
-                                    </div>
-                                </div>
-
-                                <div class="col-12 row">
-                                    <div class="col-4 pt-2 ps-5">
-                                        <p>Content</p>
-                                    </div>
-                                    <div class="col-8 form-check form-switch d-flex justify-content-end">
-                                        <textarea type="text" class="form-control mb-2" id="inputContentNoti"
-                                            rows="4"></textarea>
+                            <!-- Notifications tab -->
+                            <div class="tab-pane fade container-fluid p-0 pt-3" id="notifications" role="tabpanel"
+                                aria-labelledby="notifications-tab">
+                                <!-- <h4>Notifications</h4> -->
+                                <div class="setting-options col-md-12 p-3 pb-1 setting-items container-fluid">
+                                    <div class="row">
+                                        <div class="col-10 mt-2">
+                                            <p></i>When there are tasks available</p>
+                                        </div>
+                                        <div class="col-2 mt-2 form-check form-switch d-flex justify-content-end">
+                                            <input class="form-check-input" id="btnChangeNotiTaskAvail" type="checkbox">
+                                        </div>
                                     </div>
                                 </div>
-
-                            </div>
-
-                            <!-- Sound noti -->
-                            <div class="row container-fluid pe-0 ps-5 pe-4">
-                                <div class="col-12 d-flex justify-content-center">
-                                    <hr class="mt-1" style="width: 90%;">
-                                </div>
-                                <div class="row container-fluid pe-0">
-                                    <div class="col-6 mt-2">
-                                        <p><i class="bi bi-volume-up me-2 fs-5"></i>Sound</p>
-                                    </div>
-                                    <div class="col-6 form-check form-switch d-flex justify-content-end">
-                                        <input class="form-check-input" id="btnChangeNotiSoundMode" type="checkbox">
+                                <!--  -->
+                                <div class="setting-options col-md-12 p-3 pb-1 mt-2 setting-items container-fluid">
+                                    <div class="row">
+                                        <div class="col-10 mt-2">
+                                            <p></i>When a task is submitted</p>
+                                        </div>
+                                        <div class="col-2 mt-2 form-check form-switch d-flex justify-content-end">
+                                            <input class="form-check-input" id="btnChangeNotiTaskSubmitted"
+                                                type="checkbox">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Sound noti set -->
-                            <div class="row container-fluid pe-0 ps-5 pe-4 d-none notiSoundSets">
-                                <div class="col-12 row d-flex justify-content-between">
-                                    <div class="form-check col mt-2 mb-2 ps-5 ms-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="checkBoxLoopMode">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            Loop
-                                        </label>
-                                    </div>
-                                    <div class="col d-flex justify-content-center">
-                                        <p class="bi bi-play-circle fs-5" id="btnTestSound" type="button"> Test</p>
-                                    </div>
-                                </div>
-                                <!-- List sound -->
-                                <div class="col-4 pt-3 ps-5">
-                                    <p class="d-inline">Choose sound</p>
-                                </div>
-                                <div class="col ps-8 mt-2 mb-4">
-                                    <select class="form-select d-inline" id="notiSoundSelect">
 
-                                    </select>
+                            <!-- Sounds tab -->
+                            <div class="tab-pane fade container-fluid p-0 pt-3" id="sounds" role="tabpanel"
+                                aria-labelledby="sounds-tab">
+                                <!-- <h4>Sounds</h4> -->
+
+                                <!-- Task submitted -->
+                                <div class="setting-options col-md-12 p-3 pb-1 mt-2 setting-items container-fluid">
+                                    <div class="row">
+                                        <div class="col-10 mt-2">
+                                            <p>When a task is submitted</p>
+                                        </div>
+                                        <div class="col-2 mt-2 form-check form-switch d-flex justify-content-end">
+                                            <input class="form-check-input" id="btnChangeNotiSoundTaskSubmitted"
+                                                type="checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Task available -->
+                                <div class="setting-options col-md-12 p-3 pb-1 mt-2 setting-items container-fluid">
+                                    <div class="row">
+                                        <div class="col-10 mt-2">
+                                            <p>When there are tasks available</p>
+                                        </div>
+                                        <div class="col-2 mt-2 form-check form-switch d-flex justify-content-end">
+                                            <input class="form-check-input" id="btnChangeNotiSoundTaskAvail"
+                                                type="checkbox">
+                                        </div>
+                                        <!--  -->
+                                        <div class="taskAvailNotiSettings col-12">
+                                            <div class="row container-fluid pe-0 ps-5 pe-4">
+                                                <div class="col-12 d-flex justify-content-center">
+                                                    <hr class="mt-1" style="width: 90%;">
+                                                </div>
+                                                <div class="row container-fluid pe-0">
+                                                    <!-- System -->
+                                                    <div class="form-check">
+                                                        <input disabled value="system" class="form-check-input" type="radio"
+                                                            name="radioChooseSound" id="radioChooseSoundSystem">
+                                                        <label class="form-check-label" for="radioChooseSoundSystem">
+                                                            System
+                                                        </label>
+                                                        <div class="input-group mt-1 mb-2">
+                                                            <span class="input-group-text" style="height: 35px;"><i
+                                                                    class="bi bi-music-note"></i></span>
+                                                            <select disabled class="form-select d-inline" id="notiSysSoundSelect"
+                                                                style="height: 35px;">
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Custom -->
+                                                    <div class="form-check">
+                                                        <input disabled value="custom" class="form-check-input" type="radio"
+                                                            name="radioChooseSound" id="radioChooseSoundCustom">
+                                                        <label class="form-check-label" for="radioChooseSoundCustom">
+                                                            Custom
+                                                        </label>
+                                                        <div class="input-group mt-1 mb-2">
+                                                            <span class="input-group-text"
+                                                                style="height: 35px;">URL</span>
+                                                            <input disabled class="form-control d-inline" id="notiCusSoundInput"
+                                                                style="height: 35px;"></input>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 d-flex justify-content-center">
+                                                    <hr class="mt-2" style="width: 100%;">
+                                                </div>
+                                                <!-- Sound noti set -->
+                                                <div class="row container-fluid pe-0 ps-1 pe-0 notiSoundSets">
+                                                    <div class="col-12 row d-flex justify-content-between">
+                                                        <p>Mode</p>
+                                                        <div class="form-check col mb-2 ps-5 ms-3">
+                                                            <input disabled class="form-check-input" type="checkbox" value=""
+                                                                id="checkBoxLoopMode">
+                                                            <label class="form-check-label" for="flexCheckDefault">
+                                                                Loop
+                                                            </label>
+                                                        </div>
+                                                        <div class="col d-flex justify-content-center">
+                                                            <p class="bi bi-play-circle fs-5" id="btnTestSound"
+                                                                type="button"> Test</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <!-- Timing tab -->
+                            <div class="tab-pane fade container-fluid p-0 pt-3" id="timing" role="tabpanel"
+                                aria-labelledby="timing-tab">
+                                <!-- <h4>Timing</h4> -->
+                                <!--  -->
+                                <div class="setting-options col-md-12 p-3 pb-1 mt-2 setting-items container-fluid">
+                                    <div class="row">
+                                        <div class="col-10 mt-2">
+                                            <p>Count time clock</p>
+                                        </div>
+                                        <div class="col-2 mt-2 form-check form-switch d-flex justify-content-end">
+                                            <input class="form-check-input" id="btnChangeCountTimeCLock"
+                                                type="checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Automation tab -->
+                            <div class="tab-pane fade container-fluid p-0 pt-3" id="automation" role="tabpanel"
+                                aria-labelledby="automation-tab">
+                                <!-- <h4>Automation</h4> -->
+                                <!-- Auto reload -->
+                                <div class="setting-options col-md-12 pt-3 pb-1 mt-2 setting-items container-fluid">
+                                    <div class="row d-flex justify-content-between">
+                                        <div class="col-11 row">
+                                            <div class="col-6">
+                                                <p class="mb-0">Auto reload every</p>
+                                                <div class="form-text mb-2" style="font-size: x-small ;">When there are
+                                                    no tasks available</div>
+                                            </div>
+
+                                            <div class="col input-group">
+                                                <select disabled class="form-select" id="autoReloadSelectHour"
+                                                    style="width: 50px;height: 35px;">
+                                                </select>
+                                                <u class="mt-1 ms-0 me-0">h</u>
+                                                <select disabled class="form-select" id="autoReloadSelectMin"
+                                                    style="width: 45px;height: 35px;">
+                                                    
+                                                </select>
+                                                <u class="mt-1 ms-0">min</u>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-1 form-check form-switch d-flex justify-content-center">
+                                            <input class="form-check-input" id="btnChangeAutoReloadMode"
+                                                type="checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Auto submit -->
+                                <div class="setting-options col-md-12 pt-4 pb-2 mt-2 setting-items container-fluid">
+                                    <div class="row d-flex justify-content-between">
+                                        <div class="col-11 row">
+                                            <div class="col-5">
+                                                <p class="mt-1">Auto submit at</p>
+                                                <!-- <div class="form-text mb-2" style="font-size: x-small ;">
+                                                    Auto submit tasks at 12:20s
+                                                </div> -->
+                                            </div>
+
+                                            <div class="col input-group">
+                                                <select disabled class="form-select" id="autoSubmitSelectMin"
+                                                    style="width: 50px;height: 35px;">
+                                                </select>
+                                                <span class="mt-1 ms-0 me-0">min</span>
+                                                <select disabled class="form-select" id="autoSubmitSelectSec"
+                                                    style="width: 50px;height: 35px;">
+                                                </select>
+                                                <span class="mt-1 ms-0">sec</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-1 mt-1 form-check form-switch d-flex justify-content-center">
+                                            <input class="form-check-input" id="btnChangeAutoSubmitMode"
+                                                type="checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Date & Time tab -->
+                            <div class="tab-pane fade show active container-fluid p-0 pt-3" id="datetime"
+                                role="tabpanel" aria-labelledby="datetime-tab">
+                                <!-- <h4>Date & Time</h4> -->
+                                <!-- Timezone -->
+                                <div class="setting-options col-md-12 p-3 pb-1 mt-2 setting-items container-fluid">
+                                    <div class="row">
+                                        <div class="col-12 row">
+                                            <div class="col-3">
+                                                <p class="mb-0">Timezone</p>
+                                                <div class="form-text mb-2" style="font-size: x-small ;">
+                                                    For statistics
+                                                </div>
+                                            </div>
+
+                                            <div class="col input-group pe-0" style="width: fit-content;">
+                                                <select class="form-select" id="timezoneSelect"
+                                                    style="width: 90px;height: 35px;">
+                                                </select>
+                                                <button class="btn" id="btnSetTimezone" style="height: 35px">
+                                                    <i class="bi bi-wrench-adjustable-circle"></i>
+                                                    Set
+                                                </button>
+                                            </div>
+
+
+                                            <div class="col-md-12 real-time-container mt-3 mb-3">
+                                                <hr class="p-0 m-auto" style="width: 100%" />
+                                                <div class="col-md-12 container d-flex justify-content-center pt-3">
+                                                    <p id="txtTimezone">Current timezone:
+                                                        <strong class="txt-current-timezone"></strong>
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-12 container d-flex justify-content-center">
+                                                    <i class="bi bi-clock-fill text-danger fs-5 me-1"></i>
+                                                    <!-- <p>Current time: </p> -->
+                                                    <p class="txt-real-time">-:-:-</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Menu bar -->
-    <div class="container-fluid menu p-0">
-        <!-- Tabs navs -->
-        <ul class="nav nav-tabs justify-content-evenly" style="border-bottom:0px" id="myTab" role="tablist">
-            <!--  -->
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard"
-                    type="button" role="tab" aria-controls="dashboard" aria-selected="true"><i
-                        class="bi bi-speedometer2"></i></button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button"
-                    role="tab" aria-controls="settings" aria-selected="false"><i class="bi bi-gear-fill"></i></button>
-            </li>
-        </ul>
+        <!-- Menu bar -->
+        <div class="container-fluid menu p-0">
+            <!-- Tabs navs -->
+            <ul class="nav nav-tabs justify-content-evenly" style="border-bottom:0px" id="myTab" role="tablist">
+                <!--  -->
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard"
+                        type="button" role="tab" aria-controls="dashboard" aria-selected="true"><i
+                            class="bi bi-speedometer2"></i></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings"
+                        type="button" role="tab" aria-controls="settings" aria-selected="false"><i
+                            class="bi bi-gear-fill"></i></button>
+                </li>
+            </ul>
 
-        <!-- Tabs navs -->
+            <!-- Tabs navs -->
+        </div>
+
     </div>
 
     <!-- Scripts -->
