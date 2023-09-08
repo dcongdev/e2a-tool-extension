@@ -164,8 +164,6 @@ body {
   border: none;
 }
 
-
-
 /* ========= Setting ============*/
 
 /* Side bar */
@@ -175,7 +173,6 @@ body {
   width: fit-content;
   margin-right: 0px;
 }
-
 
 .side-bar-ul .nav-item .nav-link {
   /* background-color: rgb(243, 243, 243); */
@@ -219,7 +216,6 @@ body {
   font-weight: bold;
 }
 
-
 /* ====================== */
 .menu {
   min-height: 50px;
@@ -260,7 +256,6 @@ body {
   border-radius: 20px;
 }
 
-
 /*  */
 
 #autoReloadSelectHour,
@@ -274,4 +269,37 @@ body {
   background-color: rgb(52, 56, 56);
   color: white;
   border-radius: 5px;
+}
+
+/* LOADER */
+/* (A) LOADING SPINNER */
+#spinner {
+  /* (A1) COVER FULL SCREEN */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 0.2s;
+
+  /* (A2) CENTER SPINNER */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* (A3) HIDE BY DEFAULT */
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* (A4) SHOW SPINNER */
+#spinner.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+#spinner > img {
+  width: 150px;
 }

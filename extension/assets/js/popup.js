@@ -4,24 +4,47 @@
 
 var DateTime = luxon.DateTime;
 const extensionUrl = chrome.runtime.getURL("");
-
 $(document).ready(async function () {
-
-
-    chrome.runtime.sendMessage({ "checkUserStatus": true }, (res) => {
-        if(res.status != "ok" && res.message != "You have permission to use extension."){
-            $(".error").removeClass("d-none");
-            $(".main").addClass("d-none");
-            return
+    // Loading animation
+    var loading = false;
+    var spinner = document.getElementById("spinner");
+    setInterval(() => {
+        if (loading == false) {
+            $("#spinner").removeClass("show");
         }
-    })
+        else if (loading == true) {
+            if (!spinner.classList.contains("show")) {
+                $("#spinner").addClass("show");
+            }
+        }
+    }, 100)
+
+    // Check permission
+    loading = true
+    setTimeout(() => {
+        chrome.runtime.sendMessage({ "checkUserStatus": true }, (res) => {
+            if (res.status != "ok" && res.message != "You have permission to use extension.") {
+                $(".error").removeClass("d-none");
+                $(".main").addClass("d-none");
+                chrome.action.setBadgeBackgroundColor({ color: "red" });
+                chrome.action.setBadgeText({ text: "!" });
+                return
+            }
+            else{
+                $(".error").addClass("d-none");
+                $(".main").removeClass("d-none");
+                chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
+                chrome.action.setBadgeText({ text: "" });
+            }
+            loading = false
+        })
+    }, 100)
 
     // Timezone
     var response = await fetch("../../assets/js/timezone.json");
     let tzList = await response.json();
     // console.log(tzList)
     var timezone = (await chrome.storage.sync.get(["DateTime"])).DateTime.Timezone
-    // timezone = "Asia/Ho_Chi_Minh"
 
     // Update real time clock
     var blob = new Blob(["setInterval(function() {postMessage('');}, 1000); "]);
@@ -41,10 +64,80 @@ $(document).ready(async function () {
         txtRealTime[1].innerText = dt;
     };
 
-
     // Test sound
     var playingTestSound = false;
     var testSoundEl = document.createElement("audio");
+
+    // Function convert time
+    const convertTime = (second) => {
+        if (second <= 0) {
+            return "00:00";
+        }
+        let time = "";
+        let hour = parseInt(second / 3600);
+        let min = parseInt((second % 3600) / 60);
+        let sec = (second % 3600) % 60;
+        if (hour < 10 && hour >= 1) {
+            time += "0";
+        }
+        time += hour + ":";
+        if (min < 10) {
+            time += "0";
+        } // Minute
+        time += min + ":";
+        if (sec < 10) {
+            time += "0";
+        } // Second
+        time += sec;
+        return time;
+    };
+
+    /*************** DASHBOARD ***************/
+    // DAY
+    const getDataByDay = async (date) => {
+        let submitHistory = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
+        let dataByDay = {
+            date: date,
+            totalTasks: 0,
+            totalTime: 0
+        };
+        //
+        let totalTasks = 0;
+        let totalTime = 0;
+
+        // Get data
+        for (let i = 0; i < submitHistory.length; i++) {
+            let taskDate = DateTime.fromISO(submitHistory[i].datetime).setZone(
+                timezone
+            );
+            // console.log(taskDate.toISODate())
+
+            if (taskDate.toISODate() == date) {
+                totalTasks += 1;
+                totalTime += submitHistory[i].time;
+            }
+        }
+        //
+        dataByDay.totalTasks = totalTasks;
+        dataByDay.totalTime = totalTime;
+        //
+        // console.log(dataByDay)
+        return dataByDay;
+    };
+
+    loading = true;
+    setTimeout(async () => {
+        let detailDay = await getDataByDay(DateTime.utc().setZone(timezone).toISODate());
+        $("#txtToday").text(detailDay.date);
+        $("#txtTasksSubmitted").text(detailDay.totalTasks);
+        $("#txtWorkTime").text(convertTime(detailDay.totalTime));
+        $(document).on("click", "#btn-open-detailed-statistic", () => {
+            let statisticsPageUrl = chrome.runtime.getURL("/pages/statistics.html");
+            chrome.tabs.create({ url: statisticsPageUrl });
+        })
+
+        loading = false;
+    }, 100)
 
     /*************** SETTINGS ***************/
     // ======= Check mode on load =======
@@ -454,7 +547,6 @@ $(document).ready(async function () {
         chrome.storage.sync.set({ "Automation": Automation });
     })
 
-
     // *** Date & Time tab *** //
     // Timezone
     $(document).on("click", "#btnSetTimezone", async () => {
@@ -468,7 +560,7 @@ $(document).ready(async function () {
         await chrome.storage.sync.set({ "DateTime": NewDateTime });
 
         window.location.reload();
-        
+
         var tabs = await chrome.tabs.query({});
         tabs.forEach((tab) => {
             if (tab.url.includes(statisticsPageUrl)) {
@@ -478,8 +570,6 @@ $(document).ready(async function () {
             }
         });
     })
-
-    
 });
 
 

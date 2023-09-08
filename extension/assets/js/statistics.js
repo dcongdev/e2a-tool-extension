@@ -1,12 +1,12 @@
 $(document).ready(async function () {
 
-    chrome.runtime.sendMessage({ "checkUserStatus": true }, async (res) => {
+    await chrome.runtime.sendMessage({ "checkUserStatus": true }, async (res) => {
         if (res.status != "ok" && res.message != "You have permission to use extension.") {
+            chrome.action.setBadgeBackgroundColor({ color: "red" });
+            chrome.action.setBadgeText({ text: "!" });
             let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
             chrome.tabs.create({ url: errorPageUrl });
-
             let statisticsPageUrl = chrome.runtime.getURL("/pages/statistics.html");
-
             let tabs = await chrome.tabs.query({});
             tabs.forEach((tab) => {
                 if (tab.url.includes(statisticsPageUrl)) {
@@ -14,6 +14,10 @@ $(document).ready(async function () {
                 }
             });
             return
+        }
+        else {
+            chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
+            chrome.action.setBadgeText({ text: "" });
         }
     })
 

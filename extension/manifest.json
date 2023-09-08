@@ -7,7 +7,6 @@
     "action": {
         "default_popup": "./pages/popup.html"
     },
-    "options_page": "./pages/popup.html",
     "icons": {
         "16": "./assets/icons/16x16/icon-black.png",
         "32": "./assets/icons/32x32/icon-black.png",
