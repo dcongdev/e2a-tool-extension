@@ -2,14 +2,14 @@
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Statistics - E2A Tool</title>
     <!-- CSS -->
-    <link rel="stylesheet" href="../libs/bootstrap-5.0.2-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../libs/bootstrap-icons-1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../libs/DataTables/datatables.min.css">
-    <link rel="stylesheet" href="../assets/css/statistics.css">
+    <link rel="stylesheet" href="../libs/bootstrap-5.0.2-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../libs/bootstrap-icons-1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="../libs/DataTables/datatables.min.css" />
+    <link rel="stylesheet" href="../assets/css/statistics.css" />
     <!-- JS -->
     <script src="../libs/jquery/jquery-3.7.0.min.js"></script>
     <script src="../libs/luxon/luxon.min.js"></script>
@@ -18,78 +18,97 @@
 </head>
 
 <body>
+
+    <!-- SPINNER -->
+    <div id="spinner" class="">
+        <img src="../assets/gifs/Webpage Loading.gif">
+    </div>
+
     <!-- Header -->
     <div class="container-fluid header d-flex justify-content-between">
         <div class="logo">
             <div>
-                <img class="ps-2" src="../assets/icons/org/icon-black-shadow.png" alt="" style="height: 35px;">
+                <img class="ps-2" src="../assets/icons/org/icon-black-shadow.png" alt="" style="height: 35px" />
                 <p class="d-inline fw-bold">E2A Tool</p>
             </div>
         </div>
+        <!--  -->
         <div class="status">
             <div class="col-6 form-check form-switch">
                 <!-- <input class="form-check-input mt-2" id="btnChangeExtensionStatus" type="checkbox"> -->
-                <p class="d-inline fw-bolder text-success me-4" id="txtExtensionStatus"><span
-                        class="bi bi-person-fill-check fs-2"></span></p>
+                <p class="d-inline fw-bolder text-success me-4" id="txtExtensionStatus">
+                    <span class="bi bi-person-fill-check fs-2"></span>
+                </p>
             </div>
         </div>
     </div>
+
+
+
     <!--  -->
     <div class="container-fluid p-0">
         <div class="col-md-12 real-time-container">
             <div class="col-md-12 container d-flex justify-content-center pt-3">
-                <h3>Statistics by Pacific Time</h3>
+                <h3 id="txtTimezone">Statistics by Pacific Time</h3>
             </div>
             <div class="col-md-12 container d-flex justify-content-center">
                 <!-- <h5>Current time: </h5> -->
                 <i class="bi bi-clock-fill text-danger fs-5 me-1"></i>
-                <h4 id="txt-real-time"></h4>
+                <h4 id="txt-real-time">-:-:-</h4>
             </div>
-            <hr class="p-0 m-auto" style="width: 50%;">
+            <hr class="p-0 m-auto" style="width: 50%" />
         </div>
     </div>
+    
     <!--  -->
     <!-- Menu bar -->
     <div class="container-fluid menu pt-3 pb-3">
         <!-- Tabs navs -->
-        <ul class="nav nav-tabs justify-content-evenly" style="border-bottom:0px" id="myTab" role="tablist">
+        <ul class="nav nav-tabs justify-content-evenly" style="border-bottom: 0px" id="myTab" role="tablist">
             <!--  -->
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="day-tab" data-bs-toggle="tab" data-bs-target="#day" type="button"
-                    role="tab" aria-controls="day" aria-selected="true">Day</button>
+                    role="tab" aria-controls="day" aria-selected="true">
+                    Day
+                </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="week-tab" data-bs-toggle="tab" data-bs-target="#week" type="button"
-                    role="tab" aria-controls="week" aria-selected="false">Week</button>
+                    role="tab" aria-controls="week" aria-selected="false">
+                    Week
+                </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="month-tab" data-bs-toggle="tab" data-bs-target="#month" type="button"
-                    role="tab" aria-controls="month" aria-selected="false">Month</button>
+                    role="tab" aria-controls="month" aria-selected="false">
+                    Month
+                </button>
             </li>
         </ul>
         <!-- Tabs navs -->
     </div>
     <!-- Main -->
     <div class="container-fluid main mt-3">
+
+        
         <!--  -->
         <div class="tab-content" id="myTabContent">
             <!-- Day chart tab -->
-            <div class="tab-pane fade show active container-fluid px-0 mx-0" id="day" role="tabpanel"
-                aria-labelledby="day-tab">
-                <div class="row" style="height: 100%;">
+            <div class="tab-pane fade show active container-fluid px-0 mx-0" id="day" role="tabpanel" aria-labelledby="day-tab">
+                <div class="row" style="height: 100%">
                     <div class="row container">
                         <div class="col-md-12 d-flex justify-content-around row day-select-time-container mb-0 py-3">
                             <div class="col-md-12 d-flex justify-content-center mb-4">
                                 <h3 id="day-title"></h3>
                             </div>
-                            <div class="col-12 col-lg-6 row" style="border-right: solid 1px;">
+                            <div class="col-12 col-lg-6 row" style="border-right: solid 1px">
                                 <div class="col-12 col-lg-6">
                                     <h5>
                                         <i class="bi bi-clipboard2-check-fill text-primary"></i>
                                         <span>Tasks submitted:</span>
                                         <span id="dayDetailTasksTxt" class="fw-normal"></span>
                                     </h5>
-                                    <hr>
+                                    <hr />
                                     <h5>
                                         <i class="bi bi-clock-fill text-primary"></i>
                                         <span>Time work: </span>
@@ -107,11 +126,11 @@
                             <!-- Select -->
                             <div class="select-day col-12 col-lg-5">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" style="width: max-content;">Select day</span>
+                                    <span class="input-group-text" style="width: max-content">Select day</span>
                                     <input id="date-picker" class="form-control" type="date" value="2000-01-01"
-                                        min="2000-01-01" max="2999-01-01">
+                                        min="2000-01-01" max="2999-01-01" />
                                     <button id="btn-search-by-day" class="input-group-text bi bi-search"
-                                        style="width: max-content;"></button>
+                                        style="width: max-content"></button>
                                 </div>
                             </div>
                         </div>
@@ -144,20 +163,21 @@
             </div>
             <!-- Week chart tab -->
             <div class="tab-pane fade container-fluid px-0 mx-0" id="week" role="tabpanel" aria-labelledby="week-tab">
-                <div class="row" style="height: 100%;">
+                <div class="row" style="height: 100%">
                     <div class="row container">
+                        <!-- Detail -->
                         <div class="col-md-12 d-flex justify-content-around row week-select-time-container mb-1 py-3">
                             <div class="col-md-12 d-flex justify-content-center mb-4">
                                 <h3 id="week-title"></h3>
                             </div>
-                            <div class="col-12 col-lg-6 row" style="border-right: solid 1px;">
+                            <div class="col-12 col-lg-6 row" style="border-right: solid 1px">
                                 <div class="col-12 col-lg-6">
                                     <h5>
                                         <i class="bi bi-clipboard2-check-fill text-primary"></i>
                                         <span>Tasks submitted:</span>
                                         <span id="weekDetailTasksTxt" class="fw-normal"></span>
                                     </h5>
-                                    <hr>
+                                    <hr />
                                     <h5>
                                         <i class="bi bi-clock-fill text-primary"></i>
                                         <span>Time work: </span>
@@ -174,20 +194,17 @@
                             </div>
                             <div class="select-week col-12 col-lg-5">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" style="width: 70px;">Year</span>
-                                    <select class="form-select" id="select-year-week">
-                                    </select>
+                                    <span class="input-group-text" style="width: 70px">Year</span>
+                                    <select class="form-select" id="select-year-week"></select>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" style="width: 70px;">Week</span>
-                                    <select class="form-select" id="select-week">
-                                    </select>
+                                    <span class="input-group-text" style="width: 70px">Week</span>
+                                    <select class="form-select" id="select-week"></select>
                                 </div>
-
                             </div>
                         </div>
-                        <div class="col-md-12 d-flex justify-content-evenly row week-sta-by-type-container">
-
+                        <!-- Statistic by task type -->
+                        <div class="d-none col-md-12 d-flex justify-content-evenly row week-sta-by-type-container">
                             <div class="week-table-by-type-container col-12 col-md-5 p-0">
                                 <div>
                                     <table id="week-table-by-type" class="table table-striped table-hover mb-0">
@@ -211,17 +228,18 @@
                                 <canvas id="weekChartByType"></canvas>
                             </div>
                         </div>
+                        <!-- Statistic by tasks submitted and work time -->
                         <div class="col-md-12 d-flex justify-content-evenly row">
                             <div class="week-chart-by-task-box col-12 col-md">
                                 <h5 class="mt-4 ms-5">
-                                    <i class="bi bi-clipboard2-check-fill" style="color: rgb(54, 162, 235);"></i>
+                                    <i class="bi bi-clipboard2-check-fill" style="color: rgb(54, 162, 235)"></i>
                                     Statistics by tasks
                                 </h5>
                                 <canvas id="weekChartByTasks"></canvas>
                             </div>
                             <div class="week-chart-by-time-box col-12 col-md">
                                 <h5 class="mt-4 ms-5">
-                                    <i class="bi bi-clipboard2-check-fill" style="color: rgb(226, 105, 49);"></i>
+                                    <i class="bi bi-clipboard2-check-fill" style="color: rgb(226, 105, 49)"></i>
                                     Statistics by work time
                                 </h5>
                                 <canvas id="weekChartByTime"></canvas>
@@ -231,21 +249,22 @@
                 </div>
             </div>
             <!-- Month chart tab -->
-            <div class="tab-pane fade container-fluid" id="month" role="tabpanel" aria-labelledby="month-tab">
-                <div class="row" style="height: 100%;">
+            <div class="tab-pane fade container-fluid" id="month" role="tabpanel"
+                aria-labelledby="month-tab">
+                <div class="row" style="height: 100%">
                     <div class="row container">
                         <div class="col-md-12 d-flex justify-content-around row month-select-time-container mb-1 py-3">
                             <div class="col-md-12 d-flex justify-content-center mb-4">
                                 <h3 id="month-title"></h3>
                             </div>
-                            <div class="col-12 col-lg-6 row" style="border-right: solid 1px;">
+                            <div class="col-12 col-lg-6 row" style="border-right: solid 1px">
                                 <div class="col-12 col-lg-6">
                                     <h5>
                                         <i class="bi bi-clipboard2-check-fill text-primary"></i>
                                         <span>Tasks submitted:</span>
                                         <span id="monthDetailTasksTxt" class="fw-normal"></span>
                                     </h5>
-                                    <hr>
+                                    <hr />
                                     <h5>
                                         <i class="bi bi-clock-fill text-primary"></i>
                                         <span>Time work: </span>
@@ -262,30 +281,27 @@
                             </div>
                             <div class="select-month col-12 col-lg-5">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" style="width: 70px;">Year</span>
-                                    <select class="form-select" id="select-year-month">
-                                    </select>
+                                    <span class="input-group-text" style="width: 70px">Year</span>
+                                    <select class="form-select" id="select-year-month"></select>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" style="width: 70px;">Month</span>
-                                    <select class="form-select" id="select-month">
-                                    </select>
+                                    <span class="input-group-text" style="width: 70px">Month</span>
+                                    <select class="form-select" id="select-month"></select>
                                 </div>
-
                             </div>
                         </div>
                         <!--  -->
-                        <div class="month-chart-by-task-box col-12 col-md mb-5" style="margin-left: 20px;">
+                        <div class="month-chart-by-task-box col-12 col-md mb-5" style="margin-left: 20px">
                             <h5 class="mt-4 ms-5">
-                                <i class="bi bi-clipboard2-check-fill" style="color: rgb(54, 162, 235);"></i>
+                                <i class="bi bi-clipboard2-check-fill" style="color: rgb(54, 162, 235)"></i>
                                 Statistics by tasks
                             </h5>
                             <canvas id="monthChartByTasks"></canvas>
                         </div>
                         <!--  -->
-                        <div class="month-chart-by-time-box col-12 col-md mb-5" style="margin-left: 20px;">
+                        <div class="month-chart-by-time-box col-12 col-md mb-5" style="margin-left: 20px">
                             <h5 class="mt-4 ms-5">
-                                <i class="bi bi-clipboard2-check-fill" style="color: rgb(226, 105, 49);"></i>
+                                <i class="bi bi-clipboard2-check-fill" style="color: rgb(226, 105, 49)"></i>
                                 Statistics by work time
                             </h5>
                             <canvas id="monthChartByTime"></canvas>
