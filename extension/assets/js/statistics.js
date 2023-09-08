@@ -43,6 +43,11 @@ $(document).ready(async function () {
     };
     //
     var timezone = (await chrome.storage.sync.get(["DateTime"])).DateTime.Timezone;
+
+    let txtCurrentTimezone = document.getElementsByClassName("txt-current-timezone");
+    if (timezone == "default") { timezone = DateTime.local().zoneName; }
+    txtCurrentTimezone[0].innerText = timezone
+
     if (timezone == "default") { timezone = DateTime.local().zoneName; }
     //
     var currentTime = DateTime.utc().setZone(timezone);
@@ -86,9 +91,9 @@ $(document).ready(async function () {
         submitHistory = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
         // console.log(submitHistory)
         //
-        if(submitHistory == []) {return}
-        if(submitHistory == null) {return}
-        if (submitHistory.length == 0) {return}
+        if (submitHistory == []) { return }
+        if (submitHistory == null) { return }
+        if (submitHistory.length == 0) { return }
         //
         startHis = DateTime.fromISO(submitHistory[0].datetime).setZone(timezone);
         endHis = DateTime.fromISO(
@@ -282,7 +287,7 @@ $(document).ready(async function () {
     //
 
     $(document).on("click", "#btn-search-by-day", () => {
-        if(submitHistory == null || submitHistory == []){return}
+        if (submitHistory == null || submitHistory == []) { return }
         let datePick = DateTime.fromISO($("#date-picker").val());
         let startHistDate = startHis;
         let endHisDate = endHis;
@@ -535,7 +540,7 @@ $(document).ready(async function () {
     //
 
     $(document).on("change", "#select-year-week", () => {
-        if(submitHistory == null || submitHistory == []){return}
+        if (submitHistory == null || submitHistory == []) { return }
         let year = parseInt($("#select-year-week option:selected").val());
         let selectWeekContent = "";
         let idx = weekList.findIndex((e) => e.year == year);
@@ -565,7 +570,7 @@ $(document).ready(async function () {
     });
     //
     $(document).on("change", "#select-week", () => {
-        if(submitHistory == null || submitHistory == []){return}
+        if (submitHistory == null || submitHistory == []) { return }
         setTimeout(() => {
             let year = parseInt($("#select-year-week option:selected").val());
             let week = parseInt($("#select-week option:selected").val());
@@ -732,7 +737,7 @@ $(document).ready(async function () {
     };
     //
     $(document).on("change", "#select-year-month", () => {
-        if(submitHistory == null || submitHistory == []){return}
+        if (submitHistory == null || submitHistory == []) { return }
         let year = parseInt($("#select-year-month option:selected").val());
         let selectMonthContent = "";
         let idx = monthList.findIndex((e) => e.year == year);
@@ -749,7 +754,7 @@ $(document).ready(async function () {
     //
     $(document).on("change", "#select-month", () => {
 
-        if(submitHistory == null || submitHistory == []){return}
+        if (submitHistory == null || submitHistory == []) { return }
         setTimeout(() => {
             let year = parseInt($("#select-year-month option:selected").val());
             let month = parseInt($("#select-month option:selected").val());
@@ -761,10 +766,28 @@ $(document).ready(async function () {
         }, 100)
     });
 
+
+    /******************* Click tab **************/
+    $(document).on("click", "#day-tab", ()=>{
+        if(dayChartByType == null){
+            showDay(currentTime.toISODate())
+        }
+    })
+    $(document).on("click", "#week-tab", ()=>{
+        if(weekChartByTasks == null){
+            showWeek(currentTime.year, currentTime.weekNumber)
+        }
+    })
+    $(document).on("click", "#month-tab", ()=>{
+        if(monthChartByTasks == null){
+            showMonth(currentTime.year, currentTime.month)
+        }
+    })
+
     /**********************************************************************/
     // ================= GET DATA ==================
     await getSubmitHistory();
-    if(submitHistory == null || submitHistory == []){return}
+    if (submitHistory == null || submitHistory == []) { return }
 
     // DAY
     showDatePicker()
