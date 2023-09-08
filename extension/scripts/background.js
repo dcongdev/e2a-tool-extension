@@ -25,7 +25,7 @@ const openTestPage = () => {
     let popupPageUrl = chrome.runtime.getURL("/pages/popup.html");
     let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
     // chrome.tabs.create({ url: statisticsPageUrl });
-    chrome.tabs.create({ url: popupPageUrl });
+    // chrome.tabs.create({ url: popupPageUrl });
     // chrome.tabs.create({ url: errorPageUrl });
 }
 openTestPage()
@@ -60,7 +60,7 @@ const newSubmit = async (taskType, time) => {
 const setTestSubHis = async () => {
     var response = await fetch("../testdata/testNew.json");
     let testHis = await response.json();
-    // console.log(testHis)
+    console.log(testHis)
     chrome.storage.local.set({
         "submitHistory": testHis
     })
