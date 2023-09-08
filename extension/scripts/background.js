@@ -3,7 +3,7 @@
 */
 
 import { DateTime } from "../libs/luxon/es6_luxon.min.js";
-
+const extensionUrl = chrome.runtime.getURL("");
 
 //  ========= TEST ==========
 const reloadTestPage = async () => {
@@ -20,13 +20,18 @@ const reloadTestPage = async () => {
 }
 reloadTestPage();
 
-const openStaPage = () => {
+const openTestPage = () => {
     let statisticsPageUrl = chrome.runtime.getURL("/pages/statistics.html");
-    chrome.tabs.create({ url: statisticsPageUrl });
+    let popupPageUrl = chrome.runtime.getURL("/pages/popup.html");
+    let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
+    // chrome.tabs.create({ url: statisticsPageUrl });
+    chrome.tabs.create({ url: popupPageUrl });
+    // chrome.tabs.create({ url: errorPageUrl });
 }
-// openStaPage()
+openTestPage()
 
 const newSubmit = async (taskType, time) => {
+
     let sumbitHistory = (await chrome.storage.local.get(["sumbitHistory"])).sumbitHistory;
     let currTime = DateTime.utc().setZone("America/Los_Angeles");
     let currDate = currTime.toISODate();
@@ -48,18 +53,26 @@ const newSubmit = async (taskType, time) => {
     sumbitHistory[currDateIdx].data[taskTypeIdx].time += time;
     //
     chrome.storage.local.set({ "sumbitHistory": sumbitHistory })
+
 }
 // newSubmit("SIgergU", 30)
 
-// chrome.storage.local.set({
-//     "sumbitHistory": []
-// })
+const setTestSubHis = async () => {
+    var response = await fetch("../testdata/testNew.json");
+    let testHis = await response.json();
+    // console.log(testHis)
+    chrome.storage.local.set({
+        "submitHistory": testHis
+    })
+};
+
+// setTestSubHis()
 
 // chrome.storage.local.get(["extensionStatus"], (items) => {
 //     console.log(items.extensionStatus)
 // })
 
-const extensionUrl = chrome.runtime.getURL("");
+
 // ============ FUNCTION ============
 // Format time to string
 const formatTime = (time) => {
@@ -166,50 +179,145 @@ const checkUserStatus = async () => {
     });
 }
 
-// Update settings
 const updateSettings = async () => {
-    await chrome.storage.sync.get([
+    var newSets = {
+        "Statistics": {
+            "ShowTasksSubmittedOnIcon": "OFF"
+        },
+        "Notifications": {
+            "TasksAvailable": "OFF",
+            "TaskIsSubmitted": "OFF"
+        },
+        "Sounds": {
+            "TaskIsSubmitted": "OFF",
+            "TasksAvailable": {
+                "status": "OFF",
+                "loop": false,
+                "SoundName": "default.mp3",
+                "CustomSound": "OFF",
+                "CustomSoundUrl": ""
+            }
+        },
+        "Timing": {
+            "CountTimeClock": "OFF"
+        },
+        "Automation": {
+            "AutoReload": {
+                "status": "OFF",
+                "time": 300
+            },
+            "AutoSubmit": {
+                "status": "OFF",
+                "time": 90
+            }
+
+        },
+        "DateTime": {
+            "Timezone": "default"
+        }
+    }
+    //
+    let currSets = await chrome.storage.sync.get([
+        "Statistics",
+        "Notifications",
+        "Sounds",
+        "Timing",
+        "Automation",
+        "DateTime"]);
+    //
+    let oldVerSets = await chrome.storage.sync.get([
         "showTaskSubmittedInIcon",
         "countTimeInTask",
         "autoReload",
         "autoSubmit",
-        "taskAvailNoti"],
-        async (items) => {
-            let defaultTaskAvailNotiSettings = { // Task available notification mode
-                "status": "OFF",
-                "systemNoti": { "status": "OFF", "title": "Attention", "content": "Task available!", },
-                "notiSound": {
-                    "status": "OFF",
-                    "loop": false,
-                    "soundName": "vintage-telephone-ringtone.mp3",
-                    "soundCustom": "OFF",
-                    "soundCustomURL": "",
-                }
-            }
-            //
-            let newSettings = {
-                "showTaskSubmittedInIcon": items.showTaskSubmittedInIcon != undefined ? items.showTaskSubmittedInIcon : "OFF",
-                "countTimeInTask": items.countTimeInTask != undefined ? items.countTimeInTask : "OFF",
-                "autoReload": items.autoReload != undefined ? items.autoReload : { "status": "OFF", "time": 900 },
-                "autoSubmit": items.autoSubmit != undefined ? items.autoSubmit : { "status": "OFF", "time": 60 },
-                "taskAvailNoti": items.taskAvailNoti != undefined ? items.taskAvailNoti : defaultTaskAvailNotiSettings,
-            }
-            //
-            await chrome.storage.sync.set(newSettings);
-        })
-    // Local
-    chrome.storage.local.get(["extensionStatus",], (items) => {
-        if (items.extensionStatus == undefined) {
-            chrome.storage.local.set({ "extensionStatus": "OFF" });
+        "taskAvailNoti"]);
+    //
+    // Statistics
+    if (currSets.Statistics != undefined) {
+        newSets.Statistics = currSets.Statistics;
+    }
+    else if (oldVerSets.showTaskSubmittedInIcon != undefined) {
+        let status = oldVerSets.showTaskSubmittedInIcon;
+        newSets.Statistics.ShowTasksSubmittedOnIcon = status;
+    }
+    // Notifications
+    if (currSets.Notifications != undefined) {
+        newSets.Notifications = currSets.Notifications;
+    }
+    else {
+        if (oldVerSets.taskAvailNoti != undefined) {
+            let status = oldVerSets.taskAvailNoti.status;
+            newSets.Notifications.TasksAvailable = status;
         }
-    })
+    }
+    // Sounds
+    if (currSets.Sounds != undefined) {
+        newSets.Sounds = currSets.Sounds;
+    }
+    else {
+        // Tasks available
+        if (oldVerSets.taskAvailNoti != undefined) {
+            let status = oldVerSets.taskAvailNoti.notiSound.status;
+            let loop = oldVerSets.taskAvailNoti.notiSound.loop;
+            let SoundName = oldVerSets.taskAvailNoti.notiSound.soundName;
+            let CustomSound = oldVerSets.taskAvailNoti.notiSound.soundCustom;
+            let CustomSoundUrl = oldVerSets.taskAvailNoti.notiSound.soundCustomURL;
+
+            // Set new
+            newSets.Sounds.TasksAvailable.status = status;
+            newSets.Sounds.TasksAvailable.loop = loop;
+            newSets.Sounds.TasksAvailable.SoundName = SoundName;
+            newSets.Sounds.TasksAvailable.CustomSound = CustomSound;
+            newSets.Sounds.TasksAvailable.CustomSoundUrl = CustomSoundUrl;
+        }
+    }
+    // Timing
+    if (currSets.Timing != undefined) {
+        newSets.Timing = currSets.Timing;
+    }
+    else {
+        if (oldVerSets.countTimeInTask != undefined) {
+            let status = oldVerSets.countTimeInTask;
+            newSets.Timing.CountTimeClock = status;
+        }
+    }
+    // Automation
+    if (currSets.Automation != undefined) {
+        newSets.Automation = currSets.Automation;
+    }
+    else {
+        if (oldVerSets.autoReload != undefined) {
+            let status = oldVerSets.autoReload.status;
+            let time = oldVerSets.autoReload.time;
+            // Set new
+            newSets.Automation.AutoReload.status = status;
+            newSets.Automation.AutoReload.time = time;
+        }
+        // Auto submit
+        if (oldVerSets.autoSubmit != undefined) {
+            let status = oldVerSets.autoSubmit.status;
+            let time = oldVerSets.autoSubmit.time;
+            // Set new
+            newSets.Automation.AutoSubmit.status = status;
+            newSets.Automation.AutoSubmit.time = time;
+        }
+    }
+    // DateTime
+    if (currSets.DateTime != undefined) {
+        newSets.DateTime = currSets.DateTime;
+    }
+
+    // console.log(newSets)
+
+    chrome.storage.sync.clear(() => { chrome.storage.sync.set(newSets); });
+
 }
 
 // setCurrSubmittedInIcon();
 
 const getDataByDay = async (d) => {
     let rawData = (await chrome.storage.local.get(["sumbitHistory"])).sumbitHistory;
-    let dataByDay = {date: d,totalTasks: 0,totalTime: 0,dataByTaskType: []}
+    let dataByDay = { date: d, totalTasks: 0, totalTime: 0, dataByTaskType: [] }
     let totalTasks = 0;
     let totalTime = 0;
     let idx = rawData.findIndex(e => e.date == d);
@@ -234,8 +342,8 @@ const getDataByDay = async (d) => {
 
 // ============ On install listener ============
 chrome.runtime.onInstalled.addListener(async (reason) => {
-
     let exitsNotiSound = [];
+    exitsNotiSound.push(["Default", "default.mp3"]);
     exitsNotiSound.push(["Bell ringing 1", "bell-ringing-1.mp3"]);
     exitsNotiSound.push(["Bell ringing 2", "bell-ringing-2.mp3"]);
     exitsNotiSound.push(["Iphone", "iphone.mp3"]);
@@ -243,7 +351,6 @@ chrome.runtime.onInstalled.addListener(async (reason) => {
     exitsNotiSound.push(["Old telephone ring", "old-telephone-ring.mp3"]);
     exitsNotiSound.push(["Phone off hook", "phone-off-hook.mp3"]);
     exitsNotiSound.push(["Telephone ring", "telephone-ring.mp3"]);
-    exitsNotiSound.push(["Vintage telephone ringtone", "vintage-telephone-ringtone.mp3"]);
     // Install
     if (reason.reason == "install") {
         // await checkUserStatus();
@@ -258,32 +365,7 @@ chrome.runtime.onInstalled.addListener(async (reason) => {
     }
 });
 
-// ============ Context menu ============
-chrome.contextMenus.removeAll(() => {
-    // 1
-    chrome.contextMenus.create({
-        id: "1",
-        title: "Statistics",
-        contexts: ["action"],
-    });
 
-    // 2
-    chrome.contextMenus.create({
-        id: "2",
-        title: "Develop by: duongcongit",
-        contexts: ["action"],
-    });
-
-});
-
-// === Context menu click event
-chrome.contextMenus.onClicked.addListener((id, tab) => {
-    // 1. Open Statistics page
-    if (id.menuItemId == 1) {
-        let statisticsPageUrl = chrome.runtime.getURL("/pages/statistics.html");
-        chrome.tabs.create({ url: statisticsPageUrl });
-    }
-});
 
 // ============ Message listener ============
 chrome.runtime.onMessage.addListener((req, res, sendRes) => {
@@ -358,4 +440,31 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
 
 });
 
+
+// ============ Context menu ================
+// Create
+chrome.contextMenus.removeAll(() => {
+    // 1
+    chrome.contextMenus.create({
+        id: "1",
+        title: "Statistics",
+        contexts: ["action"],
+    });
+
+    // 2
+    chrome.contextMenus.create({
+        id: "2",
+        title: "Develop by: duongcongit",
+        contexts: ["action"],
+    });
+
+});
+// Context menu click event
+chrome.contextMenus.onClicked.addListener((id, tab) => {
+    // 1. Open Statistics page
+    if (id.menuItemId == 1) {
+        let statisticsPageUrl = chrome.runtime.getURL("/pages/statistics.html");
+        chrome.tabs.create({ url: statisticsPageUrl });
+    }
+});
 
