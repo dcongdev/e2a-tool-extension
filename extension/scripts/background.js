@@ -323,7 +323,7 @@ const updateSettings = async () => {
 // setCurrSubmittedInIcon();
 
 const getDataByDay = async (d) => {
-    let rawData = (await chrome.storage.local.get(["sumbitHistory"])).sumbitHistory;
+    let rawData = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
     let dataByDay = { date: d, totalTasks: 0, totalTime: 0, dataByTaskType: [] }
     let totalTasks = 0;
     let totalTime = 0;
