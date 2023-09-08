@@ -1,4 +1,22 @@
 $(document).ready(async function () {
+
+    chrome.runtime.sendMessage({ "checkUserStatus": true }, async (res) => {
+        if (res.status != "ok" && res.message != "You have permission to use extension.") {
+            let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
+            chrome.tabs.create({ url: errorPageUrl });
+
+            let statisticsPageUrl = chrome.runtime.getURL("/pages/statistics.html");
+
+            let tabs = await chrome.tabs.query({});
+            tabs.forEach((tab) => {
+                if (tab.url.includes(statisticsPageUrl)) {
+                    chrome.tabs.remove(tab.id, () => { });
+                }
+            });
+            return
+        }
+    })
+
     // Loading animation
     var loading = false;
     var spinner = document.getElementById("spinner");
@@ -768,18 +786,18 @@ $(document).ready(async function () {
 
 
     /******************* Click tab **************/
-    $(document).on("click", "#day-tab", ()=>{
-        if(dayChartByType == null){
+    $(document).on("click", "#day-tab", () => {
+        if (dayChartByType == null) {
             showDay(currentTime.toISODate())
         }
     })
-    $(document).on("click", "#week-tab", ()=>{
-        if(weekChartByTasks == null){
+    $(document).on("click", "#week-tab", () => {
+        if (weekChartByTasks == null) {
             showWeek(currentTime.year, currentTime.weekNumber)
         }
     })
-    $(document).on("click", "#month-tab", ()=>{
-        if(monthChartByTasks == null){
+    $(document).on("click", "#month-tab", () => {
+        if (monthChartByTasks == null) {
             showMonth(currentTime.year, currentTime.month)
         }
     })

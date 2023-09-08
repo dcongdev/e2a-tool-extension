@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    <div id="notfound" class="d-none">
+    <div id="notfound" class="d-none error">
         <div class="notfound">
             <div class="notfound-404">
                 <h1>Oops!</h1>
@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <div class="">
+    <div class="main">
         <!-- Header -->
         <div class="container-fluid header d-flex justify-content-between">
             <div class="logo">
@@ -49,12 +49,12 @@
                 </div>
             </div>
         </div>
-        <!-- Main -->
-        <div class="container-fluid main">
+        <!-- Main content -->
+        <div class="container-fluid main-content">
             <!--  -->
             <div class="tab-content container-fluid p-0" id="myTabContent">
                 <!-- Dashboard tab -->
-                <div class="tab-pane fade container-fluid" id="dashboard" role="tabpanel"
+                <div class="tab-pane fade show active container-fluid" id="dashboard" role="tabpanel"
                     aria-labelledby="dashboard-tab">
                     <!-- Current time -->
                     <div class="row">
@@ -122,7 +122,7 @@
                 </div>
                 <!--  -->
                 <!-- Settings tab -->
-                <div class="tab-pane fade container-fluid show active p-0" id="settings" role="tabpanel"
+                <div class="tab-pane fade container-fluid p-0" id="settings" role="tabpanel"
                     aria-labelledby="settings-tab">
                     <div class="row">
                         <!-- Side bar -->

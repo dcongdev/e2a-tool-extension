@@ -132,51 +132,58 @@ const setCurrSubmittedInIcon = () => {
     })
 }
 
-const checkUserStatus = async () => {
-    chrome.identity.getProfileUserInfo(async (userinfo) => {
+const checkUserStatus = async (next) => {
+    await chrome.identity.getProfileUserInfo(async (userinfo) => {
         let userEmail = userinfo.email;
         // console.log(userEmail)
+        let dt = { status: "", email: userEmail, message: "" }
+
         try {
             if (userEmail != "") {
-                let response = await fetch("http://localhost:8080/get-user-permission/" + userEmail);
+                let response = await fetch("https://extension-api.e2atool.com/get-user-permission/" + userEmail);
                 let data = await response.json();
-                console.log(response.status);
+                // console.log(response.status);
+                // console.log(data);
+
                 if (response.status == 200) {
                     if (data.status == "ok") {
-                        console.log(data.message);
+                        // console.log(data.message);
                         // setCurrSubmittedInIcon();
-                        return;
+                        dt.status = "ok";
+                        dt.message = data.message;
+                        // return dt;
+                        return next(dt);
                     }
                 }
                 else if (data.status == "error" || response.status == 403) {
-                    console.log(data.message + "NOO");
-                    if (data.message == "Your account has been deleted.") {
-                        // chrome.management.uninstallSelf();
-                    }
-                    else if (data.message == "Your account has been locked.") {
 
-                    }
-                    else if (data.message == "License expired.") {
+                    dt.status = "error";
+                    dt.message = "error";
+                    // return dt;
+                    return next(dt);
 
-                    }
-                    else if (data.message == "Email has been deleted.") {
-
-                    }
-                    else if (data.message == "Email has been locked.") {
-
-                    }
+                    // if (data.message == "Your account has been deleted.") { }
+                    // else if (data.message == "Your account has been locked.") { }
+                    // else if (data.message == "License expired.") { }
+                    // else if (data.message == "Email has been deleted.") { }
+                    // else if (data.message == "Email has been locked.") { }
                 }
             }
             else {
-                console.log("No permission to use!");
-                // chrome.management.uninstallSelf();
+                dt.status = "error";
+                dt.message = "error";
+                // return dt;
+                return next(dt);
             }
-
         }
         catch (error) {
-            return false;
+            dt.status = "error";
+            dt.message = "error";
+            // return dt;
+            return next(dt);
         }
     });
+
 }
 
 const updateSettings = async () => {
@@ -369,6 +376,14 @@ chrome.runtime.onInstalled.addListener(async (reason) => {
 
 // ============ Message listener ============
 chrome.runtime.onMessage.addListener((req, res, sendRes) => {
+
+    /**************** CHECK USER STATUS **************/
+    if (Object.getOwnPropertyNames(req) == "checkUserStatus") {
+        checkUserStatus((data) => {
+            sendRes(data);
+        })
+        return true;
+    }
 
     /*************** Receive message from EWOQ script ***************/
     // Submit

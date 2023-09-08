@@ -7,6 +7,15 @@ const extensionUrl = chrome.runtime.getURL("");
 
 $(document).ready(async function () {
 
+
+    chrome.runtime.sendMessage({ "checkUserStatus": true }, (res) => {
+        if(res.status != "ok" && res.message != "You have permission to use extension."){
+            $(".error").removeClass("d-none");
+            $(".main").addClass("d-none");
+            return
+        }
+    })
+
     // Timezone
     var response = await fetch("../../assets/js/timezone.json");
     let tzList = await response.json();
@@ -80,7 +89,6 @@ $(document).ready(async function () {
             $("#btnChangeNotiSoundTaskSubmitted").attr("checked", true);
         }
 
-        console.log(Sounds.TasksAvailable.CustomSound)
         // Select sound
         if (Sounds.TasksAvailable.CustomSound == "ON") {
             $("#radioChooseSoundCustom").attr("checked", true);
@@ -457,10 +465,10 @@ $(document).ready(async function () {
         //
         let NewDateTime = (await chrome.storage.sync.get(["DateTime"])).DateTime;
         NewDateTime.Timezone = newTimezone;
-
         await chrome.storage.sync.set({ "DateTime": NewDateTime });
 
         window.location.reload();
+        
         var tabs = await chrome.tabs.query({});
         tabs.forEach((tab) => {
             if (tab.url.includes(statisticsPageUrl)) {
