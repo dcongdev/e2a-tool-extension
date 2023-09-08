@@ -122,14 +122,9 @@ window.onload = () => {
     }
 
     //
-    const resetTaskType = () => {
-        currTaskType = null;
-    }
-
+    const resetTaskType = () => {currTaskType = null;}
     //
-    const checkNewTaskType = () => {
-        currTaskType = taskTitle.innerText;
-    }
+    const checkNewTaskType = () => {currTaskType = taskTitle.innerText;}
 
     // =========== AUTO RELOAD COUNTER ===========
     const createAutoReloadBox = () => {
