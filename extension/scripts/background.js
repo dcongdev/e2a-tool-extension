@@ -28,34 +28,7 @@ const openTestPage = () => {
     // chrome.tabs.create({ url: popupPageUrl });
     // chrome.tabs.create({ url: errorPageUrl });
 }
-openTestPage()
-
-const newSubmit = async (taskType, time) => {
-
-    let sumbitHistory = (await chrome.storage.local.get(["sumbitHistory"])).sumbitHistory;
-    let currTime = DateTime.utc().setZone("America/Los_Angeles");
-    let currDate = currTime.toISODate();
-    // console.log(currTime.toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS))
-    // Get current date index, create new if not found
-    let currDateIdx = sumbitHistory.findIndex(obj => obj.date == currDate);
-    if (currDateIdx == -1) {
-        sumbitHistory.push({ date: currDate, data: [] })
-        currDateIdx = sumbitHistory.length - 1;
-    }
-    // Get task type index, create new if not found
-    let taskTypeIdx = sumbitHistory[currDateIdx].data.findIndex(obj => obj.taskType == taskType);
-    if (taskTypeIdx == -1) {
-        sumbitHistory[currDateIdx].data.push({ taskType: taskType, tasks: 0, time: 0 })
-        taskTypeIdx = sumbitHistory[currDateIdx].data.length - 1;
-    }
-    // Increase tasks and time
-    sumbitHistory[currDateIdx].data[taskTypeIdx].tasks += 1;
-    sumbitHistory[currDateIdx].data[taskTypeIdx].time += time;
-    //
-    chrome.storage.local.set({ "sumbitHistory": sumbitHistory })
-
-}
-// newSubmit("SIgergU", 30)
+openTestPage();
 
 const setTestSubHis = async () => {
     var response = await fetch("../testdata/testNew.json");
@@ -65,12 +38,20 @@ const setTestSubHis = async () => {
         "submitHistory": testHis
     })
 };
-
 // setTestSubHis()
 
-// chrome.storage.local.get(["extensionStatus"], (items) => {
-//     console.log(items.extensionStatus)
-// })
+
+const newSubmit = async (taskType, time) => {
+    let submitHistory = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
+    let subHis = (await chrome.storage.session.get(["subHis"])).subHis;
+    let currTime = DateTime.utc().toISO();
+    submitHistory.push({ datetime: currTime, taskType: taskType, time: time })
+    //
+    subHis.push({ datetime: currTime, taskType: taskType, time: time })
+    //
+    chrome.storage.local.set({ "submitHistory": submitHistory })
+    chrome.storage.session.set({ "subHis": subHis })
+}
 
 
 // ============ FUNCTION ============
@@ -112,17 +93,15 @@ const resetCounter = () => {
 }
 
 // Set badge text
-const setCurrSubmittedInIcon = () => {
-    chrome.storage.sync.get([
-        "showTaskSubmittedInIcon"
-    ], (items) => {
-        let showTaskSubmittedInIcon = items.showTaskSubmittedInIcon;
-        if (showTaskSubmittedInIcon == "ON") {
-            chrome.storage.local.get(["currentSubmitted"], (curr) => {
-                let currentSubmitted = curr.currentSubmitted;
-                chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
-                chrome.action.setBadgeText({ text: currentSubmitted.toString() });
-            })
+const setTasksSubmittedOnIcon = () => {
+    chrome.storage.sync.get(["Statistics"], async (items) => {
+        let ShowTasksSubmittedOnIcon = items.Statistics.ShowTasksSubmittedOnIcon;
+        if (ShowTasksSubmittedOnIcon == "ON") {
+            let timezone = (await chrome.storage.sync.get(["DateTime"])).DateTime.Timezone;
+            let currDate = DateTime.utc().setZone(timezone).toISODate();
+            let data = await getDataByDay(currDate);
+            chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
+            chrome.action.setBadgeText({ text: (data.totalTasks).toString() });
 
             return
         } else {
@@ -320,27 +299,49 @@ const updateSettings = async () => {
 
 }
 
-// setCurrSubmittedInIcon();
-
-const getDataByDay = async (d) => {
-    let rawData = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
-    let dataByDay = { date: d, totalTasks: 0, totalTime: 0, dataByTaskType: [] }
+// DAY
+const getDataByDay = async (date) => {
+    let subHis = (await chrome.storage.session.get(["subHis"])).subHis;
+    // let subHis = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
+    let timezone = (await chrome.storage.sync.get(["DateTime"])).DateTime.Timezone;
+    let dataByDay = { date: date, totalTasks: 0, totalTime: 0 };
+    //
     let totalTasks = 0;
     let totalTime = 0;
-    let idx = rawData.findIndex(e => e.date == d);
-    if (idx == -1) { return dataByDay; }
-    //
-    for (let i = 0; i < rawData[idx].data.length; i++) {
-        totalTasks += rawData[idx].data[i].tasks;
-        totalTime += rawData[idx].data[i].time;
+    // Get data
+    if (subHis == null || subHis == []) { return dataByDay; }
+    for (let i = 0; i < subHis.length; i++) {
+        let taskDate = DateTime.fromISO(subHis[i].datetime).setZone(timezone);
+        if (taskDate.toISODate() == date) {
+            totalTasks += 1;
+            totalTime += subHis[i].time;
+        }
     }
+    //
     dataByDay.totalTasks = totalTasks;
     dataByDay.totalTime = totalTime;
-    dataByDay.dataByTaskType = rawData[idx].data;
+    // console.log(dataByDay)
     return dataByDay;
-}
+};
 
-// getDataByDay("2023-09-03")
+
+const getSubHisToSessionStorage = async () => {
+    let submitHistory = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
+    let subHis = [];
+    // Get data
+    if (submitHistory == null || submitHistory == []) {
+        chrome.storage.session.set({ "subHis": [] });
+    }
+    let startDate = DateTime.utc().minus({ days: 3 }).toISODate();
+    // console.log(startDate)
+    for (let i = 0; i < submitHistory.length; i++) {
+        let taskDate = DateTime.fromISO(submitHistory[i].datetime).toUTC();
+        if (taskDate.toISODate() > startDate) {
+            subHis.push(submitHistory[i])
+        }
+    }
+    chrome.storage.session.set({ "subHis": subHis });
+}
 
 /* 
 - Check if the user's email address is on the list of authorized users to install and use this extension 
@@ -360,19 +361,103 @@ chrome.runtime.onInstalled.addListener(async (reason) => {
     exitsNotiSound.push(["Telephone ring", "telephone-ring.mp3"]);
     // Install
     if (reason.reason == "install") {
-        // await checkUserStatus();
-        chrome.storage.local.set({ "extensionStatus": "OFF", "sumbitHistory": [], "soundExists": exitsNotiSound });
         await updateSettings();
+        await checkUserStatus(async (res) => {
+            if (res.status != "ok" && res.message != "You have permission to use extension.") {
+                chrome.storage.session.set({
+                    "userStatus": {
+                        status: "error",
+                        lastChecked: DateTime.utc().toISO()
+                    }
+                });
+                let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
+                chrome.tabs.create({ url: errorPageUrl });
+                chrome.action.setBadgeBackgroundColor({ color: "red" });
+                chrome.action.setBadgeText({ text: "!" });
+                return
+            }
+            chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
+            chrome.action.setBadgeText({ text: "" });
+            chrome.storage.session.set({
+                "userStatus": {
+                    status: "ok",
+                    lastChecked: DateTime.utc().toISO()
+                }
+            });
+
+            await getSubHisToSessionStorage();
+            setTasksSubmittedOnIcon();
+
+        });
+        //
+        chrome.storage.local.set({ "extensionStatus": "ON", "sumbitHistory": [], "soundExists": exitsNotiSound });
     }
     // Update
     if (reason.reason == "update") {
-        // await checkUserStatus();
         await updateSettings();
-        // setCurrSubmittedInIcon();
+        await checkUserStatus(async (res) => {
+            chrome.storage.session.set({
+                "userStatus": {
+                    status: "error",
+                    lastChecked: DateTime.utc().toISO()
+                }
+            });
+            if (res.status != "ok" && res.message != "You have permission to use extension.") {
+                let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
+                chrome.tabs.create({ url: errorPageUrl });
+                chrome.action.setBadgeBackgroundColor({ color: "red" });
+                chrome.action.setBadgeText({ text: "!" });
+                return
+            }
+            chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
+            chrome.action.setBadgeText({ text: "" });
+            //
+            chrome.storage.session.set({
+                "userStatus": {
+                    status: "ok",
+                    lastChecked: DateTime.utc().toISO()
+                }
+            });
+
+            await getSubHisToSessionStorage();
+            setTasksSubmittedOnIcon();
+        });
+
     }
 });
 
 
+chrome.runtime.onStartup.addListener(async () => {
+    await getSubHisToSessionStorage();
+    // Check status
+    await checkUserStatus(async (res) => {
+        if (res.status != "ok" && res.message != "You have permission to use extension.") {
+            chrome.storage.session.set({
+                "userStatus": {
+                    status: "error",
+                    lastChecked: DateTime.utc().toISO()
+                }
+            });
+            //
+            let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
+            chrome.tabs.create({ url: errorPageUrl });
+            chrome.action.setBadgeBackgroundColor({ color: "red" });
+            chrome.action.setBadgeText({ text: "!" });
+            return
+        }
+        chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
+        chrome.action.setBadgeText({ text: "" });
+        chrome.storage.session.set({
+            "userStatus": {
+                status: "error",
+                lastChecked: DateTime.utc().toISO()
+            }
+        });
+        await getSubHisToSessionStorage();
+        setTasksSubmittedOnIcon();
+    });
+
+});
 
 // ============ Message listener ============
 chrome.runtime.onMessage.addListener((req, res, sendRes) => {
@@ -385,12 +470,20 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
         return true;
     }
 
+    // Set tasks submitted on icon
+    if (Object.getOwnPropertyNames(req) == "setTaskSubmittedOnIcon") {
+        setTasksSubmittedOnIcon();
+        sendRes('OK')
+        return true;
+    }
+
     /*************** Receive message from EWOQ script ***************/
     // Submit
     if (Object.getOwnPropertyNames(req) == "submitted") {
         let taskData = req.submitted;
         newSubmit(taskData.taskType, taskData.time);
         sendRes(taskData);
+        setTasksSubmittedOnIcon();
         return true;
     }
 
@@ -455,7 +548,6 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
 
 });
 
-
 // ============ Context menu ================
 // Create
 chrome.contextMenus.removeAll(() => {
@@ -474,6 +566,7 @@ chrome.contextMenus.removeAll(() => {
     });
 
 });
+
 // Context menu click event
 chrome.contextMenus.onClicked.addListener((id, tab) => {
     // 1. Open Statistics page
