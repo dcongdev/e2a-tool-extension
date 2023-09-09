@@ -6,13 +6,6 @@ var DateTime = luxon.DateTime;
 const extensionUrl = chrome.runtime.getURL("");
 $(document).ready(async function () {
 
-    $(document).on("click", "#btn-test", () => {
-        chrome.runtime.sendMessage({ "submitted": {
-            taskType: "test",
-            time: 10
-        } }, (res) => {})
-    })
-
     // Loading animation
     var loading = false;
     var spinner = document.getElementById("spinner");
