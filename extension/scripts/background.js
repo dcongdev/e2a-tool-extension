@@ -41,24 +41,10 @@ const setTestSubHis = async () => {
 // setTestSubHis()
 
 
-const newSubmit = async (taskType, time) => {
-    let submitHistory = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
-    let subHis = (await chrome.storage.session.get(["subHis"])).subHis;
-    let currTime = DateTime.utc().toISO();
-    submitHistory.push({ datetime: currTime, taskType: taskType, time: time })
-    //
-    subHis.push({ datetime: currTime, taskType: taskType, time: time })
-    //
-    chrome.storage.local.set({ "submitHistory": submitHistory })
-    chrome.storage.session.set({ "subHis": subHis })
-}
-
-
 // ============ FUNCTION ============
 // Format time to string
 const formatTime = (time) => {
     let timeToDatetime = new Date(time);
-
     let formatedTime =
         timeToDatetime.getDate() +
         "/" +
@@ -75,21 +61,17 @@ const formatTime = (time) => {
     return formatedTime;
 }
 
-const resetCounter = () => {
-    chrome.storage.local.get([
-        "currentSubmitted",
-        "showTaskSubmittedInIcon"
-    ], (items) => {
-        let currentSubmitted = items.currentSubmitted;
-        let showTaskSubmittedInIcon = items.showTaskSubmittedInIcon;
-        if (!showTaskSubmittedInIcon == "OFF") {
-            chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
-            chrome.action.setBadgeText({ text: "" });
-            return
-        }
-        chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
-        chrome.action.setBadgeText({ text: currentSubmitted.toString() });
-    })
+// Add submit to history
+const newSubmit = async (taskType, time) => {
+    let submitHistory = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
+    let subHis = (await chrome.storage.session.get(["subHis"])).subHis;
+    let currTime = DateTime.utc().toISO();
+    submitHistory.push({ datetime: currTime, taskType: taskType, time: time })
+    //
+    subHis.push({ datetime: currTime, taskType: taskType, time: time })
+    //
+    chrome.storage.local.set({ "submitHistory": submitHistory })
+    chrome.storage.session.set({ "subHis": subHis })
 }
 
 // Set badge text
@@ -111,6 +93,7 @@ const setTasksSubmittedOnIcon = () => {
     })
 }
 
+// Check user permission
 const checkUserStatus = async (next) => {
     await chrome.identity.getProfileUserInfo(async (userinfo) => {
         let userEmail = userinfo.email;
@@ -165,6 +148,7 @@ const checkUserStatus = async (next) => {
 
 }
 
+// Update user settings
 const updateSettings = async () => {
     var newSets = {
         "Statistics": {
@@ -299,7 +283,7 @@ const updateSettings = async () => {
 
 }
 
-// DAY
+// Get submit history by day
 const getDataByDay = async (date) => {
     let subHis = (await chrome.storage.session.get(["subHis"])).subHis;
     // let subHis = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
@@ -324,10 +308,11 @@ const getDataByDay = async (date) => {
     return dataByDay;
 };
 
-
+// Get submit history from local storage and set to session storage
 const getSubHisToSessionStorage = async () => {
     let submitHistory = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
     let subHis = [];
+
     // Get data
     if (submitHistory == null || submitHistory == []) {
         chrome.storage.session.set({ "subHis": [] });
@@ -343,10 +328,6 @@ const getSubHisToSessionStorage = async () => {
     chrome.storage.session.set({ "subHis": subHis });
 }
 
-/* 
-- Check if the user's email address is on the list of authorized users to install and use this extension 
-- If the user does not have permission, this extension will automatically uninstall itself.
-*/
 
 // ============ On install listener ============
 chrome.runtime.onInstalled.addListener(async (reason) => {
@@ -362,6 +343,7 @@ chrome.runtime.onInstalled.addListener(async (reason) => {
     // Install
     if (reason.reason == "install") {
         await updateSettings();
+        await chrome.storage.local.set({ "extensionStatus": "ON", "submitHistory": [], "soundExists": exitsNotiSound });
         await checkUserStatus(async (res) => {
             if (res.status != "ok" && res.message != "You have permission to use extension.") {
                 chrome.storage.session.set({
@@ -390,7 +372,6 @@ chrome.runtime.onInstalled.addListener(async (reason) => {
 
         });
         //
-        chrome.storage.local.set({ "extensionStatus": "ON", "sumbitHistory": [], "soundExists": exitsNotiSound });
     }
     // Update
     if (reason.reason == "update") {
@@ -426,7 +407,7 @@ chrome.runtime.onInstalled.addListener(async (reason) => {
     }
 });
 
-
+// On startup
 chrome.runtime.onStartup.addListener(async () => {
     await getSubHisToSessionStorage();
     // Check status
@@ -458,6 +439,7 @@ chrome.runtime.onStartup.addListener(async () => {
     });
 
 });
+
 
 // ============ Message listener ============
 chrome.runtime.onMessage.addListener((req, res, sendRes) => {
@@ -491,62 +473,85 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
     // GET ALL SETTINGS
     if (Object.getOwnPropertyNames(req) == "getAllSettings") {
         if (req.getAllSettings == true) {
-            chrome.storage.local.get([
-                "extensionStatus",
-                "currentSubmitted",
-                "soundExists"
-            ], (localSettings) => {
-                chrome.storage.sync.get([
-                    "autoCount",
-                    "countTimeInTask",
-                    "autoReload",
-                    "taskAvailNoti"
-                ], (syncSettings) => {
-                    let allSettings = { ...localSettings, ...syncSettings };
+            chrome.storage.local.get(["extensionStatus", "soundExists"],
+                async (localSettings) => {
+                    let syncSettings = await chrome.storage.sync.get(null, () => { });
+                    let sessionSettings = await chrome.storage.session.get(null, () => { });
+                    let allSettings = { ...localSettings, ...syncSettings, ...sessionSettings };
                     // console.log(allSettings)
                     sendRes(allSettings);
                 })
-            })
         }
         return true;
     }
 
-    // 2. Get noti sound
-    if (Object.getOwnPropertyNames(req) == "getNotiSound") {
-        if (req.getNotiSound == null) {
-            chrome.storage.sync.get(["taskAvailNoti"], (items) => {
-                let soundName = items.taskAvailNoti.notiSound.soundName;
-                sendRes({
-                    "soundURL": extensionUrl + "res/noti-audio/" + soundName,
-                    "loop": items.taskAvailNoti.notiSound.loop
+    // 1. Get noti sound
+    if (Object.getOwnPropertyNames(req) == "getNotiTasksAvailableSound") {
+        chrome.storage.sync.get(["Sounds"], (items) => {
+            let soundName = items.Sounds.TasksAvailable.SoundName;
+            let soundURL = extensionUrl + "res/noti-audio/" + soundName;
+            if (items.Sounds.TasksAvailable.CustomSound == "ON") {
+                soundURL = items.Sounds.TasksAvailable.CustomSoundUrl;
+            }
+            sendRes({
+                "soundURL": soundURL,
+                "loop": items.Sounds.TasksAvailable.loop
+            });
+        })
+        return true;
+    }
+
+    // 2. Get task is submitted noti sound
+    if (Object.getOwnPropertyNames(req) == "getNotiTasksAvailableSound") {
+        chrome.storage.sync.get(["Sounds"], (items) => {
+            let soundName = "tick.mp3";
+            let soundURL = extensionUrl + "res/noti-audio/" + soundName;
+            sendRes({ "soundURL": soundURL });
+        })
+        return true;
+    }
+
+    // 3. Create noti tasks available
+    if (Object.getOwnPropertyNames(req) == "createNotiTasksAvailable") {
+        chrome.storage.sync.get(["Notifications"], (items) => {
+            if (items.Notifications.TasksAvailable == "ON") {
+                chrome.identity.getProfileUserInfo((userinfo) => {
+                    let userEmail = userinfo.email;
+                    chrome.notifications.create({
+                        title: "Task available!",
+                        message: "Account: " + userEmail,
+                        iconUrl: "/assets/icons/org/icon-black-round.png",
+                        type: "basic"
+                    })
                 });
-            })
-        }
-        else {
-            let soundName = req.getNotiSound;
-            sendRes(extensionUrl + "res/noti-audio/" + soundName);
-
-        }
+            }
+        })
         return true;
     }
 
-    // 3. Create system task noti
-    if (Object.getOwnPropertyNames(req) == "createSystemNotiTask") {
-        if (req.createSystemNotiTask == true) {
-            chrome.storage.sync.get(["taskAvailNoti"], (items) => {
-                chrome.notifications.create({
-                    title: items.taskAvailNoti.systemNoti.title,
-                    message: items.taskAvailNoti.systemNoti.content,
-                    iconUrl: "/assets/icons/org/icon-black-round.png",
-                    type: "basic"
-                })
-            })
-        }
-        return true;
+    // 4. Create noti task is submitted
+    if (Object.getOwnPropertyNames(req) == "createNotiTaskIsSubmitted") {
+        chrome.storage.sync.get(["Notifications"], (items) => {
+            if (items.Notifications.TaskIsSubmitted == "ON") {
 
+                chrome.identity.getProfileUserInfo((userinfo) => {
+                    let userEmail = userinfo.email;
+                    chrome.notifications.create({
+                        title: "Task is submitted!",
+                        message: "Account: " + userEmail,
+                        iconUrl: "/assets/icons/org/icon-black-round.png",
+                        type: "basic"
+                    })
+                });
+
+            }
+        })
+        return true;
     }
 
 });
+
+
 
 // ============ Context menu ================
 // Create
