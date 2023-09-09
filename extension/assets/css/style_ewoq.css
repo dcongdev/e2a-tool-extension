@@ -1,5 +1,6 @@
 /* Task time counter */
 #task-time {
+  left: 42vw;
   top: 10px;
   width: fit-content;
   min-width: 100px;
@@ -22,6 +23,42 @@
   border-style: solid;
   border-color: transparent transparent rgb(68, 68, 68) transparent;
 }
+
+/* Auto submit box */
+#auto-submit-box {
+  left: 65vw;
+  top: 10px;
+  width: 150px;
+  height: 93px;
+  background-color: rgb(68, 68, 68);
+  position: fixed;
+  border-radius: 10px;
+  text-align: center;
+  padding: 9px 10px 9px 10px;
+}
+
+#auto-submit-box>p {
+  margin-bottom: 5px;
+}
+
+#auto-submit-box::after {
+  right: 40%;
+  content: "";
+  position: absolute;
+  top: -30px;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent transparent rgb(68, 68, 68) transparent;
+}
+
+#btn-cancel-auto-submit {
+  color: white;
+  margin-top: 0px;
+  font-weight: 800;
+  text-shadow: 1px 1px #992400;
+}
+
+
 
 /* Task available notification box */
 #task-avail-noti-box {
@@ -50,6 +87,10 @@
   border-color: transparent transparent rgb(68, 68, 68) transparent;
   left: 40%;
 }
+
+
+
+
 
 /* Auto reload box */
 #auto-reload-box {
