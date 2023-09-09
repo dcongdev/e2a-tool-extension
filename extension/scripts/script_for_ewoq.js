@@ -294,6 +294,7 @@ window.onload = () => {
         let res = await chrome.runtime.sendMessage({ "getAllSettings": true })
         let extensionStatus = res.extensionStatus;
         //
+        let Notifications = res.Notifications;
         let Sounds = res.Sounds;
         let Timing = res.Timing;
         let Automation = res.Automation;
@@ -442,8 +443,10 @@ window.onload = () => {
             // console.log(timeSubmit)
             // console.log(timeRemain)
             showAutoSubmitBox(timeRemain)
-            if (timeRemain == 0) {
-                document.getElementsByClassName("submitTaskButton")[0].click();
+            if (timeRemain <= 0) {
+                if(submitButton != null){submitButton.click()}
+                // document.getElementsByClassName("submitTaskButton")[0].click();
+                hideAutoSubmitBox();
             }
 
         }
