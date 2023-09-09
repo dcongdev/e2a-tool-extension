@@ -474,12 +474,14 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
     if (Object.getOwnPropertyNames(req) == "getAllSettings") {
         if (req.getAllSettings == true) {
             chrome.storage.local.get(["extensionStatus", "soundExists"],
-                async (localSettings) => {
-                    let syncSettings = await chrome.storage.sync.get(null, () => { });
-                    let sessionSettings = await chrome.storage.session.get(null, () => { });
-                    let allSettings = { ...localSettings, ...syncSettings, ...sessionSettings };
-                    // console.log(allSettings)
-                    sendRes(allSettings);
+                (localSettings) => {
+                    chrome.storage.sync.get(null, (syncSettings) => {
+                        chrome.storage.session.get(null, (sessionSettings) => {
+                            let allSettings = { ...localSettings, ...syncSettings, ...sessionSettings };
+                            // console.log(allSettings);
+                            sendRes(allSettings);
+                        });
+                    });
                 })
         }
         return true;
@@ -488,13 +490,13 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
     // 1. Get noti sound
     if (Object.getOwnPropertyNames(req) == "getNotiTasksAvailableSound") {
         chrome.storage.sync.get(["Sounds"], (items) => {
-            let soundName = items.Sounds.TasksAvailable.SoundName;
-            let soundURL = extensionUrl + "res/noti-audio/" + soundName;
+            let SoundName = items.Sounds.TasksAvailable.SoundName;
+            let SoundURL = extensionUrl + "res/noti-audio/" + SoundName;
             if (items.Sounds.TasksAvailable.CustomSound == "ON") {
-                soundURL = items.Sounds.TasksAvailable.CustomSoundUrl;
+                SoundURL = items.Sounds.TasksAvailable.CustomSoundUrl;
             }
             sendRes({
-                "soundURL": soundURL,
+                "SoundURL": SoundURL,
                 "loop": items.Sounds.TasksAvailable.loop
             });
         })
@@ -502,7 +504,7 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
     }
 
     // 2. Get task is submitted noti sound
-    if (Object.getOwnPropertyNames(req) == "getNotiTasksAvailableSound") {
+    if (Object.getOwnPropertyNames(req) == "getNotiTaskIsSubmittedSound") {
         chrome.storage.sync.get(["Sounds"], (items) => {
             let soundName = "tick.mp3";
             let soundURL = extensionUrl + "res/noti-audio/" + soundName;
