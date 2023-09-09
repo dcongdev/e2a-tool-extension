@@ -5,6 +5,14 @@
 var DateTime = luxon.DateTime;
 const extensionUrl = chrome.runtime.getURL("");
 $(document).ready(async function () {
+
+    $(document).on("click", "#btn-test", () => {
+        chrome.runtime.sendMessage({ "submitted": {
+            taskType: "test",
+            time: 10
+        } }, (res) => {})
+    })
+
     // Loading animation
     var loading = false;
     var spinner = document.getElementById("spinner");
@@ -19,6 +27,13 @@ $(document).ready(async function () {
         }
     }, 100)
 
+    chrome.storage.session.get(null, (items) => {
+        // console.log(items)
+        if (items.userStatus.status == "error") {
+            return
+        }
+    })
+
     // Check permission
     loading = true
     setTimeout(() => {
@@ -28,13 +43,26 @@ $(document).ready(async function () {
                 $(".main").addClass("d-none");
                 chrome.action.setBadgeBackgroundColor({ color: "red" });
                 chrome.action.setBadgeText({ text: "!" });
+                chrome.storage.session.set({
+                    "userStatus": {
+                        status: "error",
+                        lastChecked: DateTime.utc().toISO()
+                    }
+                });
                 return
             }
-            else{
+            else {
                 $(".error").addClass("d-none");
                 $(".main").removeClass("d-none");
                 chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
                 chrome.action.setBadgeText({ text: "" });
+                chrome.storage.session.set({
+                    "userStatus": {
+                        status: "ok",
+                        lastChecked: DateTime.utc().toISO()
+                    }
+                });
+                chrome.runtime.sendMessage({ "setTaskSubmittedOnIcon": true }, (res) => {})
             }
             loading = false
         })
@@ -106,6 +134,10 @@ $(document).ready(async function () {
         let totalTime = 0;
 
         // Get data
+        if (submitHistory == null || submitHistory == []) {
+            return dataByDay;
+        }
+        
         for (let i = 0; i < submitHistory.length; i++) {
             let taskDate = DateTime.fromISO(submitHistory[i].datetime).setZone(
                 timezone
@@ -280,10 +312,12 @@ $(document).ready(async function () {
         if ($("#btnChangeShowTasksOnIcon").is(":checked")) {
             Statistics.ShowTasksSubmittedOnIcon = "ON";
             chrome.storage.sync.set({ "Statistics": Statistics });
+            chrome.runtime.sendMessage({ "setTaskSubmittedOnIcon": true }, (res) => {})
         }
         else {
             Statistics.ShowTasksSubmittedOnIcon = "OFF";
             chrome.storage.sync.set({ "Statistics": Statistics });
+            chrome.runtime.sendMessage({ "setTaskSubmittedOnIcon": true }, (res) => {})
         }
     })
 

@@ -2,6 +2,12 @@ $(document).ready(async function () {
 
     await chrome.runtime.sendMessage({ "checkUserStatus": true }, async (res) => {
         if (res.status != "ok" && res.message != "You have permission to use extension.") {
+            chrome.storage.session.set({
+                "userStatus": {
+                    status: "error",
+                    lastChecked: DateTime.utc().toISO()
+                }
+            });
             chrome.action.setBadgeBackgroundColor({ color: "red" });
             chrome.action.setBadgeText({ text: "!" });
             let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
@@ -18,6 +24,13 @@ $(document).ready(async function () {
         else {
             chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
             chrome.action.setBadgeText({ text: "" });
+            chrome.storage.session.set({
+                "userStatus": {
+                    status: "ok",
+                    lastChecked: DateTime.utc().toISO()
+                }
+            });
+            chrome.runtime.sendMessage({ "setTaskSubmittedOnIcon": true }, (res) => {})
         }
     })
 
