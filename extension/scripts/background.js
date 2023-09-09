@@ -505,12 +505,11 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
 
     // 2. Get task is submitted noti sound
     if (Object.getOwnPropertyNames(req) == "getNotiTaskIsSubmittedSound") {
-        chrome.storage.sync.get(["Sounds"], (items) => {
-            let soundName = "tick.mp3";
-            let soundURL = extensionUrl + "res/noti-audio/" + soundName;
-            sendRes({ "soundURL": soundURL });
-        })
-        return true;
+        let SoundName = "tick.mp3";
+        let SoundURL = extensionUrl + "res/noti-audio/" + SoundName;
+        // console.log(SoundURL)
+        sendRes({ "SoundURL": SoundURL });
+        return true
     }
 
     // 3. Create noti tasks available
@@ -535,7 +534,6 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
     if (Object.getOwnPropertyNames(req) == "createNotiTaskIsSubmitted") {
         chrome.storage.sync.get(["Notifications"], (items) => {
             if (items.Notifications.TaskIsSubmitted == "ON") {
-
                 chrome.identity.getProfileUserInfo((userinfo) => {
                     let userEmail = userinfo.email;
                     chrome.notifications.create({

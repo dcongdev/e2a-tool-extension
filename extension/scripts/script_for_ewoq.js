@@ -76,20 +76,26 @@ window.onload = () => {
     // Submit button click event
     const submitButtonClick = () => {
         if (isSubmitBtnEnabled) {
-            let submitData = {
-                time: countTimeClockCounter,
-                taskType: currTaskType
-            }
+            let submitData = { time: countTimeClockCounter, taskType: currTaskType }
             chrome.runtime.sendMessage({ "submitted": submitData }, (response) => {
                 console.log(response)
                 isStartNewTask = true;
                 resetCountTimeClockCounter();
+            });
+            //
+            chrome.runtime.sendMessage({ "createNotiTaskIsSubmitted": true })
+            // Play sound
+            chrome.runtime.sendMessage({ "getNotiTaskIsSubmittedSound": true }, (res) => {
+                let SoundURL = res.SoundURL;
+                let au = document.createElement('audio');
+                
+                au.innerHTML = '<source src="' + SoundURL + '" type="audio/mpeg" />'
+                au.play();
             })
         }
     }
     eventHandler = (e) => { if (e.keyCode == 13 && e.ctrlKey) { submitButtonClick() } }
     window.addEventListener('keydown', eventHandler, false);
-
 
 
     // =========== TASK TIME COUNTER ===========
