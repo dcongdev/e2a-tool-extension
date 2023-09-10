@@ -204,12 +204,12 @@ window.onload = () => {
         let notiBox = document.createElement("div");
         notiBox.innerHTML = '<div id="task-avail-noti-box" class="notranslate" style="display:none">'
             + '<div>'
-            + '<p style="margin: 5px; display: inline;color: white; font-size: large;font-weight: 900;">Attention</p>'
+            + '<p style="margin: 5px; display: inline;color: white; font-size: large;font-weight: 900;">Ting ting</p>'
             + '<br>'
-            + '<p style="margin: 5px; display: inline;color: white;">Task available</p>'
             + '<br>'
-            + '<img id="btn-close-task-noti" type="button" style="cursor: pointer;width: 50px" src="' + extensionUrl + 'assets/images/cancel-icon-circle.png" alt="">'
-            + '<div><p style="margin: 0 0 10px 0; color: white; font-size: 12px;"></p></div>'
+            + '<p style="margin: 5px; display: inline;color: white;margin: 15px 0 10px 0;">There are tasks available!</p>'
+            + '<br>'
+            + '<img id="btn-close-task-noti" type="button" style="cursor: pointer;width: 50px;margin: 15px 0 10px 0;" src="' + extensionUrl + 'assets/images/cancel-icon-circle.png" alt="">'
             + '</div>'
             + '</div>';
         headerContainer.appendChild(notiBox);
