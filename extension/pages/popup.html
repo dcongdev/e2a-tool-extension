@@ -15,7 +15,7 @@
     <script src="../libs/jquery/jquery-3.7.0.min.js"></script>
     <script src="../libs/luxon/luxon.min.js"></script>
     <script src="../libs/chartjs/chart.umd.min.js"></script>
-    <!-- <script src="../assets/js/popup.js"></script> -->
+    <script src="../assets/js/popup.js"></script>
 </head>
 
 <body>
@@ -63,7 +63,7 @@
         <div class="container-fluid main-content tab-content p-0" id="myTabContent">
 
             <!-- Dashboard tab -->
-            <div class="tab-pane fade container-fluid" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+            <div class="tab-pane fade show active container-fluid" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                 <div class="row">
 
                     <!-- Timezone -->
@@ -135,7 +135,7 @@
 
 
             <!-- Settings tab -->
-            <div class="tab-pane fade show active container-fluid p-0" id="settings" role="tabpanel"
+            <div class="tab-pane fade container-fluid p-0" id="settings" role="tabpanel"
                 aria-labelledby="settings-tab">
                 <div class="row m-0">
 
@@ -203,7 +203,7 @@
                     <div class="col-8 tab-content" style="width: 70%;">
 
                         <!-- Statistics tab -->
-                        <div class="tab-pane fade container-fluid p-0 pt-3" id="statistics" role="tabpanel"
+                        <div class="tab-pane fade show active container-fluid p-0 pt-3" id="statistics" role="tabpanel"
                             aria-labelledby="statistics-tab">
                             <!-- <h4>Statistics</h4> -->
                             <div class="setting-options col-md-12 p-3 pb-1 setting-items container-fluid">
@@ -364,7 +364,7 @@
                         </div>
 
                         <!-- Automation tab -->
-                        <div class="tab-pane fade show active container-fluid p-0 pt-3" id="automation" role="tabpanel"
+                        <div class="tab-pane fade container-fluid p-0 pt-3" id="automation" role="tabpanel"
                             aria-labelledby="automation-tab">
                             <!-- <h4>Automation</h4> -->
                             <!-- Auto reload -->
@@ -381,14 +381,10 @@
                                             <select disabled class="form-select" id="autoReloadSelectHour"
                                                 style="width: 50px;height: 35px;">
 
-                                                <option value="">30</option>
-
                                             </select>
                                             <u class="mt-1 ms-0 me-0">h</u>
                                             <select disabled class="form-select" id="autoReloadSelectMin"
                                                 style="width: 45px;height: 35px;">
-
-                                                <option value="">30</option>
 
 
                                             </select>
@@ -417,14 +413,10 @@
                                             <select disabled class="form-select pe-0" id="autoSubmitSelectMin"
                                                 style="width: 45px;height: 35px;">
 
-                                                <option value="">30</option>
-
                                             </select>
                                             <span class="mt-1 ms-0 me-0">min</span>
                                             <select disabled class="form-select pe-0" id="autoSubmitSelectSec"
                                                 style="width: 50px;height: 35px;">
-
-                                                <option value="">30</option>
 
                                             </select>
                                             <span class="mt-1 ms-0">sec</span>
