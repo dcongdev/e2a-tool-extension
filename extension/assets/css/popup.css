@@ -15,23 +15,26 @@
   border-radius: 10px;
 }
 
-body {
-  width: 700px;
-  height: 510px;
-  /* background-color: rgb(27, 27, 27); */
-  background-color: white;
-  /* color: white; */
-}
-
-/* *********** ERROR ************ */
 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
+/* *********** BODY ************ */
 body {
+  width: 630px;
+  height: 480px;
+  background-color: white;
   padding: 0;
   margin: 0;
+  font-size: 14px;
+}
+
+
+/* *********** ERROR *********** */
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 #notfound {
@@ -119,9 +122,49 @@ body {
   }
 }
 
-/*  */
+
+
+
+/* *********** LOADER *********** */
+/* (A) LOADING SPINNER */
+#spinner {
+  /* (A1) COVER FULL SCREEN */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 0.2s;
+
+  /* (A2) CENTER SPINNER */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* (A3) HIDE BY DEFAULT */
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* (A4) SHOW SPINNER */
+#spinner.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+#spinner > img {
+  width: 150px;
+}
+
+
+
+
+/* *********** MAIN *********** */
+/* **** Header **** */
 .header {
-  height: 50px;
+  height: 40px;
   background-color: rgb(243, 243, 243);
   /* background-color: rgb(63, 63, 63); */
 }
@@ -136,89 +179,11 @@ body {
   align-items: center;
 }
 
-/*  */
-.main-content {
-  height: 400px;
-  width: 680px;
-  margin: 5px 10px;
-  border-radius: 5px;
-  border: 2px solid;
-  /* border-color: rgb(63, 63, 63); */
-  /* border-color: rgba(221, 221, 221, 0.788); */
-  border-color: rgb(228, 228, 228);
-  overflow-y: auto;
-  /* overflow-x: hidden; */
-}
 
-/* Dashboard */
-.dashboard-card {
-  /* margin: 20px; */
-  height: 130px;
-  border-radius: 10px;
-}
 
-#btn-open-detailed-statistic {
-  width: max-content;
-  padding: 5px;
-  border-radius: 50px;
-  border: none;
-}
-
-/* ========= Setting ============*/
-
-/* Side bar */
-.side-bar {
-  border-right: solid 1px;
-  height: 328px;
-  width: fit-content;
-  margin-right: 0px;
-}
-
-.side-bar-ul .nav-item .nav-link {
-  /* background-color: rgb(243, 243, 243); */
-  color: black;
-  border: none;
-  /* font-size: 20px; */
-  /* padding: 0px 20px; */
-  margin-top: 3px;
-  margin-bottom: 15px;
-  height: 44px;
-  border-radius: 10px;
-}
-
-.side-bar-ul .nav-item .nav-link.active {
-  background-color: white;
-  /* background-color: rgb(27, 27, 27); */
-}
-
-.side-bar-ul .nav-item .nav-link.active::after {
-  content: "";
-  width: 70%;
-  background-color: rgb(98, 146, 236);
-  height: 4px;
-  /* margin: 0px auto auto; */
-  margin-left: 20px;
-  display: block;
-  border-radius: 20px;
-}
-
-/* ==== */
-.setting-items {
-  border-radius: 5px;
-  border-bottom: 1px solid;
-  /* border-color: rgba(236, 236, 236, 0.87); */
-  border-color: rgba(184, 184, 184, 0.87);
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-}
-
-.setting-items > div > div > i {
-  font-size: 25px;
-  font-weight: bold;
-}
-
-/* ====================== */
+/* **** Menu bar **** */
 .menu {
-  min-height: 50px;
+  min-height: 40px;
   background-color: rgb(243, 243, 243);
   /* background-color: rgb(63, 63, 63); */
 }
@@ -256,7 +221,88 @@ body {
   border-radius: 20px;
 }
 
-/*  */
+
+/* **** Main content **** */
+.main-content {
+  height: 380px;
+  width: 610px;
+  margin: 5px 10px;
+  border-radius: 5px;
+  border: 2px solid;
+  /* border-color: rgb(63, 63, 63); */
+  /* border-color: rgba(221, 221, 221, 0.788); */
+  border-color: rgb(228, 228, 228);
+  overflow-y: auto;
+  /* overflow-x: hidden; */
+}
+
+
+/** Dashboard **/
+.dashboard-card {
+  /* margin: 20px; */
+  height: 130px;
+  border-radius: 10px;
+}
+
+#btn-open-detailed-statistic {
+  width: max-content;
+  padding: 5px;
+  border-radius: 50px;
+  border: none;
+}
+
+
+/** Settings **/
+/* Side bar */
+.side-bar {
+  border-right: solid 1px;
+  height: 328px;
+  width: fit-content;
+  margin-right: 0px;
+}
+
+.side-bar-ul .nav-item .nav-link {
+  /* background-color: rgb(243, 243, 243); */
+  color: black;
+  border: none;
+  /* font-size: 20px; */
+  /* padding: 0px 20px; */
+  margin-top: 3px;
+  margin-bottom: 15px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.side-bar-ul .nav-item .nav-link.active {
+  background-color: white;
+  /* background-color: rgb(27, 27, 27); */
+}
+
+.side-bar-ul .nav-item .nav-link.active::after {
+  content: "";
+  width: 70%;
+  background-color: rgb(98, 146, 236);
+  height: 4px;
+  /* margin: 0px auto auto; */
+  margin-left: 20px;
+  display: block;
+  border-radius: 20px;
+}
+
+/* Settings Items */
+
+.setting-items {
+  border-radius: 5px;
+  border-bottom: 1px solid;
+  /* border-color: rgba(236, 236, 236, 0.87); */
+  border-color: rgba(184, 184, 184, 0.87);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.setting-items > div > div > i {
+  font-size: 25px;
+  font-weight: bold;
+}
 
 #autoReloadSelectHour,
 #autoReloadSelectMin,
@@ -271,35 +317,5 @@ body {
   border-radius: 5px;
 }
 
-/* LOADER */
-/* (A) LOADING SPINNER */
-#spinner {
-  /* (A1) COVER FULL SCREEN */
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 0.2s;
 
-  /* (A2) CENTER SPINNER */
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  /* (A3) HIDE BY DEFAULT */
-  visibility: hidden;
-  opacity: 0;
-}
-
-/* (A4) SHOW SPINNER */
-#spinner.show {
-  visibility: visible;
-  opacity: 1;
-}
-
-#spinner > img {
-  width: 150px;
-}
