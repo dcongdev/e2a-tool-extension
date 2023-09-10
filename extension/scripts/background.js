@@ -41,7 +41,67 @@ const setTestSubHis = async () => {
 // setTestSubHis()
 
 
+
 // ***************** FUNCTION *****************
+
+// Set settings to session storage
+const setSessionSettings = async () => {
+    let syncSettings = await chrome.storage.sync.get(null);
+    let timezone = syncSettings.DateTime.Timezone;
+    if (timezone == "default") {
+        timezone = DateTime.now().setZone(timezone).zoneName;
+    }
+    let initSessionSetts = {
+        currTimezone: {
+            Timezone: timezone,
+            lastChecked: DateTime.utc().toISO()
+        }
+    }
+    await chrome.storage.session.set(initSessionSetts);
+
+    // let sessionSettings = await chrome.storage.session.get(null);
+    // console.log(sessionSettings)
+}
+
+const checkTask = async (syncSettings, sessionSettings) => {
+    let timezone = syncSettings.DateTime.Timezone;
+    //
+    let userStatus = sessionSettings.userStatus;
+    let currTimezone = sessionSettings.currTimezone;
+    //
+    if (userStatus.status != "ok") { return }
+    //
+    if (timezone == "default") {
+        let tzName = DateTime.now().setZone(timezone).zoneName;
+        let tzSession = currTimezone.Timezone;
+        //
+        if (tzSession != tzName) {
+            // Set new time zone if difference
+            sessionSettings.currTimezone.Timezone = tzName;
+            sessionSettings.currTimezone.lastChecked = DateTime.utc().toISO();
+            //
+            setTasksSubmittedOnIcon();
+        }
+    }
+    else if (currTimezone.Timezone != timezone) {
+        // Set new time zone if difference
+        sessionSettings.currTimezone.Timezone = timezone;
+        sessionSettings.currTimezone.lastChecked = DateTime.utc().toISO();
+        setTasksSubmittedOnIcon();
+    }
+    else {
+        let lastChecked = sessionSettings.currTimezone.lastChecked;
+        let currDate = DateTime.utc().setZone(timezone).toISODate();
+        let lastCheckedDate = DateTime.fromISO(lastChecked).setZone(timezone).toISODate();
+        if (lastCheckedDate != currDate) {
+            sessionSettings.currTimezone.lastChecked = DateTime.utc().toISO();
+            setTasksSubmittedOnIcon();
+        }
+    }
+    await chrome.storage.session.set(sessionSettings);
+};
+
+
 // Format time to string
 const formatTime = (time) => {
     let timeToDatetime = new Date(time);
@@ -60,6 +120,7 @@ const formatTime = (time) => {
 
     return formatedTime;
 }
+
 
 // == Check user permission
 const checkUserPermission = async (next) => {
@@ -115,9 +176,12 @@ const checkUserPermission = async (next) => {
     });
 
 }
+
 // Check status
 const checkUserSatus = async () => {
     await checkUserPermission(async (res) => {
+        let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
+        //
         if (res.status != "ok" && res.message != "You have permission to use extension.") {
             chrome.storage.session.set({
                 "userStatus": {
@@ -125,13 +189,23 @@ const checkUserSatus = async () => {
                     lastChecked: DateTime.utc().toISO()
                 }
             });
-            //
-            let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
-            chrome.tabs.create({ url: errorPageUrl });
+            // Open error page
+            let isOpenErrorPage = false
+            let tabs = await chrome.tabs.query({});
+            tabs.forEach((tab) => {
+                if (tab.url.includes(errorPageUrl)) {
+                    isOpenErrorPage = true;
+                }
+            });
+            if (isOpenErrorPage == false) {
+                chrome.tabs.create({ url: errorPageUrl });
+            }
+            // Set badge
             chrome.action.setBadgeBackgroundColor({ color: "red" });
             chrome.action.setBadgeText({ text: "!" });
             return
         }
+        // If status "ok"
         chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
         chrome.action.setBadgeText({ text: "" });
         chrome.storage.session.set({
@@ -140,10 +214,38 @@ const checkUserSatus = async () => {
                 lastChecked: DateTime.utc().toISO()
             }
         });
+        // Set badge
         await getSubHisToSessionStorage();
         setTasksSubmittedOnIcon();
+        // Close error page
+        let tabs = await chrome.tabs.query({});
+        tabs.forEach((tab) => {
+            if (tab.url.includes(errorPageUrl)) {
+                chrome.tabs.remove(tab.id);
+            }
+        });
     });
 }
+
+// Check user
+const checkUser = async (sessionSettings) => {
+    let currTimezone = sessionSettings.currTimezone;
+    let userStatus = sessionSettings.userStatus;
+    // Init data
+    if (userStatus == undefined) {
+        userStatus = { userStatus: { status: "", lastChecked: null } }
+    }
+    // Compare time
+    let lastChecked = userStatus.lastChecked;
+    // If last checked = null
+    if (lastChecked == null) { await checkUserSatus(); return; }
+    let currTime = DateTime.utc();
+    let lastCheckedTime = DateTime.fromISO(lastChecked).setZone("UTC");
+    let diff = (currTime.diff(lastCheckedTime, "minutes")).toObject();
+    // Check
+    if (diff.minutes >= 60) { await checkUserSatus(); }
+}
+
 // Update user settings
 const updateSettings = async () => {
     var newSets = {
@@ -279,7 +381,6 @@ const updateSettings = async () => {
 
 }
 
-
 // Get submit history from local storage and set to session storage
 const getSubHisToSessionStorage = async () => {
     let submitHistory = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
@@ -299,6 +400,8 @@ const getSubHisToSessionStorage = async () => {
     }
     chrome.storage.session.set({ "subHis": subHis });
 }
+
+
 // Get submit history by day
 const getDataByDay = async (date) => {
     let subHis = (await chrome.storage.session.get(["subHis"])).subHis;
@@ -336,7 +439,6 @@ const newSubmit = async (taskType, time) => {
     chrome.storage.session.set({ "subHis": subHis })
 }
 
-
 // Set badge text
 const setTasksSubmittedOnIcon = () => {
     chrome.storage.sync.get(["Statistics"], async (items) => {
@@ -347,7 +449,6 @@ const setTasksSubmittedOnIcon = () => {
             let data = await getDataByDay(currDate);
             chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
             chrome.action.setBadgeText({ text: (data.totalTasks).toString() });
-
             return
         } else {
             chrome.action.setBadgeText({ text: "" });
@@ -356,6 +457,16 @@ const setTasksSubmittedOnIcon = () => {
     })
 }
 
+
+/******** Call function ********/
+setSessionSettings();
+setInterval(async () => {
+    let syncSettings = await chrome.storage.sync.get(null);
+    let sessionSettings = await chrome.storage.session.get(null);
+    //
+    checkUser(sessionSettings);
+    checkTask(syncSettings, sessionSettings);
+}, 20000)
 
 
 // ============ On install listener ============
@@ -394,7 +505,7 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
 
     /**************** CHECK USER STATUS **************/
     if (Object.getOwnPropertyNames(req) == "checkUserStatus") {
-        checkUserStatus((data) => {
+        checkUserPermission((data) => {
             sendRes(data);
         })
         return true;
@@ -453,10 +564,16 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
 
     // 2. Get task is submitted noti sound
     if (Object.getOwnPropertyNames(req) == "getNotiTaskIsSubmittedSound") {
-        let SoundName = "tick.mp3";
-        let SoundURL = extensionUrl + "res/noti-audio/" + SoundName;
-        // console.log(SoundURL)
-        sendRes({ "SoundURL": SoundURL });
+        chrome.storage.sync.get(["Sounds"], (items) => {
+            let SoundName = "tick.mp3";
+            let SoundURL = extensionUrl + "res/noti-audio/" + SoundName;
+            // console.log(SoundURL)
+            let data = {
+                "status": items.Sounds.TaskIsSubmitted,
+                "SoundURL": SoundURL
+            }
+            sendRes(data);
+        })
         return true
     }
 
@@ -526,4 +643,3 @@ chrome.contextMenus.onClicked.addListener((id, tab) => {
         chrome.tabs.create({ url: statisticsPageUrl });
     }
 });
-
