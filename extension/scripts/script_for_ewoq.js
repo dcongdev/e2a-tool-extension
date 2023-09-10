@@ -183,8 +183,8 @@ window.onload = () => {
         })
     }
 
-    const showAutoReloadBox = () => {
-        document.getElementById("txt-time-count-reload").innerText = convertTime(autoReloadCounter);
+    const showAutoReloadBox = (timeRemain) => {
+        document.getElementById("txt-time-count-reload").innerText = convertTime(timeRemain);
         document.getElementById("auto-reload-box").style.display = "block";
     }
 
@@ -193,10 +193,7 @@ window.onload = () => {
     }
 
     const resetAutoReloadCounter = () => {
-        chrome.runtime.sendMessage({ "getAllSettings": true }, (res) => {
-            let AutoReload = res.Automation.AutoReload;
-            autoReloadCounter = AutoReload.time;
-        })
+        autoReloadCounter = -1;
     }
 
     // =========== TASK AVAILABLE NOTI ===========
@@ -305,7 +302,7 @@ window.onload = () => {
         // Check permission
         if (userStatus.status != "ok") { return }
 
-        // ===== WAITING =====
+        // ============ WAITING ============
         // Start
         if (startButton != null) {
             // Hide and reset count time clock
@@ -327,7 +324,6 @@ window.onload = () => {
                 // Hide and reset auto reload
                 hideAutoReloadBox();
                 resetAutoReloadCounter();
-
                 if (isCancelTasksAvailableNoti == false) { // Check is canceled noti or not
                     // Create notification
                     if (isSentTaskVailableNoti == false) { // Checked "ON"/"OFF" in backgound script
@@ -356,7 +352,7 @@ window.onload = () => {
                 stopTasksAvailableNotiSound();
 
                 // Auto reload
-                if (Automation.AutoReload.status == "OFF") { // Hide if status is "OFF"
+                if (Automation.AutoReload.status == "OFF" || Automation.AutoReload.time <= 0) { // Hide if status is "OFF"
                     hideAutoReloadBox();
                     resetAutoReloadCounter();
                 }
@@ -365,11 +361,13 @@ window.onload = () => {
                     // Reset counter If is not counting 
                     if (isAutoReloadCounting == false) { resetAutoReloadCounter(); }
                     // Countdown and show
-                    autoReloadCounter -= 1;
+                    autoReloadCounter += 1;
                     isAutoReloadCounting = true;
-                    showAutoReloadBox();
+                    let timeAutoReload = Automation.AutoReload.time;
+                    let timeRemain = timeAutoReload - autoReloadCounter;
+                    showAutoReloadBox(timeRemain);
                     // Reload if 
-                    if (autoReloadCounter == 0) { window.location.reload(); }
+                    if (timeRemain <= 0) { window.location.reload(); }
                 }
 
             }
@@ -404,7 +402,8 @@ window.onload = () => {
             return
         }
 
-        // ============= IN TASK ============
+
+        // ============ IN TASK ============
         // Hide Task Available notification
         // Hide noti
         hideTasksAvailableNotiBox();
@@ -435,7 +434,7 @@ window.onload = () => {
         else { hideCountTimeClock(); }
 
         // ** Auto submit
-        if (Automation.AutoSubmit.status == "OFF") { hideAutoSubmitBox() }
+        if (Automation.AutoSubmit.status == "OFF" || Automation.AutoSubmit.time <= 0) { hideAutoSubmitBox() }
         // If status is "ON"
         else if (isCancelAutoSubmit == false && finishButton == null) { // Check cancel
             // console.log("In task - Auto submit: ON - " + countTimeClockCounter)
@@ -453,5 +452,5 @@ window.onload = () => {
         }
 
     }
-
+    
 };
