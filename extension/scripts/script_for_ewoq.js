@@ -86,11 +86,12 @@ window.onload = () => {
             chrome.runtime.sendMessage({ "createNotiTaskIsSubmitted": true })
             // Play sound
             chrome.runtime.sendMessage({ "getNotiTaskIsSubmittedSound": true }, (res) => {
-                let SoundURL = res.SoundURL;
-                let au = document.createElement('audio');
-                
-                au.innerHTML = '<source src="' + SoundURL + '" type="audio/mpeg" />'
-                au.play();
+                if (res.status == "ON") {
+                    let SoundURL = res.SoundURL;
+                    let au = document.createElement('audio');
+                    au.innerHTML = '<source src="' + SoundURL + '" type="audio/mpeg" />'
+                    au.play();
+                }
             })
         }
     }
@@ -444,7 +445,7 @@ window.onload = () => {
             // console.log(timeRemain)
             showAutoSubmitBox(timeRemain)
             if (timeRemain <= 0) {
-                if(submitButton != null){submitButton.click()}
+                if (submitButton != null) { submitButton.click() }
                 // document.getElementsByClassName("submitTaskButton")[0].click();
                 hideAutoSubmitBox();
             }
