@@ -41,7 +41,7 @@ const setTestSubHis = async () => {
 // setTestSubHis()
 
 
-// ============ FUNCTION ============
+// ***************** FUNCTION *****************
 // Format time to string
 const formatTime = (time) => {
     let timeToDatetime = new Date(time);
@@ -61,40 +61,8 @@ const formatTime = (time) => {
     return formatedTime;
 }
 
-// Add submit to history
-const newSubmit = async (taskType, time) => {
-    let submitHistory = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
-    let subHis = (await chrome.storage.session.get(["subHis"])).subHis;
-    let currTime = DateTime.utc().toISO();
-    submitHistory.push({ datetime: currTime, taskType: taskType, time: time })
-    //
-    subHis.push({ datetime: currTime, taskType: taskType, time: time })
-    //
-    chrome.storage.local.set({ "submitHistory": submitHistory })
-    chrome.storage.session.set({ "subHis": subHis })
-}
-
-// Set badge text
-const setTasksSubmittedOnIcon = () => {
-    chrome.storage.sync.get(["Statistics"], async (items) => {
-        let ShowTasksSubmittedOnIcon = items.Statistics.ShowTasksSubmittedOnIcon;
-        if (ShowTasksSubmittedOnIcon == "ON") {
-            let timezone = (await chrome.storage.sync.get(["DateTime"])).DateTime.Timezone;
-            let currDate = DateTime.utc().setZone(timezone).toISODate();
-            let data = await getDataByDay(currDate);
-            chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
-            chrome.action.setBadgeText({ text: (data.totalTasks).toString() });
-
-            return
-        } else {
-            chrome.action.setBadgeText({ text: "" });
-        }
-
-    })
-}
-
-// Check user permission
-const checkUserStatus = async (next) => {
+// == Check user permission
+const checkUserPermission = async (next) => {
     await chrome.identity.getProfileUserInfo(async (userinfo) => {
         let userEmail = userinfo.email;
         // console.log(userEmail)
@@ -147,7 +115,35 @@ const checkUserStatus = async (next) => {
     });
 
 }
-
+// Check status
+const checkUserSatus = async () => {
+    await checkUserPermission(async (res) => {
+        if (res.status != "ok" && res.message != "You have permission to use extension.") {
+            chrome.storage.session.set({
+                "userStatus": {
+                    status: "error",
+                    lastChecked: DateTime.utc().toISO()
+                }
+            });
+            //
+            let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
+            chrome.tabs.create({ url: errorPageUrl });
+            chrome.action.setBadgeBackgroundColor({ color: "red" });
+            chrome.action.setBadgeText({ text: "!" });
+            return
+        }
+        chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
+        chrome.action.setBadgeText({ text: "" });
+        chrome.storage.session.set({
+            "userStatus": {
+                status: "ok",
+                lastChecked: DateTime.utc().toISO()
+            }
+        });
+        await getSubHisToSessionStorage();
+        setTasksSubmittedOnIcon();
+    });
+}
 // Update user settings
 const updateSettings = async () => {
     var newSets = {
@@ -283,6 +279,26 @@ const updateSettings = async () => {
 
 }
 
+
+// Get submit history from local storage and set to session storage
+const getSubHisToSessionStorage = async () => {
+    let submitHistory = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
+    let subHis = [];
+
+    // Get data
+    if (submitHistory == null || submitHistory == []) {
+        chrome.storage.session.set({ "subHis": [] });
+    }
+    let startDate = DateTime.utc().minus({ days: 3 }).toISODate();
+    // console.log(startDate)
+    for (let i = 0; i < submitHistory.length; i++) {
+        let taskDate = DateTime.fromISO(submitHistory[i].datetime).toUTC();
+        if (taskDate.toISODate() > startDate) {
+            subHis.push(submitHistory[i])
+        }
+    }
+    chrome.storage.session.set({ "subHis": subHis });
+}
 // Get submit history by day
 const getDataByDay = async (date) => {
     let subHis = (await chrome.storage.session.get(["subHis"])).subHis;
@@ -307,26 +323,39 @@ const getDataByDay = async (date) => {
     // console.log(dataByDay)
     return dataByDay;
 };
-
-// Get submit history from local storage and set to session storage
-const getSubHisToSessionStorage = async () => {
+// Add submit to history
+const newSubmit = async (taskType, time) => {
     let submitHistory = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
-    let subHis = [];
-
-    // Get data
-    if (submitHistory == null || submitHistory == []) {
-        chrome.storage.session.set({ "subHis": [] });
-    }
-    let startDate = DateTime.utc().minus({ days: 3 }).toISODate();
-    // console.log(startDate)
-    for (let i = 0; i < submitHistory.length; i++) {
-        let taskDate = DateTime.fromISO(submitHistory[i].datetime).toUTC();
-        if (taskDate.toISODate() > startDate) {
-            subHis.push(submitHistory[i])
-        }
-    }
-    chrome.storage.session.set({ "subHis": subHis });
+    let subHis = (await chrome.storage.session.get(["subHis"])).subHis;
+    let currTime = DateTime.utc().toISO();
+    submitHistory.push({ datetime: currTime, taskType: taskType, time: time })
+    //
+    subHis.push({ datetime: currTime, taskType: taskType, time: time })
+    //
+    chrome.storage.local.set({ "submitHistory": submitHistory })
+    chrome.storage.session.set({ "subHis": subHis })
 }
+
+
+// Set badge text
+const setTasksSubmittedOnIcon = () => {
+    chrome.storage.sync.get(["Statistics"], async (items) => {
+        let ShowTasksSubmittedOnIcon = items.Statistics.ShowTasksSubmittedOnIcon;
+        if (ShowTasksSubmittedOnIcon == "ON") {
+            let timezone = (await chrome.storage.sync.get(["DateTime"])).DateTime.Timezone;
+            let currDate = DateTime.utc().setZone(timezone).toISODate();
+            let data = await getDataByDay(currDate);
+            chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
+            chrome.action.setBadgeText({ text: (data.totalTasks).toString() });
+
+            return
+        } else {
+            chrome.action.setBadgeText({ text: "" });
+        }
+
+    })
+}
+
 
 
 // ============ On install listener ============
@@ -342,104 +371,23 @@ chrome.runtime.onInstalled.addListener(async (reason) => {
     exitsNotiSound.push(["Telephone ring", "telephone-ring.mp3"]);
     // Install
     if (reason.reason == "install") {
-        await updateSettings();
         await chrome.storage.local.set({ "extensionStatus": "ON", "submitHistory": [], "soundExists": exitsNotiSound });
-        await checkUserStatus(async (res) => {
-            if (res.status != "ok" && res.message != "You have permission to use extension.") {
-                chrome.storage.session.set({
-                    "userStatus": {
-                        status: "error",
-                        lastChecked: DateTime.utc().toISO()
-                    }
-                });
-                let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
-                chrome.tabs.create({ url: errorPageUrl });
-                chrome.action.setBadgeBackgroundColor({ color: "red" });
-                chrome.action.setBadgeText({ text: "!" });
-                return
-            }
-            chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
-            chrome.action.setBadgeText({ text: "" });
-            chrome.storage.session.set({
-                "userStatus": {
-                    status: "ok",
-                    lastChecked: DateTime.utc().toISO()
-                }
-            });
-
-            await getSubHisToSessionStorage();
-            setTasksSubmittedOnIcon();
-
-        });
+        await updateSettings();
+        await checkUserSatus();
         //
     }
     // Update
     if (reason.reason == "update") {
         await updateSettings();
-        await checkUserStatus(async (res) => {
-            chrome.storage.session.set({
-                "userStatus": {
-                    status: "error",
-                    lastChecked: DateTime.utc().toISO()
-                }
-            });
-            if (res.status != "ok" && res.message != "You have permission to use extension.") {
-                let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
-                chrome.tabs.create({ url: errorPageUrl });
-                chrome.action.setBadgeBackgroundColor({ color: "red" });
-                chrome.action.setBadgeText({ text: "!" });
-                return
-            }
-            chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
-            chrome.action.setBadgeText({ text: "" });
-            //
-            chrome.storage.session.set({
-                "userStatus": {
-                    status: "ok",
-                    lastChecked: DateTime.utc().toISO()
-                }
-            });
-
-            await getSubHisToSessionStorage();
-            setTasksSubmittedOnIcon();
-        });
-
+        await checkUserSatus();
     }
 });
 
 // On startup
 chrome.runtime.onStartup.addListener(async () => {
-    await getSubHisToSessionStorage();
     // Check status
-    await checkUserStatus(async (res) => {
-        if (res.status != "ok" && res.message != "You have permission to use extension.") {
-            chrome.storage.session.set({
-                "userStatus": {
-                    status: "error",
-                    lastChecked: DateTime.utc().toISO()
-                }
-            });
-            //
-            let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
-            chrome.tabs.create({ url: errorPageUrl });
-            chrome.action.setBadgeBackgroundColor({ color: "red" });
-            chrome.action.setBadgeText({ text: "!" });
-            return
-        }
-        chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
-        chrome.action.setBadgeText({ text: "" });
-        chrome.storage.session.set({
-            "userStatus": {
-                status: "error",
-                lastChecked: DateTime.utc().toISO()
-            }
-        });
-        await getSubHisToSessionStorage();
-        setTasksSubmittedOnIcon();
-    });
-
+    await checkUserSatus();
 });
-
 
 // ============ Message listener ============
 chrome.runtime.onMessage.addListener((req, res, sendRes) => {
@@ -550,8 +498,6 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
     }
 
 });
-
-
 
 // ============ Context menu ================
 // Create
