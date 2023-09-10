@@ -47,7 +47,13 @@ const setTestSubHis = async () => {
 // Set settings to session storage
 const setSessionSettings = async () => {
     let syncSettings = await chrome.storage.sync.get(null);
-    let timezone = syncSettings.DateTime.Timezone;
+    let timezone = "";
+
+    if (syncSettings.DateTime == undefined) {
+        timezone = "default";
+    }
+    else { timezone = syncSettings.DateTime.Timezone; }
+    //
     if (timezone == "default") {
         timezone = DateTime.now().setZone(timezone).zoneName;
     }

@@ -30,7 +30,7 @@ $(document).ready(async function () {
                     lastChecked: DateTime.utc().toISO()
                 }
             });
-            chrome.runtime.sendMessage({ "setTaskSubmittedOnIcon": true }, (res) => {})
+            chrome.runtime.sendMessage({ "setTaskSubmittedOnIcon": true }, (res) => { })
         }
     })
 
@@ -131,6 +131,7 @@ $(document).ready(async function () {
         if (submitHistory.length == 0) { return }
         //
         startHis = DateTime.fromISO(submitHistory[0].datetime).setZone(timezone);
+        console.log(startHis)
         endHis = DateTime.fromISO(
             submitHistory[submitHistory.length - 1].datetime
         ).setZone(timezone);
@@ -322,7 +323,9 @@ $(document).ready(async function () {
     //
 
     $(document).on("click", "#btn-search-by-day", () => {
-        if (submitHistory == null || submitHistory == []) { return }
+        if (submitHistory == undefined) { return }
+        if (submitHistory == null) { return }
+        if (submitHistory.length == 0) { return }
         let datePick = DateTime.fromISO($("#date-picker").val());
         let startHistDate = startHis;
         let endHisDate = endHis;
@@ -575,7 +578,9 @@ $(document).ready(async function () {
     //
 
     $(document).on("change", "#select-year-week", () => {
-        if (submitHistory == null || submitHistory == []) { return }
+        if (submitHistory == undefined) { return }
+        if (submitHistory == null) { return }
+        if (submitHistory.length == 0) { return }
         let year = parseInt($("#select-year-week option:selected").val());
         let selectWeekContent = "";
         let idx = weekList.findIndex((e) => e.year == year);
@@ -605,7 +610,9 @@ $(document).ready(async function () {
     });
     //
     $(document).on("change", "#select-week", () => {
-        if (submitHistory == null || submitHistory == []) { return }
+        if (submitHistory == undefined) { return }
+        if (submitHistory == null) { return }
+        if (submitHistory.length == 0) { return }
         setTimeout(() => {
             let year = parseInt($("#select-year-week option:selected").val());
             let week = parseInt($("#select-week option:selected").val());
@@ -772,7 +779,9 @@ $(document).ready(async function () {
     };
     //
     $(document).on("change", "#select-year-month", () => {
-        if (submitHistory == null || submitHistory == []) { return }
+        if (submitHistory == undefined) { return }
+        if (submitHistory == null) { return }
+        if (submitHistory.length == 0) { return }
         let year = parseInt($("#select-year-month option:selected").val());
         let selectMonthContent = "";
         let idx = monthList.findIndex((e) => e.year == year);
@@ -788,8 +797,9 @@ $(document).ready(async function () {
     });
     //
     $(document).on("change", "#select-month", () => {
-
-        if (submitHistory == null || submitHistory == []) { return }
+        if (submitHistory == undefined) { return }
+        if (submitHistory == null) { return }
+        if (submitHistory.length == 0) { return }
         setTimeout(() => {
             let year = parseInt($("#select-year-month option:selected").val());
             let month = parseInt($("#select-month option:selected").val());
@@ -822,7 +832,11 @@ $(document).ready(async function () {
     /**********************************************************************/
     // ================= GET DATA ==================
     await getSubmitHistory();
-    if (submitHistory == null || submitHistory == []) { return }
+    if (submitHistory == []) { return }
+    if (submitHistory == null) { return }
+    if (submitHistory.length == 0) { return }
+
+    console.log(submitHistory)
 
     // DAY
     showDatePicker()
