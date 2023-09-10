@@ -75,7 +75,7 @@ $(document).ready(async function () {
 
         let txtRealTime = document.getElementsByClassName("txt-real-time");
         let txtCurrentTimezone = document.getElementsByClassName("txt-current-timezone");
-        if (timezone == "default") { timezone = DateTime.local().zoneName; }
+        if (timezone == "default") { timezone = DateTime.now().zoneName; }
         txtCurrentTimezone[0].innerText = timezone
         txtCurrentTimezone[1].innerText = timezone
 
@@ -150,6 +150,7 @@ $(document).ready(async function () {
         return dataByDay;
     };
 
+    // Set dashboard data
     loading = true;
     setTimeout(async () => {
         let detailDay = await getDataByDay(DateTime.utc().setZone(timezone).toISODate());
