@@ -812,22 +812,7 @@ $(document).ready(async function () {
     });
 
 
-    /******************* Click tab **************/
-    $(document).on("click", "#day-tab", () => {
-        if (dayChartByType == null) {
-            showDay(currentTime.toISODate())
-        }
-    })
-    $(document).on("click", "#week-tab", () => {
-        if (weekChartByTasks == null) {
-            showWeek(currentTime.year, currentTime.weekNumber)
-        }
-    })
-    $(document).on("click", "#month-tab", () => {
-        if (monthChartByTasks == null) {
-            showMonth(currentTime.year, currentTime.month)
-        }
-    })
+
 
     /**********************************************************************/
     // ================= GET DATA ==================
@@ -836,7 +821,7 @@ $(document).ready(async function () {
     if (submitHistory == null) { return }
     if (submitHistory.length == 0) { return }
 
-    console.log(submitHistory)
+    // console.log(submitHistory)
 
     // DAY
     showDatePicker()
@@ -880,4 +865,23 @@ $(document).ready(async function () {
         }, 100)
     }
     // showMonth(currentTime.year, currentTime.month)
+
+    /******************* Click tab **************/
+    $(document).on("click", "#day-tab", () => {
+        if (dayChartByType == null) {
+            showDay(currentTime.toISODate())
+        }
+    })
+    $(document).on("click", "#week-tab", () => {
+        if (weekChartByTasks == null) {
+            showWeek(currentTime.year, currentTime.weekNumber)
+        }
+    })
+    $(document).on("click", "#month-tab", () => {
+        if (monthChartByTasks == null) {
+            showMonth(currentTime.year, currentTime.month)
+        }
+    })
+
+
 });
