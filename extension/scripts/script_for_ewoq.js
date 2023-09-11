@@ -78,7 +78,7 @@ window.onload = () => {
         if (isSubmitBtnEnabled) {
             let submitData = { time: countTimeClockCounter, taskType: currTaskType }
             chrome.runtime.sendMessage({ "submitted": submitData }, (response) => {
-                console.log(response)
+                // console.log(response)
                 isStartNewTask = true;
                 resetCountTimeClockCounter();
             });
@@ -262,7 +262,7 @@ window.onload = () => {
 
         let continueButton = document.getElementsByClassName("continue-button")[0];
         let submitButton = document.getElementsByClassName("submitTaskButton")[0];
-        let skipButton = document.getElementsByClassName("cancel-button")[0];
+        let skipButton = document.getElementsByClassName("skip-button")[0];
         let takeABreakButton = document.getElementsByClassName("skip-and-take-a-break-button")[0];
         let finishButton = document.getElementsByClassName("finish-button")[0];
 
@@ -352,7 +352,7 @@ window.onload = () => {
                 stopTasksAvailableNotiSound();
 
                 // Auto reload
-                if (Automation.AutoReload.status == "OFF" || Automation.AutoReload.time <= 0) { // Hide if status is "OFF"
+                if (Automation.AutoReload.status == "OFF" || Automation.AutoReload.time <= 0 || isCancelAutoReload == true) { // Hide if status is "OFF"
                     hideAutoReloadBox();
                     resetAutoReloadCounter();
                 }
@@ -434,9 +434,9 @@ window.onload = () => {
         else { hideCountTimeClock(); }
 
         // ** Auto submit
-        if (Automation.AutoSubmit.status == "OFF" || Automation.AutoSubmit.time <= 0) { hideAutoSubmitBox() }
+        if (Automation.AutoSubmit.status == "OFF" || Automation.AutoSubmit.time <= 0 || finishButton != null || continueButton != null || isCancelAutoSubmit == true) { hideAutoSubmitBox() }
         // If status is "ON"
-        else if (isCancelAutoSubmit == false && finishButton == null) { // Check cancel
+        else if (isCancelAutoSubmit == false && finishButton == null && continueButton == null) { // Check cancel
             // console.log("In task - Auto submit: ON - " + countTimeClockCounter)
             let timeSubmit = Automation.AutoSubmit.time;
             let timeRemain = timeSubmit - countTimeClockCounter;
@@ -444,6 +444,7 @@ window.onload = () => {
             // console.log(timeRemain)
             showAutoSubmitBox(timeRemain)
             if (timeRemain <= 0) {
+                isCancelAutoSubmit = true;
                 if (submitButton != null) { submitButton.click() }
                 // document.getElementsByClassName("submitTaskButton")[0].click();
                 hideAutoSubmitBox();
