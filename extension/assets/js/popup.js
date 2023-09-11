@@ -245,8 +245,8 @@ $(document).ready(async function () {
 
 
         // *** Timing *** //
-        if (Timing.CountTimeClock == "ON") {
-            $("#btnChangeCountTimeCLock").attr("checked", true);
+        if (Timing.TimeCounterClock == "ON") {
+            $("#btnChangeTimeCounterClock").attr("checked", true);
         }
 
         // *** Automation *** //
@@ -486,14 +486,14 @@ $(document).ready(async function () {
 
     // *** Timing *** //
     // Count time clock
-    $(document).on("click", "#btnChangeCountTimeCLock", async () => {
+    $(document).on("click", "#btnChangeTimeCounterClock", async () => {
         let Timing = (await chrome.storage.sync.get(["Timing"])).Timing;
-        if ($("#btnChangeCountTimeCLock").is(":checked")) {
-            Timing.CountTimeClock = "ON";
+        if ($("#btnChangeTimeCounterClock").is(":checked")) {
+            Timing.TimeCounterClock = "ON";
             chrome.storage.sync.set({ "Timing": Timing });
         }
         else {
-            Timing.CountTimeClock = "OFF";
+            Timing.TimeCounterClock = "OFF";
             chrome.storage.sync.set({ "Timing": Timing });
         }
     })

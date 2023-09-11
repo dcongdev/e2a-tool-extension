@@ -273,7 +273,7 @@ const updateSettings = async () => {
             }
         },
         "Timing": {
-            "CountTimeClock": "OFF"
+            "TimeCounterClock": "OFF"
         },
         "Automation": {
             "AutoReload": {
@@ -352,7 +352,7 @@ const updateSettings = async () => {
     else {
         if (oldVerSets.countTimeInTask != undefined) {
             let status = oldVerSets.countTimeInTask;
-            newSets.Timing.CountTimeClock = status;
+            newSets.Timing.TimeCounterClock = status;
         }
     }
     // Automation

@@ -14,7 +14,7 @@ window.onload = () => {
     var audioElement = document.createElement('audio');
 
     var isSubmitBtnEnabled = false;
-    var countTimeClockCounter = 0;
+    var timeCounterClockCounter = 0;
     var isStartNewTask = false;
 
     var isCancelAutoSubmit = false;
@@ -76,11 +76,11 @@ window.onload = () => {
     // Submit button click event
     const submitButtonClick = () => {
         if (isSubmitBtnEnabled) {
-            let submitData = { time: countTimeClockCounter, taskType: currTaskType }
+            let submitData = { time: timeCounterClockCounter, taskType: currTaskType }
             chrome.runtime.sendMessage({ "submitted": submitData }, (response) => {
                 // console.log(response)
                 isStartNewTask = true;
-                resetCountTimeClockCounter();
+                resetTimeCounterClockCounter();
             });
             //
             chrome.runtime.sendMessage({ "createNotiTaskIsSubmitted": true })
@@ -100,18 +100,18 @@ window.onload = () => {
 
 
     // =========== TASK TIME COUNTER ===========
-    const createCountTimeClockBox = () => {
-        let countTimeClockCounter = document.createElement("div");
+    const createTimeCounterClockBox = () => {
+        let timeCounterClockCounter = document.createElement("div");
         let taskTimeContent = '<div id="task-time" style="display:none;">'
             + '<img src="' + extensionUrl + 'assets/images/kisspng-clock.png" alt="" style="height: 20px;padding-right: 5px;margin-top: 2px;">'
             + '<p id="txt-task-time" style="margin: 0; display: inline;color: white;">0</p>'
             + '</div>';
-        countTimeClockCounter.innerHTML = taskTimeContent;
-        headerContainer.appendChild(countTimeClockCounter);
+        timeCounterClockCounter.innerHTML = taskTimeContent;
+        headerContainer.appendChild(timeCounterClockCounter);
     }
 
-    const showCountTimeClockBox = () => {
-        document.getElementById("txt-task-time").innerText = convertTime(countTimeClockCounter);
+    const showTimeCounterClockBox = () => {
+        document.getElementById("txt-task-time").innerText = convertTime(timeCounterClockCounter);
         document.getElementById("task-time").style.display = "flex";
 
         // chrome.runtime.sendMessage({ "getAllSettings": true }, (res) => {
@@ -122,14 +122,14 @@ window.onload = () => {
 
     }
 
-    const hideCountTimeClock = () => {
+    const hideTimeCounterClock = () => {
         document.getElementById("task-time").style.display = "none";
     }
 
-    const resetCountTimeClockCounter = () => {
+    const resetTimeCounterClockCounter = () => {
         isStartNewTask = true;
         isCancelAutoSubmit = false;
-        countTimeClockCounter = -1;
+        timeCounterClockCounter = -1;
     }
 
     //
@@ -251,7 +251,7 @@ window.onload = () => {
     }
 
     // Create
-    createCountTimeClockBox();
+    createTimeCounterClockBox();
     createAutoSubmitBox();
     createAutoReloadBox();
     createTaskAvailableNotiBox();
@@ -268,24 +268,24 @@ window.onload = () => {
 
         // ======= EVENT =======
         if (startButton != null) { // startButton
-            startButton.removeEventListener("click", resetCountTimeClockCounter);
-            startButton.addEventListener("click", resetCountTimeClockCounter);
+            startButton.removeEventListener("click", resetTimeCounterClockCounter);
+            startButton.addEventListener("click", resetTimeCounterClockCounter);
         }
         if (continueButton != null) { // continue button
-            continueButton.removeEventListener("click", resetCountTimeClockCounter);
-            continueButton.addEventListener("click", resetCountTimeClockCounter);
+            continueButton.removeEventListener("click", resetTimeCounterClockCounter);
+            continueButton.addEventListener("click", resetTimeCounterClockCounter);
         }
         if (skipButton != null) { // continue button
-            skipButton.removeEventListener("click", resetCountTimeClockCounter);
-            skipButton.addEventListener("click", resetCountTimeClockCounter);
+            skipButton.removeEventListener("click", resetTimeCounterClockCounter);
+            skipButton.addEventListener("click", resetTimeCounterClockCounter);
         }
         if (takeABreakButton != null) { // continue button
-            takeABreakButton.removeEventListener("click", resetCountTimeClockCounter);
-            takeABreakButton.addEventListener("click", resetCountTimeClockCounter);
+            takeABreakButton.removeEventListener("click", resetTimeCounterClockCounter);
+            takeABreakButton.addEventListener("click", resetTimeCounterClockCounter);
         }
         if (finishButton != null) { // continue button
-            finishButton.removeEventListener("click", resetCountTimeClockCounter);
-            finishButton.addEventListener("click", resetCountTimeClockCounter);
+            finishButton.removeEventListener("click", resetTimeCounterClockCounter);
+            finishButton.addEventListener("click", resetTimeCounterClockCounter);
         }
 
 
@@ -306,8 +306,8 @@ window.onload = () => {
         // Start
         if (startButton != null) {
             // Hide and reset count time clock
-            hideCountTimeClock();
-            resetCountTimeClockCounter();
+            hideTimeCounterClock();
+            resetTimeCounterClockCounter();
 
             // Hide and reset auto submit
             hideAutoSubmitBox();
@@ -377,8 +377,8 @@ window.onload = () => {
         // Take A Break
         if (requestAssignmentsButton != null) {
             // Hide and reset count time clock
-            hideCountTimeClock();
-            resetCountTimeClockCounter();
+            hideTimeCounterClock();
+            resetTimeCounterClockCounter();
 
             // Hide and reset auto submit
             hideAutoSubmitBox();
@@ -424,22 +424,22 @@ window.onload = () => {
 
         // ** Count time clock in Task, Instructions,...
         if (isStartNewTask == true) {
-            resetCountTimeClockCounter();
+            resetTimeCounterClockCounter();
             isStartNewTask = false;
         }
-        ++countTimeClockCounter;
+        ++timeCounterClockCounter;
 
         // Show/hide count time clock
-        if (Timing.CountTimeClock == "ON" && finishButton == null) { showCountTimeClockBox(); }
-        else { hideCountTimeClock(); }
+        if (Timing.TimeCounterClock == "ON" && finishButton == null) { showTimeCounterClockBox(); }
+        else { hideTimeCounterClock(); }
 
         // ** Auto submit
         if (Automation.AutoSubmit.status == "OFF" || Automation.AutoSubmit.time <= 0 || finishButton != null || continueButton != null || isCancelAutoSubmit == true) { hideAutoSubmitBox() }
         // If status is "ON"
         else if (isCancelAutoSubmit == false && finishButton == null && continueButton == null) { // Check cancel
-            // console.log("In task - Auto submit: ON - " + countTimeClockCounter)
+            // console.log("In task - Auto submit: ON - " + timeCounterClockCounter)
             let timeSubmit = Automation.AutoSubmit.time;
-            let timeRemain = timeSubmit - countTimeClockCounter;
+            let timeRemain = timeSubmit - timeCounterClockCounter;
             // console.log(timeSubmit)
             // console.log(timeRemain)
             showAutoSubmitBox(timeRemain)
