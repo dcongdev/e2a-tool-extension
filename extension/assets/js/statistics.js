@@ -327,8 +327,8 @@ $(document).ready(async function () {
         if (submitHistory == null) { return }
         if (submitHistory.length == 0) { return }
         let datePick = DateTime.fromISO($("#date-picker").val());
-        let startHistDate = startHis;
-        let endHisDate = endHis;
+        let startHistDate = startHis.toISODate();
+        let endHisDate = endHis.toISODate();
         if (currentTime > endHis) { endHisDate = currentTime; }
         if (datePick < startHistDate || datePick > endHisDate) {
             $("#date-picker").css("border", "2px solid red");
