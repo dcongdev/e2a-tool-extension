@@ -104,7 +104,7 @@ window.onload = () => {
         let timeCounterClockCounter = document.createElement("div");
         let taskTimeContent = '<div id="task-time" style="display:none;">'
             + '<img src="' + extensionUrl + 'assets/images/kisspng-clock.png" alt="" style="height: 20px;padding-right: 5px;margin-top: 2px;">'
-            + '<p id="txt-task-time" style="margin: 0; display: inline;color: white;">0</p>'
+            + '<p id="txt-task-time" style="margin: 0; display: inline;color: white;margin-top: 4px">0</p>'
             + '</div>';
         timeCounterClockCounter.innerHTML = taskTimeContent;
         headerContainer.appendChild(timeCounterClockCounter);
