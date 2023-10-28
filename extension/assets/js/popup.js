@@ -20,18 +20,12 @@ $(document).ready(async function () {
         }
     }, 100)
 
-    chrome.storage.session.get(null, (items) => {
-        // console.log(items)
-        if (items.userStatus.status == "error") {
-            return
-        }
-    })
-
     // Check permission
     loading = true
     setTimeout(() => {
         chrome.runtime.sendMessage({ "checkUserStatus": true }, (res) => {
-            if (res.status != "ok" && res.message != "You have permission to use extension.") {
+            //
+            if (res.status == "error") {
                 $(".error").removeClass("d-none");
                 $(".main").addClass("d-none");
                 chrome.action.setBadgeBackgroundColor({ color: "red" });
@@ -42,9 +36,8 @@ $(document).ready(async function () {
                         lastChecked: DateTime.utc().toISO()
                     }
                 });
-                return
             }
-            else {
+            else if (res.status == "ok" && res.message == "You have permission to use extension.") {
                 $(".error").addClass("d-none");
                 $(".main").removeClass("d-none");
                 chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });

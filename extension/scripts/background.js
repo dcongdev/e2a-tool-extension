@@ -5,7 +5,7 @@
 import { DateTime } from "../libs/luxon/es6_luxon.min.js";
 const extensionUrl = chrome.runtime.getURL("");
 
-//  ========= TEST ==========
+//  =============================== TEST ===============================
 const reloadTestPage = async () => {
     let url = "http://127.0.0.1:5500/test.html";
     var tabs = await chrome.tabs.query({});
@@ -18,7 +18,7 @@ const reloadTestPage = async () => {
         }
     });
 }
-reloadTestPage();
+// reloadTestPage();
 
 const openTestPage = () => {
     let statisticsPageUrl = chrome.runtime.getURL("/pages/statistics.html");
@@ -28,7 +28,7 @@ const openTestPage = () => {
     // chrome.tabs.create({ url: popupPageUrl });
     // chrome.tabs.create({ url: errorPageUrl });
 }
-openTestPage();
+// openTestPage();
 
 const setTestSubHis = async () => {
     var response = await fetch("../testdata/testNew.json");
@@ -41,34 +41,41 @@ const setTestSubHis = async () => {
 // setTestSubHis()
 
 
-
 // ***************** FUNCTION *****************
-
 // Set settings to session storage
 const setSessionSettings = async () => {
     let syncSettings = await chrome.storage.sync.get(null);
-    let timezone = "";
+    let sessionSettings = await chrome.storage.session.get(null);
 
+    let userStatus = { status: "", lastChecked: null }
+    // Set user status
+    if (sessionSettings.userStatus != undefined) {
+        userStatus = sessionSettings.userStatus;
+    }
+
+    // Set timezone
+    let timezone = "";
     if (syncSettings.DateTime == undefined) {
         timezone = "default";
     }
+    //
     else { timezone = syncSettings.DateTime.Timezone; }
     //
     if (timezone == "default") {
         timezone = DateTime.now().setZone(timezone).zoneName;
     }
     let initSessionSetts = {
-        currTimezone: {
-            Timezone: timezone,
-            lastChecked: DateTime.utc().toISO()
-        }
+        currTimezone: { Timezone: timezone, lastChecked: DateTime.utc().toISO() },
+        userStatus: userStatus
     }
+
     await chrome.storage.session.set(initSessionSetts);
 
     // let sessionSettings = await chrome.storage.session.get(null);
     // console.log(sessionSettings)
 }
 
+// Check task submitted
 const checkTask = async (syncSettings, sessionSettings) => {
     let timezone = syncSettings.DateTime.Timezone;
     //
@@ -107,7 +114,6 @@ const checkTask = async (syncSettings, sessionSettings) => {
     await chrome.storage.session.set(sessionSettings);
 };
 
-
 // Format time to string
 const formatTime = (time) => {
     let timeToDatetime = new Date(time);
@@ -127,7 +133,6 @@ const formatTime = (time) => {
     return formatedTime;
 }
 
-
 // == Check user permission
 const checkUserPermission = async (next) => {
     await chrome.identity.getProfileUserInfo(async (userinfo) => {
@@ -144,39 +149,32 @@ const checkUserPermission = async (next) => {
 
                 if (response.status == 200) {
                     if (data.status == "ok") {
-                        // console.log(data.message);
-                        // setCurrSubmittedInIcon();
                         dt.status = "ok";
                         dt.message = data.message;
-                        // return dt;
                         return next(dt);
                     }
                 }
                 else if (data.status == "error" || response.status == 403) {
+                    // if (dt.message == "Your account has been deleted.") { }
+                    // else if (dt.message == "Your account has been locked.") { }
+                    // else if (dt.message == "License expired.") { }
+                    // else if (dt.message == "Email has been deleted.") { }
+                    // else if (dt.message == "Email has been locked.") { }
 
                     dt.status = "error";
                     dt.message = "error";
-                    // return dt;
                     return next(dt);
-
-                    // if (data.message == "Your account has been deleted.") { }
-                    // else if (data.message == "Your account has been locked.") { }
-                    // else if (data.message == "License expired.") { }
-                    // else if (data.message == "Email has been deleted.") { }
-                    // else if (data.message == "Email has been locked.") { }
                 }
             }
             else {
                 dt.status = "error";
                 dt.message = "error";
-                // return dt;
                 return next(dt);
             }
         }
         catch (error) {
-            dt.status = "error";
-            dt.message = "error";
-            // return dt;
+            dt.status = "net error";
+            dt.message = "net error";
             return next(dt);
         }
     });
@@ -186,11 +184,17 @@ const checkUserPermission = async (next) => {
 // Check status
 const checkUserSatus = async () => {
     await checkUserPermission(async (res) => {
+
+        if (res.status == "net error") {
+            let sessionSettings = await chrome.storage.session.get(null);
+            res = sessionSettings.userStatus;
+        }
+
         let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
         //
-        if (res.status != "ok" && res.message != "You have permission to use extension.") {
+        if (res.status == "error") {
             chrome.storage.session.set({
-                "userStatus": {
+                userStatus: {
                     status: "error",
                     lastChecked: DateTime.utc().toISO()
                 }
@@ -211,25 +215,27 @@ const checkUserSatus = async () => {
             chrome.action.setBadgeText({ text: "!" });
             return
         }
-        // If status "ok"
-        chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
-        chrome.action.setBadgeText({ text: "" });
-        chrome.storage.session.set({
-            "userStatus": {
-                status: "ok",
-                lastChecked: DateTime.utc().toISO()
-            }
-        });
-        // Set badge
-        await getSubHisToSessionStorage();
-        setTasksSubmittedOnIcon();
-        // Close error page
-        let tabs = await chrome.tabs.query({});
-        tabs.forEach((tab) => {
-            if (tab.url.includes(errorPageUrl)) {
-                chrome.tabs.remove(tab.id);
-            }
-        });
+        else if (res.status == "ok" && res.message == "You have permission to use extension.") {
+            // If status "ok"
+            chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
+            chrome.action.setBadgeText({ text: "" });
+            chrome.storage.session.set({
+                userStatus: {
+                    status: "ok",
+                    lastChecked: DateTime.utc().toISO()
+                }
+            });
+            // Set badge
+            await getSubHisToSessionStorage();
+            setTasksSubmittedOnIcon();
+            // Close error page
+            let tabs = await chrome.tabs.query({});
+            tabs.forEach((tab) => {
+                if (tab.url.includes(errorPageUrl)) {
+                    chrome.tabs.remove(tab.id);
+                }
+            });
+        }
     });
 }
 
@@ -407,7 +413,6 @@ const getSubHisToSessionStorage = async () => {
     chrome.storage.session.set({ "subHis": subHis });
 }
 
-
 // Get submit history by day
 const getDataByDay = async (date) => {
     let subHis = (await chrome.storage.session.get(["subHis"])).subHis;
@@ -432,6 +437,7 @@ const getDataByDay = async (date) => {
     // console.log(dataByDay)
     return dataByDay;
 };
+
 // Add submit to history
 const newSubmit = async (taskType, time) => {
     let submitHistory = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
@@ -463,15 +469,14 @@ const setTasksSubmittedOnIcon = () => {
     })
 }
 
-
 /******** Call function ********/
 setSessionSettings();
 setInterval(async () => {
     let syncSettings = await chrome.storage.sync.get(null);
     let sessionSettings = await chrome.storage.session.get(null);
     //
-    checkUser(sessionSettings);
-    checkTask(syncSettings, sessionSettings);
+    await checkUser(sessionSettings);
+    await checkTask(syncSettings, sessionSettings);
 }, 20000)
 
 
@@ -511,7 +516,11 @@ chrome.runtime.onMessage.addListener((req, res, sendRes) => {
 
     /**************** CHECK USER STATUS **************/
     if (Object.getOwnPropertyNames(req) == "checkUserStatus") {
-        checkUserPermission((data) => {
+        checkUserPermission(async (data) => {
+            if (data.status == "net error") {
+                let sessionSettings = await chrome.storage.session.get(null);
+                data = sessionSettings.userStatus;
+            }
             sendRes(data);
         })
         return true;
