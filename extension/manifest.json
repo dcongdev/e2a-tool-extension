@@ -1,9 +1,9 @@
 {
-  "name": "E2A Tool",
+  "name": "E2A Tool - EWOQ time tracker and more...",
   "manifest_version": 3,
-  "version": "2.1.0",
-  "version_name": "2.1.0",
-  "description": "E2A Tool is a task counter and time tracker for Arrow Rater Project (raters) working on the Ewoq Rating Portal.",
+  "version": "2.1.1",
+  "version_name": "2.1.1",
+  "description": "E2A Tool is a task counter and time tracker for Arrow Project, PIAA project, ... working on the Ewoq Rating Portal.",
   "action": { "default_popup": "./pages/popup.html" },
   "icons": {
     "16": "./assets/icons/16x16/icon-black.png",

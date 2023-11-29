@@ -33,7 +33,9 @@ window.onload = () => {
     // Worker
     var blob = new Blob(["setInterval(function() {postMessage('');}, 1000); "]);
     var counterWorker = new Worker(window.URL.createObjectURL(blob));
-    var submitBtnWorker = new Worker(window.URL.createObjectURL(blob));
+
+    var blob2 = new Blob(["setInterval(function() {postMessage('');}, 50); "]);
+    var submitBtnWorker = new Worker(window.URL.createObjectURL(blob2));
 
     /********** FUCNTION **********/
     // Function convert time
@@ -60,10 +62,10 @@ window.onload = () => {
         let submitButton = document.getElementsByClassName("submitTaskButton")[0];
         if (submitButton != undefined) {
             if (!submitButton.classList.contains("is-disabled")) {
+                isSubmitBtnEnabled = true;
                 checkNewTaskType();
                 submitButton.removeEventListener("click", submitButtonClick);
                 submitButton.addEventListener("click", submitButtonClick);
-                isSubmitBtnEnabled = true;
             }
             else {
                 isSubmitBtnEnabled = false;
@@ -73,6 +75,7 @@ window.onload = () => {
             isSubmitBtnEnabled = false;
         }
     }
+
     // Submit button click event
     const submitButtonClick = () => {
         if (isSubmitBtnEnabled) {
