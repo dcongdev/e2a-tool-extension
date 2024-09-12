@@ -1,1 +1,474 @@
-const _0xcf0118=_0x5203;(function(_0x35ca59,_0x2ed2ee){const _0x36b6de=_0x5203,_0x33457f=_0x35ca59();while(!![]){try{const _0x29f077=parseInt(_0x36b6de(0xe0))/0x1*(-parseInt(_0x36b6de(0xc1))/0x2)+parseInt(_0x36b6de(0xb1))/0x3+parseInt(_0x36b6de(0xf3))/0x4+-parseInt(_0x36b6de(0xd7))/0x5+-parseInt(_0x36b6de(0xe2))/0x6*(-parseInt(_0x36b6de(0xbc))/0x7)+-parseInt(_0x36b6de(0xca))/0x8*(parseInt(_0x36b6de(0x103))/0x9)+parseInt(_0x36b6de(0xe6))/0xa;if(_0x29f077===_0x2ed2ee)break;else _0x33457f['push'](_0x33457f['shift']());}catch(_0x30525f){_0x33457f['push'](_0x33457f['shift']());}}}(_0x450e,0x18c54),window[_0xcf0118(0xbe)]=()=>{const _0xb7059f=_0xcf0118,_0x22a777=chrome['runtime'][_0xb7059f(0xf1)]('');console[_0xb7059f(0xfb)](_0xb7059f(0xc5));var _0x10d619=document[_0xb7059f(0x102)](_0xb7059f(0xf0))[0x0];_0x10d619['classList'][_0xb7059f(0x100)]('notranslate');var _0x4aba35=document[_0xb7059f(0x102)](_0xb7059f(0x101))[0x0],_0x26498c=document[_0xb7059f(0xdd)](_0xb7059f(0xd2)),_0x40f071=![],_0x29e580=0x0,_0xdb4e9e=![],_0xd0879b=![],_0x1257b9=0x0,_0x196e56=![],_0x31a732=![],_0x3c833f=![],_0x78476=![],_0x54a181=![],_0x365bbd=null,_0x46740d=new Blob(['setInterval(function()\x20{postMessage(\x27\x27);},\x201000);\x20']),_0x141aa1=new Worker(window[_0xb7059f(0xd1)][_0xb7059f(0xcd)](_0x46740d)),_0xf77a8f=new Blob(['setInterval(function()\x20{postMessage(\x27\x27);},\x2050);\x20']),_0x4a0d79=new Worker(window[_0xb7059f(0xd1)][_0xb7059f(0xcd)](_0xf77a8f));const _0x8f0b86=_0x103ffa=>{if(_0x103ffa<=0x0)return'00:00';let _0x571839='',_0x2a075f=parseInt(_0x103ffa/0xe10),_0x100f2d=parseInt(_0x103ffa%0xe10/0x3c),_0x2e87c7=_0x103ffa%0xe10%0x3c;return _0x2a075f>0x0&&(_0x2a075f<0xa&&_0x2a075f>=0x1&&(_0x571839+='0'),_0x571839+=_0x2a075f+':'),_0x100f2d<0xa&&(_0x571839+='0'),_0x571839+=_0x100f2d+':',_0x2e87c7<0xa&&(_0x571839+='0'),_0x571839+=_0x2e87c7,_0x571839;};_0x4a0d79[_0xb7059f(0xf7)]=()=>{const _0x1a4265=_0xb7059f;let _0x24fa90=document[_0x1a4265(0x102)]('submitTaskButton')[0x0];_0x24fa90!=undefined?!_0x24fa90[_0x1a4265(0xc7)][_0x1a4265(0xd6)](_0x1a4265(0xe8))?(_0x40f071=!![],_0x156957(),_0x24fa90[_0x1a4265(0xe5)](_0x1a4265(0xd0),_0x4d0107),_0x24fa90[_0x1a4265(0xc3)]('click',_0x4d0107)):_0x40f071=![]:_0x40f071=![];};const _0x4d0107=()=>{const _0x354063=_0xb7059f;if(_0x40f071){let _0x4aeab1={'time':_0x29e580,'taskType':_0x365bbd};chrome['runtime'][_0x354063(0xb7)]({'submitted':_0x4aeab1},_0x4b2131=>{_0xdb4e9e=!![],_0x5b00a1();}),chrome[_0x354063(0xee)][_0x354063(0xb7)]({'createNotiTaskIsSubmitted':!![]}),chrome[_0x354063(0xee)]['sendMessage']({'getNotiTaskIsSubmittedSound':!![]},_0x29e021=>{const _0x26f726=_0x354063;if(_0x29e021['status']=='ON'){let _0x3830d8=_0x29e021[_0x26f726(0xb5)],_0x3a05fc=document['createElement'](_0x26f726(0xd2));_0x3a05fc[_0x26f726(0xb2)]=_0x26f726(0xbb)+_0x3830d8+_0x26f726(0xdf),_0x3a05fc[_0x26f726(0xb3)]();}});}};eventHandler=_0x24a23b=>{const _0x34c299=_0xb7059f;_0x24a23b['keyCode']==0xd&&_0x24a23b[_0x34c299(0xb8)]&&_0x4d0107();},window[_0xb7059f(0xc3)]('keydown',eventHandler,![]);const _0x23fa36=()=>{const _0x385b37=_0xb7059f;let _0x1beded=document['createElement'](_0x385b37(0x108)),_0x1a1844=_0x385b37(0x105)+_0x385b37(0xeb)+_0x22a777+_0x385b37(0x106)+'<p\x20id=\x22txt-task-time\x22\x20style=\x22margin:\x200;\x20display:\x20inline;color:\x20white;margin-top:\x204px\x22>0</p>'+_0x385b37(0xf9);_0x1beded[_0x385b37(0xb2)]=_0x1a1844,_0x4aba35[_0x385b37(0xd4)](_0x1beded);},_0x5ece5f=()=>{const _0x3cfcba=_0xb7059f;document['getElementById'](_0x3cfcba(0xd8))[_0x3cfcba(0xdb)]=_0x8f0b86(_0x29e580),document['getElementById'](_0x3cfcba(0xfa))[_0x3cfcba(0xf6)]['display']=_0x3cfcba(0xc6);},_0x33bb6c=()=>{const _0x552c4f=_0xb7059f;document[_0x552c4f(0xc2)]('task-time')[_0x552c4f(0xf6)][_0x552c4f(0xd3)]=_0x552c4f(0xe1);},_0x5b00a1=()=>{_0xdb4e9e=!![],_0xd0879b=![],_0x29e580=-0x1;},_0x50c8c7=()=>{_0x365bbd=null;},_0x156957=()=>{_0x365bbd=_0x10d619['innerText'];},_0x327f85=()=>{const _0x399570=_0xb7059f;let _0x1a3de7=document[_0x399570(0xdd)](_0x399570(0x108)),_0x115267=_0x399570(0xf5)+_0x399570(0xba)+'Auto\x20submit\x20in\x20<br>\x20'+'<strong\x20style=\x22color:\x20rgb(0,\x20217,\x20255);font-size:\x2015px;\x22\x20id=\x22txt-time-count-submit\x22>0</strong></p>'+_0x399570(0xfd);_0x1a3de7[_0x399570(0xb2)]=_0x115267,_0x4aba35['appendChild'](_0x1a3de7);let _0x3710eb=document[_0x399570(0xc2)](_0x399570(0xed));_0x3710eb[_0x399570(0xc3)](_0x399570(0xd0),()=>{_0xd0879b=!![],_0x306cfe();});},_0x3414e3=_0x2b874f=>{const _0x325a88=_0xb7059f;document[_0x325a88(0xc2)](_0x325a88(0xcc))[_0x325a88(0xdb)]=_0x8f0b86(_0x2b874f),document[_0x325a88(0xc2)](_0x325a88(0xb6))['style']['display']='block';},_0x306cfe=()=>{const _0x3ff348=_0xb7059f;document[_0x3ff348(0xc2)](_0x3ff348(0xb6))['style']['display']=_0x3ff348(0xe1);},_0xe7562c=()=>{const _0x3f3ffc=_0xb7059f;let _0x1ee68e=document[_0x3f3ffc(0xdd)](_0x3f3ffc(0x108)),_0x253d59=_0x3f3ffc(0xc4)+_0x3f3ffc(0x109)+'<img\x20src=\x22'+_0x22a777+_0x3f3ffc(0xc9)+'<strong\x20style=\x22color:\x20rgb(0,\x20217,\x20255);font-size:\x2020px;\x22\x20id=\x22txt-time-count-reload\x22>0</strong></p>'+_0x3f3ffc(0xe7);_0x1ee68e['innerHTML']=_0x253d59,_0x4aba35[_0x3f3ffc(0xd4)](_0x1ee68e);let _0xaff9=document[_0x3f3ffc(0xc2)](_0x3f3ffc(0xb9));_0xaff9[_0x3f3ffc(0xc3)](_0x3f3ffc(0xd0),()=>{_0x31a732=!![],_0x446eba(),_0x6cb6a3();});},_0x46201f=_0x2cca40=>{const _0x407a4f=_0xb7059f;document[_0x407a4f(0xc2)]('txt-time-count-reload')[_0x407a4f(0xdb)]=_0x8f0b86(_0x2cca40),document['getElementById'](_0x407a4f(0xfc))[_0x407a4f(0xf6)][_0x407a4f(0xd3)]=_0x407a4f(0xf8);},_0x446eba=()=>{const _0x580134=_0xb7059f;document[_0x580134(0xc2)](_0x580134(0xfc))['style'][_0x580134(0xd3)]=_0x580134(0xe1);},_0x6cb6a3=()=>{_0x1257b9=-0x1;},_0x18cd94=()=>{const _0x33ba0e=_0xb7059f;let _0x242839=document[_0x33ba0e(0xdd)](_0x33ba0e(0x108));_0x242839[_0x33ba0e(0xb2)]='<div\x20id=\x22task-avail-noti-box\x22\x20class=\x22notranslate\x22\x20style=\x22display:none\x22>'+_0x33ba0e(0xcf)+_0x33ba0e(0xde)+_0x33ba0e(0xbf)+_0x33ba0e(0xbf)+_0x33ba0e(0xe4)+_0x33ba0e(0xbf)+_0x33ba0e(0xb4)+_0x22a777+_0x33ba0e(0xf2)+_0x33ba0e(0xf9)+_0x33ba0e(0xf9),_0x4aba35['appendChild'](_0x242839);let _0x12f050=document[_0x33ba0e(0xc2)]('btn-close-task-noti');_0x12f050['addEventListener'](_0x33ba0e(0xd0),()=>{_0x78476=!![],_0x5bfd7e(),_0x3d5e48();});},_0x16b91e=()=>{const _0x1e61fd=_0xb7059f;document['getElementById'](_0x1e61fd(0xef))[_0x1e61fd(0xf6)][_0x1e61fd(0xd3)]='block';},_0x3d5e48=()=>{const _0x487f65=_0xb7059f;document[_0x487f65(0xc2)]('task-avail-noti-box')['style']['display']=_0x487f65(0xe1);},_0x110732=()=>{const _0x331cbb=_0xb7059f;_0x54a181==![]&&chrome[_0x331cbb(0xee)]['sendMessage']({'getNotiTasksAvailableSound':!![]},_0x27674c=>{const _0xc403e4=_0x331cbb;let _0x1bbe86=_0x27674c[_0xc403e4(0xb5)],_0x4d6e0e=_0x27674c[_0xc403e4(0xec)];_0x26498c[_0xc403e4(0xb2)]=_0xc403e4(0xbb)+_0x1bbe86+_0xc403e4(0xdf),_0x26498c[_0xc403e4(0xb3)]()['then'](()=>{_0x54a181=!![],_0x26498c['loop']=_0x4d6e0e;});});},_0x5bfd7e=()=>{const _0x2c7e66=_0xb7059f;_0x26498c[_0x2c7e66(0xd9)](),_0x54a181=![];},_0x390cfe=()=>{const _0x15a8d3=_0xb7059f;chrome[_0x15a8d3(0xee)][_0x15a8d3(0xb7)]({'createNotiTasksAvailable':!![]});};_0x23fa36(),_0x327f85(),_0xe7562c(),_0x18cd94(),_0x141aa1[_0xb7059f(0xf7)]=async()=>{const _0x32bf01=_0xb7059f;let _0x14e0cf=document['getElementsByClassName'](_0x32bf01(0xf4))[0x0],_0x57b737=document[_0x32bf01(0x102)](_0x32bf01(0xda))[0x0],_0xb366e8=document[_0x32bf01(0x102)](_0x32bf01(0xcb))[0x0],_0x149d43=document[_0x32bf01(0x102)](_0x32bf01(0xbd))[0x0],_0x5b4962=document[_0x32bf01(0x102)]('skip-button')[0x0],_0x4a5492=document[_0x32bf01(0x102)]('skip-and-take-a-break-button')[0x0],_0x5e19b8=document[_0x32bf01(0x102)](_0x32bf01(0xd5))[0x0];_0x14e0cf!=null&&(_0x14e0cf[_0x32bf01(0xe5)]('click',_0x5b00a1),_0x14e0cf[_0x32bf01(0xc3)]('click',_0x5b00a1));_0xb366e8!=null&&(_0xb366e8[_0x32bf01(0xe5)](_0x32bf01(0xd0),_0x5b00a1),_0xb366e8[_0x32bf01(0xc3)](_0x32bf01(0xd0),_0x5b00a1));_0x5b4962!=null&&(_0x5b4962[_0x32bf01(0xe5)](_0x32bf01(0xd0),_0x5b00a1),_0x5b4962[_0x32bf01(0xc3)](_0x32bf01(0xd0),_0x5b00a1));_0x4a5492!=null&&(_0x4a5492['removeEventListener'](_0x32bf01(0xd0),_0x5b00a1),_0x4a5492[_0x32bf01(0xc3)](_0x32bf01(0xd0),_0x5b00a1));_0x5e19b8!=null&&(_0x5e19b8['removeEventListener'](_0x32bf01(0xd0),_0x5b00a1),_0x5e19b8[_0x32bf01(0xc3)](_0x32bf01(0xd0),_0x5b00a1));let _0x4fcc8b=await chrome[_0x32bf01(0xee)]['sendMessage']({'getAllSettings':!![]}),_0x36d4bc=_0x4fcc8b[_0x32bf01(0x10a)],_0xa2f6f0=_0x4fcc8b[_0x32bf01(0xfe)],_0x1e944c=_0x4fcc8b[_0x32bf01(0xc8)],_0x594fa6=_0x4fcc8b['Timing'],_0x324d6a=_0x4fcc8b['Automation'],_0x225868=_0x4fcc8b['userStatus'];if(_0x225868[_0x32bf01(0x104)]!='ok')return;if(_0x14e0cf!=null){_0x33bb6c(),_0x5b00a1(),_0x306cfe(),_0xdb4e9e=!![],_0xd0879b=![],_0x50c8c7();if(_0x14e0cf[_0x32bf01(0xc7)][_0x32bf01(0xd6)](_0x32bf01(0xce)))_0x446eba(),_0x6cb6a3(),_0x78476==![]&&(_0x3c833f==![]&&(_0x390cfe(),_0x3c833f=!![]),_0x1e944c[_0x32bf01(0xe9)]['status']=='ON'?_0x110732():_0x5bfd7e(),(_0xa2f6f0[_0x32bf01(0xe9)]=='ON'||_0x1e944c[_0x32bf01(0xe9)][_0x32bf01(0x104)]=='ON')&&_0x16b91e());else{_0x3c833f=![],_0x3d5e48(),_0x5bfd7e();if(_0x324d6a[_0x32bf01(0xe3)]['status']==_0x32bf01(0xff)||_0x324d6a[_0x32bf01(0xe3)]['time']<=0x0||_0x31a732==!![])_0x446eba(),_0x6cb6a3();else{if(_0x31a732==![]){_0x196e56==![]&&_0x6cb6a3();_0x1257b9+=0x1,_0x196e56=!![];let _0x5b6392=_0x324d6a[_0x32bf01(0xe3)][_0x32bf01(0x107)],_0x4772da=_0x5b6392-_0x1257b9;_0x46201f(_0x4772da),_0x4772da<=0x0&&window[_0x32bf01(0xc0)][_0x32bf01(0xdc)]();}}}return;}if(_0x57b737!=null){_0x33bb6c(),_0x5b00a1(),_0x306cfe(),_0x3d5e48(),_0x5bfd7e(),_0x446eba(),_0x6cb6a3(),_0xdb4e9e=!![],_0xd0879b=![],_0x50c8c7();return;}_0x3d5e48(),_0x5bfd7e(),_0x446eba(),_0x6cb6a3(),_0x196e56=![],_0x31a732=![],_0x3c833f=![],_0x78476=![],_0x54a181=![];_0xdb4e9e==!![]&&(_0x5b00a1(),_0xdb4e9e=![]);++_0x29e580;_0x594fa6['TimeCounterClock']=='ON'&&_0x5e19b8==null?_0x5ece5f():_0x33bb6c();if(_0x324d6a[_0x32bf01(0xea)][_0x32bf01(0x104)]==_0x32bf01(0xff)||_0x324d6a[_0x32bf01(0xea)][_0x32bf01(0x107)]<=0x0||_0x5e19b8!=null||_0xb366e8!=null||_0xd0879b==!![])_0x306cfe();else{if(_0xd0879b==![]&&_0x5e19b8==null&&_0xb366e8==null){let _0x469233=_0x324d6a[_0x32bf01(0xea)][_0x32bf01(0x107)],_0xefebaf=_0x469233-_0x29e580;_0x3414e3(_0xefebaf),_0xefebaf<=0x0&&(_0xd0879b=!![],_0x149d43!=null&&_0x149d43[_0x32bf01(0xd0)](),_0x306cfe());}}};});function _0x5203(_0x79e143,_0x2b6280){const _0x450e89=_0x450e();return _0x5203=function(_0x520393,_0x4a87e7){_0x520393=_0x520393-0xb1;let _0x2201a3=_0x450e89[_0x520393];return _0x2201a3;},_0x5203(_0x79e143,_0x2b6280);}function _0x450e(){const _0x232d0b=['btn-cancel-auto-submit','runtime','task-avail-noti-box','taskTitle','getURL','assets/images/cancel-icon-circle.png\x22\x20alt=\x22\x22>','730144sPdpzy','start-button','<div\x20id=\x22auto-submit-box\x22\x20class=\x22notranslate\x22\x20style=\x22display:none\x22>','style','onmessage','block','</div>','task-time','log','auto-reload-box','<p\x20type=\x22button\x22\x20style=\x22cursor:\x20pointer;\x22\x20id=\x22btn-cancel-auto-submit\x22>CANCEL</p></div>','Notifications','OFF','add','dense-header','getElementsByClassName','27FwWAeO','status','<div\x20id=\x22task-time\x22\x20style=\x22display:none;\x22>','assets/images/kisspng-clock.png\x22\x20alt=\x22\x22\x20style=\x22height:\x2020px;padding-right:\x205px;margin-top:\x202px;\x22>','time','div','<div><p\x20style=\x22color:\x20white;\x22>','extensionStatus','84087jzsbmC','innerHTML','play','<img\x20id=\x22btn-close-task-noti\x22\x20type=\x22button\x22\x20style=\x22cursor:\x20pointer;width:\x2050px;margin:\x2015px\x200\x2010px\x200;\x22\x20src=\x22','SoundURL','auto-submit-box','sendMessage','ctrlKey','btn-cancel-auto-reload','<p\x20style=\x22color:\x20white;\x22>','<source\x20src=\x22','892171gVopKL','submitTaskButton','onload','<br>','location','8fxxGIg','getElementById','addEventListener','<div\x20id=\x22auto-reload-box\x22\x20class=\x22notranslate\x22\x20style=\x22display:none\x22>','Imported\x20extension\x20script!','flex','classList','Sounds','assets/images/reload-icon.png\x22\x20alt=\x22\x22\x20style=\x22height:\x2040px;\x22><br>','306528DpHGNr','continue-button','txt-time-count-submit','createObjectURL','enabled','<div>','click','URL','audio','display','appendChild','finish-button','contains','208635vRoOma','txt-task-time','pause','request-assignments','innerText','reload','createElement','<p\x20style=\x22margin:\x205px;\x20display:\x20inline;color:\x20white;\x20font-size:\x20large;font-weight:\x20900;\x22>Ting\x20ting</p>','\x22\x20type=\x22audio/mpeg\x22\x20/>','49021ooUOoY','none','6MMKMoQ','AutoReload','<p\x20style=\x22margin:\x205px;\x20display:\x20inline;color:\x20white;margin:\x2015px\x200\x2010px\x200;\x22>There\x20are\x20tasks\x20available!</p>','removeEventListener','1162010NWKcef','</div><div><p\x20type=\x22button\x22\x20style=\x22cursor:\x20pointer;\x22\x20id=\x22btn-cancel-auto-reload\x22>CANCEL</p></div></div>','is-disabled','TasksAvailable','AutoSubmit','<img\x20src=\x22','loop'];_0x450e=function(){return _0x232d0b;};return _0x450e();}
+/* Copyright (C) 2023 Duong Cong - All Rights Reserved
+* Email: duongcong0412hc@gmail.com
+*/
+
+window.onload = () => {
+    const extensionUrl = chrome.runtime.getURL("");
+    console.log("Imported extension script!")
+
+    var taskTitle = document.getElementsByClassName("taskTitle")[0];
+    taskTitle.classList.add("notranslate")
+
+    // Global variable
+    var headerContainer = document.getElementsByClassName("dense-header")[0];
+    var audioElement = document.createElement('audio');
+
+    var isSubmitBtnEnabled = false;
+    var timeCounterClockCounter = 0;
+    var isStartNewTask = false;
+
+    //
+    var autoSubmitTime = 0;
+    var isCancelAutoSubmit = false;
+
+    //
+    var autoReloadCounter = 0;
+    var isAutoReloadCounting = false;
+    var isCancelAutoReload = false;
+
+    var isSentTaskVailableNoti = false;
+    var isCancelTasksAvailableNoti = false;
+    var isTasksAvailableNotiSoundPlaying = false;
+
+    var currTaskType = null;
+
+    // Worker
+    var blob = new Blob(["setInterval(function() {postMessage('');}, 1000); "]);
+    var counterWorker = new Worker(window.URL.createObjectURL(blob));
+
+    var blob2 = new Blob(["setInterval(function() {postMessage('');}, 50); "]);
+    var submitBtnWorker = new Worker(window.URL.createObjectURL(blob2));
+
+    /********** FUCNTION **********/
+    // Function convert time
+    const convertTime = (second) => {
+        if (second <= 0) { return "00:00"; }
+        let time = "";
+        let hour = parseInt(second / 3600);
+        let min = parseInt((second % 3600) / 60);
+        let sec = (second % 3600) % 60;
+        if (hour > 0) { // Hour
+            if (hour < 10 && hour >= 1) { time += "0" }
+            time += hour + ":";
+        }
+        if (min < 10) { time += "0"; }// Minute
+        time += min + ":";
+        if (sec < 10) { time += "0"; }// Second
+        time += sec;
+        return time;
+    }
+
+    const getRandomNumber = (min, max) => {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // =========== AUTO COUNT Submit button ===========
+    // Check if submit button is enabled or not
+    submitBtnWorker.onmessage = () => {
+        let submitButton = document.getElementsByClassName("submitTaskButton")[0];
+        if (submitButton != undefined) {
+            if (!submitButton.classList.contains("is-disabled")) {
+                isSubmitBtnEnabled = true;
+                checkNewTaskType();
+                submitButton.removeEventListener("click", submitButtonClick);
+                submitButton.addEventListener("click", submitButtonClick);
+            }
+            else {
+                isSubmitBtnEnabled = false;
+            }
+        }
+        else {
+            isSubmitBtnEnabled = false;
+        }
+    }
+
+    // Submit button click event
+    const submitButtonClick = () => {
+        if (isSubmitBtnEnabled) {
+            let submitData = { time: timeCounterClockCounter, taskType: currTaskType }
+            chrome.runtime.sendMessage({ "submitted": submitData }, (response) => {
+                // console.log(response)
+                isStartNewTask = true;
+                resetTimeCounterClockCounter();
+            });
+            //
+            chrome.runtime.sendMessage({ "createNotiTaskIsSubmitted": true })
+            // Play sound
+            chrome.runtime.sendMessage({ "getNotiTaskIsSubmittedSound": true }, (res) => {
+                if (res.status == "ON") {
+                    let SoundURL = res.SoundURL;
+                    let au = document.createElement('audio');
+                    au.innerHTML = '<source src="' + SoundURL + '" type="audio/mpeg" />'
+                    au.play();
+                }
+            })
+        }
+    }
+    eventHandler = (e) => { if (e.keyCode == 13 && e.ctrlKey) { submitButtonClick() } }
+    window.addEventListener('keydown', eventHandler, false);
+
+
+    // =========== TASK TIME COUNTER ===========
+    const createTimeCounterClockBox = () => {
+        let timeCounterClockCounter = document.createElement("div");
+        let taskTimeContent = '<div id="task-time" style="display:none;">'
+            + '<img src="' + extensionUrl + 'assets/images/kisspng-clock.png" alt="" style="height: 20px;padding-right: 5px;margin-top: 2px;">'
+            + '<p id="txt-task-time" style="margin: 0; display: inline;color: white;margin-top: 4px">0</p>'
+            + '</div>';
+        timeCounterClockCounter.innerHTML = taskTimeContent;
+        headerContainer.appendChild(timeCounterClockCounter);
+    }
+
+    const showTimeCounterClockBox = () => {
+        document.getElementById("txt-task-time").innerText = convertTime(timeCounterClockCounter);
+        document.getElementById("task-time").style.display = "flex";
+
+        // chrome.runtime.sendMessage({ "getAllSettings": true }, (res) => {
+        //     // let autoReload = res.autoReload;
+        //     // autoReloadCounter = autoReload.time;
+
+        // })
+
+    }
+
+    const hideTimeCounterClock = () => {
+        document.getElementById("task-time").style.display = "none";
+    }
+
+    const resetTimeCounterClockCounter = () => {
+        isStartNewTask = true;
+        isCancelAutoSubmit = false;
+        timeCounterClockCounter = -1;
+        // Reset auto submit time
+        resetAutoSubmit();
+    }
+
+
+    //
+    const resetTaskType = () => { currTaskType = null; }
+    //
+    const checkNewTaskType = () => { currTaskType = taskTitle.innerText; }
+
+
+    // =========== AUTO SUBMIT COUNTER ===========
+    const createAutoSubmitBox = () => {
+        let autoSubmitBox = document.createElement("div");
+        let autoSubmitBoxContent = '<div id="auto-submit-box" class="notranslate" style="display:none">'
+            + '<p style="color: white;">'
+            // + '<img src="' + extensionUrl + 'assets/images/reload-icon.png" alt="" style="height: 40px;"><br>'
+            + 'Auto submit in <br> '
+            + '<strong style="color: rgb(0, 217, 255);font-size: 15px;" id="txt-time-count-submit">0</strong></p>'
+            + '<p type="button" style="cursor: pointer;" id="btn-cancel-auto-submit">CANCEL</p></div>';
+        autoSubmitBox.innerHTML = autoSubmitBoxContent;
+        headerContainer.appendChild(autoSubmitBox);
+        let btn_cancel_auto_submit = document.getElementById("btn-cancel-auto-submit");
+        btn_cancel_auto_submit.addEventListener("click", () => {
+            isCancelAutoSubmit = true;
+            hideAutoSubmitBox();
+        })
+    }
+
+    const showAutoSubmitBox = (timeRemain) => {
+        document.getElementById("txt-time-count-submit").innerText = convertTime(timeRemain);
+        document.getElementById("auto-submit-box").style.display = "block";
+    }
+
+    const hideAutoSubmitBox = () => {
+        document.getElementById("auto-submit-box").style.display = "none";
+    }
+
+    const resetAutoSubmit = () => { autoSubmitTime = 0; }
+
+    // =========== AUTO RELOAD COUNTER ===========
+    const createAutoReloadBox = () => {
+        let autoReloadBox = document.createElement("div");
+        let autoReloadBoxContent = '<div id="auto-reload-box" class="notranslate" style="display:none">'
+            + '<div><p style="color: white;">'
+            + '<img src="' + extensionUrl + 'assets/images/reload-icon.png" alt="" style="height: 40px;"><br>'
+            + '<strong style="color: rgb(0, 217, 255);font-size: 20px;" id="txt-time-count-reload">0</strong></p>'
+            + '</div><div><p type="button" style="cursor: pointer;" id="btn-cancel-auto-reload">CANCEL</p></div></div>';
+        autoReloadBox.innerHTML = autoReloadBoxContent;
+        headerContainer.appendChild(autoReloadBox);
+        let btn_cancel_auto_reload = document.getElementById("btn-cancel-auto-reload");
+        btn_cancel_auto_reload.addEventListener("click", () => {
+            isCancelAutoReload = true;
+            hideAutoReloadBox();
+            resetAutoReloadCounter();
+        })
+    }
+
+    const showAutoReloadBox = (timeRemain) => {
+        document.getElementById("txt-time-count-reload").innerText = convertTime(timeRemain);
+        document.getElementById("auto-reload-box").style.display = "block";
+    }
+
+    const hideAutoReloadBox = () => {
+        document.getElementById("auto-reload-box").style.display = "none";
+    }
+
+    const resetAutoReloadCounter = () => {
+        autoReloadCounter = -1;
+    }
+
+    // =========== TASK AVAILABLE NOTI ===========
+    const createTaskAvailableNotiBox = () => {
+        let notiBox = document.createElement("div");
+        notiBox.innerHTML = '<div id="task-avail-noti-box" class="notranslate" style="display:none">'
+            + '<div>'
+            + '<p style="margin: 5px; display: inline;color: white; font-size: large;font-weight: 900;">Ting ting</p>'
+            + '<br>'
+            + '<br>'
+            + '<p style="margin: 5px; display: inline;color: white;margin: 15px 0 10px 0;">There are tasks available!</p>'
+            + '<br>'
+            + '<img id="btn-close-task-noti" type="button" style="cursor: pointer;width: 50px;margin: 15px 0 10px 0;" src="' + extensionUrl + 'assets/images/cancel-icon-circle.png" alt="">'
+            + '</div>'
+            + '</div>';
+        headerContainer.appendChild(notiBox);
+        let btn_close_noti = document.getElementById("btn-close-task-noti");
+        btn_close_noti.addEventListener("click", () => {
+            isCancelTasksAvailableNoti = true;
+            stopTasksAvailableNotiSound();
+            hideTasksAvailableNotiBox();
+        })
+
+    }
+
+    const showTasksAvailableNotiBox = () => {
+        document.getElementById("task-avail-noti-box").style.display = "block";
+    }
+
+    const hideTasksAvailableNotiBox = () => {
+        document.getElementById("task-avail-noti-box").style.display = "none";
+    }
+
+    const playTasksAvailableNotiSound = () => {
+        if (isTasksAvailableNotiSoundPlaying == false) {
+            chrome.runtime.sendMessage({ "getNotiTasksAvailableSound": true }, (res) => {
+                let SoundURL = res.SoundURL;
+                let loop = res.loop;
+                audioElement.innerHTML = '<source src="' + SoundURL + '" type="audio/mpeg" />'
+                audioElement.play().then(() => {
+                    isTasksAvailableNotiSoundPlaying = true;
+                    audioElement.loop = loop;
+                })
+            })
+        }
+    }
+
+    const stopTasksAvailableNotiSound = () => {
+        audioElement.pause();
+        isTasksAvailableNotiSoundPlaying = false;
+    }
+
+    const sendMessToSystem = () => {
+        chrome.runtime.sendMessage({ "createNotiTasksAvailable": true });
+    }
+
+    // Create
+    createTimeCounterClockBox();
+    createAutoSubmitBox();
+    createAutoReloadBox();
+    createTaskAvailableNotiBox();
+
+    counterWorker.onmessage = async () => {
+        let startButton = document.getElementsByClassName("start-button")[0];
+        let requestAssignmentsButton = document.getElementsByClassName("request-assignments")[0];
+
+        let continueButton = document.getElementsByClassName("continue-button")[0];
+        let submitButton = document.getElementsByClassName("submitTaskButton")[0];
+        let skipButton = document.getElementsByClassName("skip-button")[0];
+        let takeABreakButton = document.getElementsByClassName("skip-and-take-a-break-button")[0];
+        let finishButton = document.getElementsByClassName("finish-button")[0];
+
+        // ======= EVENT =======
+        if (startButton != null) { // startButton
+            startButton.removeEventListener("click", resetTimeCounterClockCounter);
+            startButton.addEventListener("click", resetTimeCounterClockCounter);
+        }
+        if (continueButton != null) { // continue button
+            continueButton.removeEventListener("click", resetTimeCounterClockCounter);
+            continueButton.addEventListener("click", resetTimeCounterClockCounter);
+        }
+        if (skipButton != null) { // continue button
+            skipButton.removeEventListener("click", resetTimeCounterClockCounter);
+            skipButton.addEventListener("click", resetTimeCounterClockCounter);
+        }
+        if (takeABreakButton != null) { // continue button
+            takeABreakButton.removeEventListener("click", resetTimeCounterClockCounter);
+            takeABreakButton.addEventListener("click", resetTimeCounterClockCounter);
+        }
+        if (finishButton != null) { // continue button
+            finishButton.removeEventListener("click", resetTimeCounterClockCounter);
+            finishButton.addEventListener("click", resetTimeCounterClockCounter);
+        }
+
+
+        let res = await chrome.runtime.sendMessage({ "getAllSettings": true })
+        let extensionStatus = res.extensionStatus;
+        //
+        let Notifications = res.Notifications;
+        let Sounds = res.Sounds;
+        let Timing = res.Timing;
+        let Automation = res.Automation;
+        //
+        let userStatus = res.userStatus;
+
+        // Check permission
+        if (userStatus.status != "ok") { return }
+
+        // ============ WAITING ============
+        // Start
+        if (startButton != null) {
+            // Hide and reset count time clock
+            hideTimeCounterClock();
+            resetTimeCounterClockCounter();
+
+            // Hide and reset auto submit
+            hideAutoSubmitBox();
+
+            // Reset state
+            isStartNewTask = true;
+            isCancelAutoSubmit = false;
+
+            resetTaskType();
+
+            // Tasks Available
+            // === Tasks Available notification
+            if (startButton.classList.contains("enabled")) {
+                // Hide and reset auto reload
+                hideAutoReloadBox();
+                resetAutoReloadCounter();
+                if (isCancelTasksAvailableNoti == false) { // Check is canceled noti or not
+                    // Create notification
+                    if (isSentTaskVailableNoti == false) { // Checked "ON"/"OFF" in backgound script
+                        sendMessToSystem();
+                        isSentTaskVailableNoti = true;
+                    }
+
+                    // Play audio
+                    if (Sounds.TasksAvailable.status == "ON") { playTasksAvailableNotiSound(); }
+                    else { stopTasksAvailableNotiSound(); }
+
+                    // Show noti box
+                    if (Notifications.TasksAvailable == "ON" || Sounds.TasksAvailable.status == "ON") {
+                        showTasksAvailableNotiBox();
+                    }
+                }
+            }
+            // No Tasks Available
+            // === Auto Reload
+            else {
+                // Reset noti status
+                isSentTaskVailableNoti = false;
+                // Hide noti
+                hideTasksAvailableNotiBox();
+                // Stop audio
+                stopTasksAvailableNotiSound();
+
+                // Auto reload
+                if (Automation.AutoReload.status == "OFF" || Automation.AutoReload.time <= 0 || isCancelAutoReload == true) { // Hide if status is "OFF"
+                    hideAutoReloadBox();
+                    resetAutoReloadCounter();
+                }
+                // If status is "ON"
+                else if (isCancelAutoReload == false) { // Check cancel
+                    // Reset counter If is not counting 
+                    if (isAutoReloadCounting == false) { resetAutoReloadCounter(); }
+                    // Countdown and show
+                    autoReloadCounter += 1;
+                    isAutoReloadCounting = true;
+                    let timeAutoReload = Automation.AutoReload.time;
+                    let timeRemain = timeAutoReload - autoReloadCounter;
+                    showAutoReloadBox(timeRemain);
+                    // Reload if 
+                    if (timeRemain == 0) { window.location.reload(); }
+                }
+
+            }
+            return
+        }
+
+        // Take A Break
+        if (requestAssignmentsButton != null) {
+            // Hide and reset count time clock
+            hideTimeCounterClock();
+            resetTimeCounterClockCounter();
+
+            // Hide and reset auto submit
+            hideAutoSubmitBox();
+
+            // Hide Task Available notification
+            // Hide noti
+            hideTasksAvailableNotiBox();
+            // Stop audio
+            stopTasksAvailableNotiSound();
+
+            // Hide and reset auto reload
+            hideAutoReloadBox();
+            resetAutoReloadCounter();
+
+            // Reset state
+            isStartNewTask = true;
+            isCancelAutoSubmit = false;
+
+            resetTaskType();
+
+            return
+        }
+
+
+        // ============ IN TASK ============
+        // Hide Task Available notification
+        // Hide noti
+        hideTasksAvailableNotiBox();
+        // Stop audio
+        stopTasksAvailableNotiSound();
+
+        // Hide and reset auto reload
+        hideAutoReloadBox();
+        resetAutoReloadCounter();
+
+        // Reset state
+        isAutoReloadCounting = false;
+        isCancelAutoReload = false;
+        //
+        isSentTaskVailableNoti = false;
+        isCancelTasksAvailableNoti = false;
+        isTasksAvailableNotiSoundPlaying = false;
+
+        // ** Count time clock in Task, Instructions,...
+        if (isStartNewTask == true) {
+            resetTimeCounterClockCounter();
+            isStartNewTask = false;
+        }
+        ++timeCounterClockCounter;
+
+        // Show/hide count time clock
+        if (Timing.TimeCounterClock == "ON" && finishButton == null) { showTimeCounterClockBox(); }
+        else { hideTimeCounterClock(); }
+
+        // ** Auto submit
+        if (Automation.AutoSubmit.status == "OFF" || Automation.AutoSubmit.endTime <= 0 || finishButton != null || continueButton != null || isCancelAutoSubmit == true) { hideAutoSubmitBox() }
+        // If status is "ON"
+        else if (isCancelAutoSubmit == false && finishButton == null && continueButton == null) { // Check cancel
+            if (autoSubmitTime == 0) {
+                autoSubmitTime = getRandomNumber(Automation.AutoSubmit.startTime, Automation.AutoSubmit.endTime);
+            }
+            // console.log("In task - Auto submit: ON - " + timeCounterClockCounter)
+
+            let timeRemain = autoSubmitTime - timeCounterClockCounter;
+            // console.log(autoSubmitTime)
+            // console.log(timeRemain)
+            showAutoSubmitBox(timeRemain)
+            if (timeRemain <= 0) {
+                isCancelAutoSubmit = true;
+                if (submitButton != null) { submitButton.click() }
+                // document.getElementsByClassName("submitTaskButton")[0].click();
+                hideAutoSubmitBox();
+            }
+
+        }
+
+    }
+
+};

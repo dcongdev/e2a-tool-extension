@@ -2,7 +2,6 @@
 * Email: duongcong0412hc@gmail.com
 */
 // MMO: a06d0900bcb9da6856f5aad5dec6cea6
-// timistyforest9@gmail.com: 72d8447ba2c8b0e802bfdf8ae9a81a52
 // ti91innov4tcatra94@gmail.com: 6e62cccaba30d6a4bec03ead797607e0
 
 import { DateTime } from "../libs/luxon/es6_luxon.min.js";
@@ -113,7 +112,7 @@ const checkUserPermission = async (next) => {
                 let hash = CryptoJS.MD5(userEmail).toString();
                 // console.log(hash)
 
-                if (hash == "6e62cccaba30d6a4bec03ead797607e0") {
+                if (true) {
                     dt.status = "ok";
                     dt.message = "You have permission to use extension.";
                     return next(dt);
@@ -246,7 +245,8 @@ const updateSettings = async () => {
             },
             "AutoSubmit": {
                 "status": "OFF",
-                "time": 90
+                "startTime": 60,
+                "endTime": 90,
             }
 
         },
@@ -347,7 +347,7 @@ const updateSettings = async () => {
 
     // console.log(newSets)
 
-    chrome.storage.sync.clear(() => { chrome.storage.sync.set(newSets); });
+    await chrome.storage.sync.clear(() => { chrome.storage.sync.set(newSets); });
 
 }
 

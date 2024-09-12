@@ -403,24 +403,39 @@
                             <div class="setting-options col-md-12 pt-3 pb-2 mt-2 setting-items container-fluid">
                                 <div class="row d-flex justify-content-between">
                                     <div class="col-11 row">
-                                        <div class="col-5 pe-0 mt-1">
-                                            <p class="mt-1">Auto submit at</p>
+                                        <div class="col-12 pe-0 mt-1">
+                                            <p class="mt-1">Auto submit at(random):</p>
                                             <!-- <div class="form-text mb-2" style="font-size: x-small ;">
                                                 Auto submit tasks at 12:20s
                                             </div> -->
                                         </div>
-
-                                        <div class="col input-group">
-                                            <select disabled class="form-select pe-0" id="autoSubmitSelectMin"
+                                        <!-- Start -->
+                                        <div class="col-12 input-group">
+                                            <strong class="text-danger me-2 pt-2">Start</strong>
+                                            <select disabled class="form-select pe-0 rounded" id="autoSubmitStartSelectMin"
                                                 style="width: 45px;height: 35px;">
 
                                             </select>
-                                            <span class="mt-1 ms-0 me-0">min</span>
-                                            <select disabled class="form-select pe-0" id="autoSubmitSelectSec"
+                                            <u class="mt-1 ms-0 me-2">min</u>
+                                            <select disabled class="form-select pe-0 rounded" id="autoSubmitStartSelectSec"
                                                 style="width: 50px;height: 35px;">
 
                                             </select>
-                                            <span class="mt-1 ms-0">sec</span>
+                                            <u class="mt-1 ms-0">sec</u>
+                                        </div>
+                                        <!-- End -->
+                                        <div class="col-12 input-group mt-1">
+                                            <strong class="text-danger me-3 pt-2">End</strong>
+                                            <select disabled class="form-select pe-0 rounded" id="autoSubmitEndSelectMin"
+                                                style="width: 45px;height: 35px;">
+
+                                            </select>
+                                            <u class="mt-1 ms-0 me-2">min</u>
+                                            <select disabled class="form-select pe-0 rounded" id="autoSubmitEndSelectSec"
+                                                style="width: 50px;height: 35px;">
+
+                                            </select>
+                                            <u class="mt-1 ms-0">sec</u>
                                         </div>
                                     </div>
 

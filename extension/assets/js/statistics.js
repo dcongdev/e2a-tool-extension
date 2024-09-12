@@ -1,1 +1,887 @@
-(function(_0x313e66,_0x2251c5){const _0x49a3e1=_0x4e45,_0x12f2e8=_0x313e66();while(!![]){try{const _0x4d6e00=parseInt(_0x49a3e1(0x216))/0x1*(parseInt(_0x49a3e1(0x1db))/0x2)+parseInt(_0x49a3e1(0x205))/0x3+parseInt(_0x49a3e1(0x21a))/0x4+-parseInt(_0x49a3e1(0x22a))/0x5*(parseInt(_0x49a3e1(0x212))/0x6)+-parseInt(_0x49a3e1(0x23b))/0x7*(-parseInt(_0x49a3e1(0x23c))/0x8)+parseInt(_0x49a3e1(0x1ec))/0x9+parseInt(_0x49a3e1(0x215))/0xa*(-parseInt(_0x49a3e1(0x214))/0xb);if(_0x4d6e00===_0x2251c5)break;else _0x12f2e8['push'](_0x12f2e8['shift']());}catch(_0x4a7295){_0x12f2e8['push'](_0x12f2e8['shift']());}}}(_0x1599,0xe8a9d),$(document)['ready'](async function(){const _0x362562=_0x4e45;await chrome[_0x362562(0x21b)][_0x362562(0x1e8)]({'checkUserStatus':!![]},async _0x223d25=>{const _0xf22a25=_0x362562;if(_0x223d25[_0xf22a25(0x22f)]!='ok'&&_0x223d25[_0xf22a25(0x253)]!='You\x20have\x20permission\x20to\x20use\x20extension.'){chrome[_0xf22a25(0x221)]['session'][_0xf22a25(0x1f9)]({'userStatus':{'status':'error','lastChecked':_0x164e53['utc']()[_0xf22a25(0x249)]()}}),chrome[_0xf22a25(0x1cf)]['setBadgeBackgroundColor']({'color':_0xf22a25(0x1ff)}),chrome[_0xf22a25(0x1cf)][_0xf22a25(0x224)]({'text':'!'});let _0x547491=chrome[_0xf22a25(0x21b)][_0xf22a25(0x1e6)]('/pages/error.html');chrome[_0xf22a25(0x21e)][_0xf22a25(0x1f0)]({'url':_0x547491});let _0x3a3608=chrome[_0xf22a25(0x21b)][_0xf22a25(0x1e6)]('/pages/statistics.html'),_0x1bfd5e=await chrome[_0xf22a25(0x21e)][_0xf22a25(0x208)]({});_0x1bfd5e['forEach'](_0x44c415=>{const _0x143855=_0xf22a25;_0x44c415[_0x143855(0x1f2)][_0x143855(0x20f)](_0x3a3608)&&chrome[_0x143855(0x21e)][_0x143855(0x22b)](_0x44c415['id'],()=>{});});return;}else chrome['action'][_0xf22a25(0x1f3)]({'color':_0xf22a25(0x246)}),chrome[_0xf22a25(0x1cf)]['setBadgeText']({'text':''}),chrome['storage']['session'][_0xf22a25(0x1f9)]({'userStatus':{'status':'ok','lastChecked':_0x164e53[_0xf22a25(0x20c)]()[_0xf22a25(0x249)]()}}),chrome[_0xf22a25(0x21b)][_0xf22a25(0x1e8)]({'setTaskSubmittedOnIcon':!![]},_0x57cac2=>{});});var _0x2a06d8=![],_0x522740=document[_0x362562(0x235)](_0x362562(0x22e));setInterval(()=>{const _0x55f2df=_0x362562;if(_0x2a06d8==![])$(_0x55f2df(0x226))[_0x55f2df(0x23a)](_0x55f2df(0x24a));else _0x2a06d8==!![]&&(!_0x522740['classList'][_0x55f2df(0x243)](_0x55f2df(0x24a))&&$('#spinner')['addClass'](_0x55f2df(0x24a)));},0x64);var _0x164e53=luxon[_0x362562(0x1e5)];const _0x1a9a67=_0xbc7ead=>{const _0xf96c95=_0x362562;if(_0xbc7ead<=0x0)return _0xf96c95(0x245);let _0x4c001e='',_0x4dcf5e=parseInt(_0xbc7ead/0xe10),_0x199ec6=parseInt(_0xbc7ead%0xe10/0x3c),_0x23030e=_0xbc7ead%0xe10%0x3c;return _0x4dcf5e<0xa&&_0x4dcf5e>=0x1&&(_0x4c001e+='0'),_0x4c001e+=_0x4dcf5e+':',_0x199ec6<0xa&&(_0x4c001e+='0'),_0x4c001e+=_0x199ec6+':',_0x23030e<0xa&&(_0x4c001e+='0'),_0x4c001e+=_0x23030e,_0x4c001e;};var _0x3ca93a=(await chrome['storage'][_0x362562(0x1d9)][_0x362562(0x257)]([_0x362562(0x1e5)]))[_0x362562(0x1e5)][_0x362562(0x227)];let _0x382fae=document['getElementsByClassName']('txt-current-timezone');_0x3ca93a==_0x362562(0x20e)&&(_0x3ca93a=_0x164e53['local']()['zoneName']);_0x382fae[0x0]['innerText']=_0x3ca93a;_0x3ca93a==_0x362562(0x20e)&&(_0x3ca93a=_0x164e53[_0x362562(0x1e2)]()['zoneName']);var _0x273d05=_0x164e53[_0x362562(0x20c)]()[_0x362562(0x1eb)](_0x3ca93a),_0x33a029=[],_0x1233eb=[],_0x1ae0bc=[],_0x4a4ca4=[],_0x10d759=null,_0x150a9b=null,_0x24532d=null,_0x3228e2=null,_0x18b3b0=null,_0x3fa842=null,_0x1b7e3d=null,_0x3f9aaf=null,_0x27ef70=null,_0x457579=document[_0x362562(0x235)](_0x362562(0x21f));let _0x371411=_0x273d05[_0x362562(0x206)](_0x164e53['DATETIME_SHORT_WITH_SECONDS']),_0x1c1454=document['getElementById'](_0x362562(0x24d));var _0x31f2e3=new Blob(['setInterval(function()\x20{postMessage(\x27\x27);},\x201000);\x20']),_0x2b6981=new Worker(window['URL']['createObjectURL'](_0x31f2e3));_0x2b6981['onmessage']=()=>{const _0x29af10=_0x362562;let _0x4be654=_0x164e53['utc']()[_0x29af10(0x1eb)](_0x3ca93a),_0x92b0c7=_0x4be654[_0x29af10(0x206)](_0x164e53[_0x29af10(0x1e0)]);_0x457579[_0x29af10(0x1ce)]=_0x92b0c7;};const _0xd2b04=async()=>{const _0x9b9274=_0x362562;_0x33a029=(await chrome[_0x9b9274(0x221)][_0x9b9274(0x1e2)][_0x9b9274(0x257)]([_0x9b9274(0x21c)]))[_0x9b9274(0x21c)];if(_0x33a029==[])return;if(_0x33a029==null)return;if(_0x33a029['length']==0x0)return;_0x10d759=_0x164e53[_0x9b9274(0x1f4)](_0x33a029[0x0]['datetime'])[_0x9b9274(0x1eb)](_0x3ca93a),console[_0x9b9274(0x1d7)](_0x10d759),_0x150a9b=_0x164e53[_0x9b9274(0x1f4)](_0x33a029[_0x33a029['length']-0x1][_0x9b9274(0x228)])[_0x9b9274(0x1eb)](_0x3ca93a);for(let _0x326f37=_0x10d759[_0x9b9274(0x1dc)];_0x326f37<=_0x150a9b[_0x9b9274(0x1dc)];_0x326f37++){_0x4a4ca4[_0x9b9274(0x20b)](_0x326f37);let _0x128ca0=0x1,_0x781f00=0xc,_0x463b7e=0x1,_0x2361df=parseInt(_0x164e53['fromISO'](_0x326f37+_0x9b9274(0x200))[_0x9b9274(0x1d4)]('WW'));_0x326f37==_0x10d759['year']&&(_0x463b7e=_0x10d759[_0x9b9274(0x231)],_0x128ca0=_0x10d759[_0x9b9274(0x220)]);_0x326f37==_0x150a9b[_0x9b9274(0x1dc)]&&(_0x781f00=_0x150a9b[_0x9b9274(0x220)],_0x2361df=_0x150a9b[_0x9b9274(0x231)]);let _0x3653e7=[];for(let _0x99ca05=_0x463b7e;_0x99ca05<=_0x2361df;_0x99ca05++){_0x3653e7[_0x9b9274(0x20b)](_0x99ca05);}_0x1233eb[_0x9b9274(0x20b)]({'year':_0x326f37,'week':_0x3653e7});let _0x13357b=[];for(let _0x5c503e=_0x128ca0;_0x5c503e<=_0x781f00;_0x5c503e++){_0x13357b[_0x9b9274(0x20b)](_0x5c503e);}_0x1ae0bc[_0x9b9274(0x20b)]({'year':_0x326f37,'month':_0x13357b});}},_0x524308=_0x420677=>{const _0x3fb4b7=_0x362562;let _0x458efc={'date':_0x420677,'totalTasks':0x0,'totalTime':0x0,'data':{'taskType':[],'tasks':[],'time':[]},'dataByTaskType':[]},_0x318f59=0x0,_0x3706bb=0x0,_0x3b16ee=[];for(let _0x373189=0x0;_0x373189<_0x33a029[_0x3fb4b7(0x1e7)];_0x373189++){let _0x386fff=_0x164e53['fromISO'](_0x33a029[_0x373189][_0x3fb4b7(0x228)])[_0x3fb4b7(0x1eb)](_0x3ca93a);if(_0x386fff[_0x3fb4b7(0x1fe)]()==_0x420677){_0x318f59+=0x1,_0x3706bb+=_0x33a029[_0x373189]['time'];let _0xe9f4c3=_0x3b16ee['findIndex'](_0x3bb056=>_0x3bb056[_0x3fb4b7(0x1d2)]==_0x33a029[_0x373189][_0x3fb4b7(0x1d2)]);_0xe9f4c3==-0x1&&(_0x3b16ee[_0x3fb4b7(0x20b)]({'taskType':_0x33a029[_0x373189]['taskType'],'tasks':0x0,'time':0x0}),_0xe9f4c3=_0x3b16ee[_0x3fb4b7(0x1e7)]-0x1),_0x3b16ee[_0xe9f4c3][_0x3fb4b7(0x1e1)]+=0x1,_0x3b16ee[_0xe9f4c3][_0x3fb4b7(0x1ea)]+=_0x33a029[_0x373189]['time'];}}_0x458efc[_0x3fb4b7(0x223)]=_0x318f59,_0x458efc[_0x3fb4b7(0x239)]=_0x3706bb,_0x458efc[_0x3fb4b7(0x1d6)]=_0x3b16ee;for(let _0x24d4ab=0x0;_0x24d4ab<_0x3b16ee['length'];_0x24d4ab++){_0x458efc[_0x3fb4b7(0x256)]['taskType']['push'](_0x3b16ee[_0x24d4ab][_0x3fb4b7(0x1d2)]),_0x458efc[_0x3fb4b7(0x256)][_0x3fb4b7(0x1e1)]['push'](_0x3b16ee[_0x24d4ab][_0x3fb4b7(0x1e1)]),_0x458efc['data'][_0x3fb4b7(0x1ea)][_0x3fb4b7(0x20b)](Math[_0x3fb4b7(0x1e3)](_0x3b16ee[_0x24d4ab][_0x3fb4b7(0x1ea)]/0x3c));}return _0x458efc;},_0x41d05b=()=>{const _0x1a424f=_0x362562;let _0x4a7517=$(_0x1a424f(0x238)),_0x313a96=_0x273d05[_0x1a424f(0x1fe)](),_0x659e20=_0x10d759[_0x1a424f(0x1fe)](),_0x5a3154=_0x150a9b[_0x1a424f(0x1fe)]();_0x273d05>_0x150a9b&&(_0x5a3154=_0x273d05[_0x1a424f(0x1fe)]()),_0x4a7517['val'](_0x313a96),_0x4a7517[_0x1a424f(0x250)]({'min':_0x659e20}),_0x4a7517['attr']({'max':_0x5a3154});},_0xb4a200=_0x335e38=>{const _0x454518=_0x362562;let _0x3bf62b=_0x524308(_0x335e38)[_0x454518(0x1d6)],_0x584ffe='';for(let _0x4f9d5d=0x0;_0x4f9d5d<_0x3bf62b[_0x454518(0x1e7)];_0x4f9d5d++){_0x584ffe+=_0x454518(0x1f1)+_0x454518(0x1d3)+_0x3bf62b[_0x4f9d5d][_0x454518(0x1d2)]+_0x454518(0x1d8)+_0x454518(0x1d3)+_0x3bf62b[_0x4f9d5d]['tasks']+_0x454518(0x1d8)+_0x454518(0x1d3)+_0x1a9a67(_0x3bf62b[_0x4f9d5d][_0x454518(0x1ea)])+_0x454518(0x1d8)+_0x454518(0x1d3)+Math[_0x454518(0x1e3)](0xe10/(_0x3bf62b[_0x4f9d5d][_0x454518(0x1ea)]/_0x3bf62b[_0x4f9d5d]['tasks']))+_0x454518(0x1d8)+_0x454518(0x1d3)+Math[_0x454518(0x1e3)](_0x3bf62b[_0x4f9d5d]['time']/_0x3bf62b[_0x4f9d5d][_0x454518(0x1e1)])+_0x454518(0x22d)+_0x454518(0x1d0);}let _0x2400d8=document['getElementById']('day-table-body-by-type');_0x2400d8[_0x454518(0x232)]=_0x584ffe,_0x3228e2=$(_0x454518(0x1da))[_0x454518(0x202)]();},_0xcef3eb=_0x55851a=>{const _0x10933f=_0x362562;let _0x18d9ca=_0x524308(_0x55851a),_0x2b7f3a=0x0,_0x4e6a74=0x0;for(let _0x2870e8=0x0;_0x2870e8<_0x18d9ca['dataByTaskType']['length'];_0x2870e8++){_0x2b7f3a+=_0x18d9ca[_0x10933f(0x1d6)][_0x2870e8]['tasks'],_0x4e6a74+=_0x18d9ca[_0x10933f(0x1d6)][_0x2870e8][_0x10933f(0x1ea)];}let _0x41964a=document[_0x10933f(0x235)]('dayDetailTasksTxt'),_0xb0f04f=document['getElementById'](_0x10933f(0x241)),_0x13c234=document[_0x10933f(0x235)](_0x10933f(0x22c)),_0xcb86a1=document[_0x10933f(0x235)](_0x10933f(0x252));_0xcb86a1['innerText']=_0x55851a,_0x41964a[_0x10933f(0x1ce)]=_0x2b7f3a,_0xb0f04f[_0x10933f(0x1ce)]=_0x1a9a67(_0x4e6a74),_0x13c234['innerText']=Math[_0x10933f(0x1e3)](0xe10/(_0x4e6a74/_0x2b7f3a))+'';},_0x2138e5=_0x13500e=>{const _0x10afe8=_0x362562;let _0x208f8e=_0x524308(_0x13500e),_0x6e76c0={'taskType':[],'tasks':[],'time':[]};for(let _0x30467e=0x0;_0x30467e<_0x208f8e[_0x10afe8(0x1d6)][_0x10afe8(0x1e7)];_0x30467e++){_0x6e76c0['taskType'][_0x10afe8(0x20b)](_0x208f8e[_0x10afe8(0x1d6)][_0x30467e][_0x10afe8(0x1d2)]),_0x6e76c0[_0x10afe8(0x1e1)][_0x10afe8(0x20b)](_0x208f8e[_0x10afe8(0x1d6)][_0x30467e][_0x10afe8(0x1e1)]),_0x6e76c0['time']['push'](_0x208f8e[_0x10afe8(0x1d6)][_0x30467e]['time']);}_0x24532d=new Chart(_0x10afe8(0x211),{'type':_0x10afe8(0x219),'data':{'labels':_0x6e76c0[_0x10afe8(0x1d2)],'datasets':[{'label':_0x10afe8(0x1dd),'data':_0x6e76c0[_0x10afe8(0x1e1)]}]},'options':{'legend':{'display':!![]},'plugins':{'title':{'display':!![],'text':'Statistics\x20by\x20task\x20type'}},'maintainAspectRatio':![]}});};$(document)['on'](_0x362562(0x23e),_0x362562(0x218),()=>{const _0x52cd43=_0x362562;if(_0x33a029==undefined)return;if(_0x33a029==null)return;if(_0x33a029[_0x52cd43(0x1e7)]==0x0)return;let _0xf1bdf6=_0x164e53[_0x52cd43(0x1f4)]($(_0x52cd43(0x238))[_0x52cd43(0x1fc)]()),_0x70de5f=_0x10d759[_0x52cd43(0x1fe)](),_0x19a43a=_0x150a9b[_0x52cd43(0x1fe)]();_0x273d05>_0x150a9b&&(_0x19a43a=_0x273d05);if(_0xf1bdf6<_0x70de5f||_0xf1bdf6>_0x19a43a){$('#date-picker')[_0x52cd43(0x204)](_0x52cd43(0x209),_0x52cd43(0x247));return;}$(_0x52cd43(0x238))['css'](_0x52cd43(0x209),'1px\x20solid\x20rgb(187,\x20187,\x20187)');_0x3228e2!=null&&_0x3228e2[_0x52cd43(0x251)]();_0x24532d!=null&&_0x24532d['destroy']();let _0x48348e=document[_0x52cd43(0x235)](_0x52cd43(0x1ef));_0x48348e[_0x52cd43(0x232)]='',_0x2e85e7(_0xf1bdf6[_0x52cd43(0x1fe)]());});const _0x1cbc2c=(_0x3805fe,_0x41135)=>{const _0x3b63f3=_0x362562;let _0x4f6125={'week':'','data':{'day':[],'tasks':[],'time':[]},'dataByTaskType':[]},_0x109d06=parseInt(_0x3805fe),_0x34ce5f=parseInt(_0x41135),_0x5466c1=_0x34ce5f<0xa?_0x109d06+'W0'+_0x34ce5f:_0x109d06+'W'+_0x34ce5f,_0x2fa46a=_0x164e53[_0x3b63f3(0x1f4)](_0x5466c1);for(let _0x4fa054=0x0;_0x4fa054<0x7;_0x4fa054++){let _0x384e6d=_0x2fa46a[_0x3b63f3(0x217)]({'days':_0x4fa054})[_0x3b63f3(0x1fe)]();_0x4f6125[_0x3b63f3(0x256)][_0x3b63f3(0x1fa)]['push'](_0x384e6d[_0x3b63f3(0x254)](0x5)),_0x4f6125['data'][_0x3b63f3(0x1e1)][_0x3b63f3(0x20b)](0x0),_0x4f6125[_0x3b63f3(0x256)][_0x3b63f3(0x1ea)][_0x3b63f3(0x20b)](0x0);}for(let _0x42928e=0x0;_0x42928e<_0x33a029['length'];_0x42928e++){let _0x3d3946=_0x164e53[_0x3b63f3(0x1f4)](_0x33a029[_0x42928e]['datetime'])[_0x3b63f3(0x1eb)](_0x3ca93a);if(_0x3d3946[_0x3b63f3(0x1dc)]==_0x109d06&&_0x3d3946[_0x3b63f3(0x231)]==_0x34ce5f){let _0x53e1cb=_0x4f6125[_0x3b63f3(0x256)]['day'][_0x3b63f3(0x236)](_0x3f010a=>_0x3f010a==_0x3d3946[_0x3b63f3(0x1fe)]()[_0x3b63f3(0x254)](0x5)),_0x3b2acc=_0x33a029[_0x42928e][_0x3b63f3(0x1ea)];_0x4f6125[_0x3b63f3(0x256)]['tasks'][_0x53e1cb]+=0x1,_0x4f6125[_0x3b63f3(0x256)]['time'][_0x53e1cb]+=_0x3b2acc;}}_0x4f6125['week']=_0x5466c1;for(let _0x515c1d=0x0;_0x515c1d<_0x4f6125[_0x3b63f3(0x256)][_0x3b63f3(0x1ea)][_0x3b63f3(0x1e7)];_0x515c1d++){_0x4f6125['data'][_0x3b63f3(0x1ea)][_0x515c1d]=Math[_0x3b63f3(0x1e3)](_0x4f6125[_0x3b63f3(0x256)][_0x3b63f3(0x1ea)][_0x515c1d]/0x3c);}return _0x4f6125;},_0x3f8a1e=_0x1315ce=>{const _0x1f930a=_0x362562;let _0xfa8db0=_0x1315ce[_0x1f930a(0x256)],_0x30d9eb=0x0,_0x1fb6c4=0x0;for(let _0x75677f=0x0;_0x75677f<_0xfa8db0[_0x1f930a(0x1fa)][_0x1f930a(0x1e7)];_0x75677f++){_0x30d9eb+=_0xfa8db0[_0x1f930a(0x1e1)][_0x75677f],_0x1fb6c4+=_0xfa8db0[_0x1f930a(0x1ea)][_0x75677f]*0x3c;}let _0x19fef1=document['getElementById'](_0x1f930a(0x255)),_0x85fb5d=document[_0x1f930a(0x235)](_0x1f930a(0x1fb)),_0x147382=document[_0x1f930a(0x235)]('weekDetailRphTxt'),_0xc0edcc=document[_0x1f930a(0x235)](_0x1f930a(0x203)),_0x2c3e00=_0x164e53[_0x1f930a(0x1f4)](_0x1315ce['week']),_0x1d9b30=_0x2c3e00[_0x1f930a(0x217)]({'day':0x6}),_0xe8d36e=_0x2c3e00[_0x1f930a(0x1fe)]()[_0x1f930a(0x201)](/-/g,'/'),_0x4dbd36=_0x1d9b30[_0x1f930a(0x1fe)]()[_0x1f930a(0x201)](/-/g,'/');_0xc0edcc[_0x1f930a(0x1ce)]=_0x1f930a(0x23f)+_0x1315ce[_0x1f930a(0x244)][_0x1f930a(0x254)](0x5)+'\x20-\x20'+_0x1315ce[_0x1f930a(0x244)][_0x1f930a(0x254)](0x0,0x4)+'\x20('+_0xe8d36e+'\x20-\x20'+_0x4dbd36+')',_0x19fef1[_0x1f930a(0x1ce)]=_0x30d9eb,_0x85fb5d[_0x1f930a(0x1ce)]=_0x1a9a67(_0x1fb6c4),_0x147382['innerText']=Math['round'](0xe10/(_0x1fb6c4/_0x30d9eb))+'';},_0x7afd89=()=>{const _0x376556=_0x362562;let _0xb80c62='',_0x10a78d='';for(let _0x44afb8=0x0;_0x44afb8<_0x1233eb[_0x376556(0x1e7)];_0x44afb8++){let _0xb64b33=_0x1233eb[_0x44afb8]['year'];if(_0xb64b33==_0x273d05[_0x376556(0x1dc)]){_0xb80c62+=_0x376556(0x24b)+_0xb64b33+'\x22>'+_0xb64b33+_0x376556(0x248);for(let _0x5b8f33=0x0;_0x5b8f33<_0x1233eb[_0x44afb8][_0x376556(0x244)][_0x376556(0x1e7)];_0x5b8f33++){let _0x5e8ba2=_0x1233eb[_0x44afb8][_0x376556(0x244)][_0x5b8f33],_0x7ff775=_0x5e8ba2<0xa?_0xb64b33+'W0'+_0x5e8ba2:_0xb64b33+'W'+_0x5e8ba2,_0x3aec73=_0x164e53[_0x376556(0x1f4)](_0x7ff775),_0x4058a9=_0x3aec73[_0x376556(0x217)]({'day':0x6}),_0x328f8c=_0x3aec73[_0x376556(0x1fe)]()['replace'](/-/g,'/'),_0x1fdc66=_0x4058a9[_0x376556(0x1fe)]()[_0x376556(0x201)](/-/g,'/');_0x10a78d+=_0x376556(0x222),_0x10a78d+=_0x5e8ba2==_0x273d05[_0x376556(0x231)]?_0x376556(0x1ee):'\x20',_0x10a78d+='value=\x22'+_0x5e8ba2+'\x22>'+_0x5e8ba2+'\x20('+_0x328f8c+'\x20-\x20'+_0x1fdc66+_0x376556(0x20a);}continue;}_0xb80c62+=_0x376556(0x1f8)+_0xb64b33+'\x22>'+_0xb64b33+_0x376556(0x248);}let _0x435e2c=document[_0x376556(0x235)]('select-year-week');_0x435e2c[_0x376556(0x232)]=_0xb80c62;let _0x20f4f9=document[_0x376556(0x235)]('select-week');_0x20f4f9[_0x376556(0x232)]=_0x10a78d;},_0x5e4d27=(_0x42c855,_0x4f8364)=>{const _0x29ac71=_0x362562;let _0x466dfa=_0x1cbc2c(_0x42c855,_0x4f8364)[_0x29ac71(0x1d6)],_0x1a74fd='';for(let _0x137b67=0x0;_0x137b67<_0x466dfa[_0x29ac71(0x1e7)];_0x137b67++){_0x1a74fd+=_0x29ac71(0x1f1)+_0x29ac71(0x1d3)+_0x466dfa[_0x137b67][_0x29ac71(0x213)]+'</td>'+_0x29ac71(0x1d3)+_0x466dfa[_0x137b67][_0x29ac71(0x1e1)]+_0x29ac71(0x1d8)+_0x29ac71(0x1d3)+_0x1a9a67(_0x466dfa[_0x137b67][_0x29ac71(0x1ea)])+_0x29ac71(0x1d8)+'<td>'+Math[_0x29ac71(0x1e3)](0xe10/(_0x466dfa[_0x137b67][_0x29ac71(0x1ea)]/_0x466dfa[_0x137b67]['tasks']))+'</td>'+_0x29ac71(0x1d3)+Math['round'](_0x466dfa[_0x137b67]['time']/_0x466dfa[_0x137b67]['tasks'])+'s</td>'+_0x29ac71(0x1d0);}let _0x2e6542=document[_0x29ac71(0x235)]('week-table-body-by-type');_0x2e6542[_0x29ac71(0x232)]=_0x1a74fd;let _0x56c976=new DataTable(_0x29ac71(0x207));},_0x22a007=(_0x402cc1,_0x498de7)=>{const _0xf35c3e=_0x362562;let _0x43cff8=_0x1cbc2c(_0x402cc1,_0x498de7),_0x537ed9={'taskType':[],'tasks':[],'time':[]};for(let _0x5353b8=0x0;_0x5353b8<_0x43cff8[_0xf35c3e(0x1d6)][_0xf35c3e(0x1e7)];_0x5353b8++){_0x537ed9[_0xf35c3e(0x1d2)][_0xf35c3e(0x20b)](_0x43cff8['dataByTaskType'][_0x5353b8][_0xf35c3e(0x213)]),_0x537ed9['tasks'][_0xf35c3e(0x20b)](_0x43cff8[_0xf35c3e(0x1d6)][_0x5353b8][_0xf35c3e(0x1e1)]),_0x537ed9[_0xf35c3e(0x1ea)]['push'](_0x43cff8[_0xf35c3e(0x1d6)][_0x5353b8][_0xf35c3e(0x1ea)]);}_0x1b7e3d=new Chart(_0xf35c3e(0x1de),{'type':_0xf35c3e(0x219),'data':{'labels':_0x537ed9[_0xf35c3e(0x1d2)],'datasets':[{'label':_0xf35c3e(0x1dd),'data':_0x537ed9[_0xf35c3e(0x1e1)]}]},'options':{'legend':{'display':!![]},'plugins':{'title':{'display':!![],'text':_0xf35c3e(0x1f6)}},'maintainAspectRatio':![]}});},_0x409b4d=_0x568e33=>{const _0x437ccc=_0x362562;_0x18b3b0=new Chart('weekChartByTasks',{'type':'bar','data':{'labels':_0x568e33[_0x437ccc(0x256)][_0x437ccc(0x1fa)],'datasets':[{'label':'Tasks','backgroundColor':_0x437ccc(0x225),'borderColor':_0x437ccc(0x225),'data':_0x568e33[_0x437ccc(0x256)]['tasks']}]},'options':{'legend':{'display':![]},'plugins':{'title':{'display':!![],'text':_0x568e33['week']}},'maxBarThickness':0x2d,'maintainAspectRatio':![],'scales':{'x':{'beginAtZero':!![],'title':{'display':!![],'text':'Day'}},'y':{'beginAtZero':!![],'title':{'display':!![],'text':_0x437ccc(0x1dd)}}}}});},_0x259177=_0x112670=>{const _0x408fad=_0x362562;_0x3fa842=new Chart('weekChartByTime',{'type':_0x408fad(0x1f5),'data':{'labels':_0x112670[_0x408fad(0x256)]['day'],'datasets':[{'label':_0x408fad(0x24f),'data':_0x112670[_0x408fad(0x256)][_0x408fad(0x1ea)],'backgroundColor':'rgb(226,\x20105,\x2049)','borderColor':_0x408fad(0x1d5)}]},'options':{'legend':{'display':![]},'plugins':{'title':{'display':!![],'text':_0x112670['week']}},'maxBarThickness':0x2d,'maintainAspectRatio':![],'scales':{'x':{'beginAtZero':!![],'title':{'display':!![],'text':'Day'}},'y':{'beginAtZero':!![],'title':{'display':!![],'text':_0x408fad(0x24f)}}}}});};$(document)['on']('change','#select-year-week',()=>{const _0x47fc82=_0x362562;if(_0x33a029==undefined)return;if(_0x33a029==null)return;if(_0x33a029['length']==0x0)return;let _0x13e107=parseInt($(_0x47fc82(0x233))[_0x47fc82(0x1fc)]()),_0x1e7756='',_0x3a1b3c=_0x1233eb[_0x47fc82(0x236)](_0x401461=>_0x401461[_0x47fc82(0x1dc)]==_0x13e107);_0x1e7756+=_0x47fc82(0x1fd);for(let _0xdbf068=0x0;_0xdbf068<_0x1233eb[_0x3a1b3c][_0x47fc82(0x244)][_0x47fc82(0x1e7)];_0xdbf068++){let _0x45603a=_0x1233eb[_0x3a1b3c][_0x47fc82(0x244)][_0xdbf068],_0x22f63b=_0x45603a<0xa?_0x13e107+'W0'+_0x45603a:_0x13e107+'W'+_0x45603a,_0x254d82=_0x164e53[_0x47fc82(0x1f4)](_0x22f63b),_0x1d0b68=_0x254d82['plus']({'day':0x6}),_0x58e3d7=_0x254d82[_0x47fc82(0x1fe)]()[_0x47fc82(0x201)](/-/g,'/'),_0x115c91=_0x1d0b68['toISODate']()[_0x47fc82(0x201)](/-/g,'/');_0x1e7756+=_0x47fc82(0x1f8)+_0x45603a+'\x22>'+_0x45603a+'\x20('+_0x58e3d7+_0x47fc82(0x1df)+_0x115c91+_0x47fc82(0x20a);}let _0x20a5f8=document[_0x47fc82(0x235)]('select-week');_0x20a5f8[_0x47fc82(0x232)]=_0x1e7756;}),$(document)['on'](_0x362562(0x1e9),'#select-week',()=>{if(_0x33a029==undefined)return;if(_0x33a029==null)return;if(_0x33a029['length']==0x0)return;setTimeout(()=>{const _0x1c0fa2=_0x4e45;let _0x502791=parseInt($(_0x1c0fa2(0x233))[_0x1c0fa2(0x1fc)]()),_0x74891e=parseInt($(_0x1c0fa2(0x237))['val']());if(_0x74891e==0x0)return;_0x18b3b0!=null&&_0x18b3b0['destroy'](),_0x3fa842!=null&&_0x3fa842[_0x1c0fa2(0x251)](),_0x125664(_0x502791,_0x74891e);},0x64);});const _0x468cbe=(_0x4c30eb,_0x1e6378)=>{const _0x34e49f=_0x362562;let _0x330c3d={'month':'','data':{'day':[],'tasks':[],'time':[]}},_0x2a63e9=parseInt(_0x4c30eb),_0xd6b341=parseInt(_0x1e6378),_0x7b84cb=_0xd6b341<0xa?_0x4c30eb+'-0'+_0x1e6378:_0x4c30eb+'-'+_0x1e6378,_0x325652=_0x164e53['fromISO'](_0x7b84cb)['endOf']('month')[_0x34e49f(0x1fa)];for(let _0x44ddbf=0x1;_0x44ddbf<=_0x325652;_0x44ddbf++){let _0x40756a='';_0x44ddbf<0xa?_0x40756a=_0x7b84cb+'-0'+_0x44ddbf:_0x40756a=_0x7b84cb+'-'+_0x44ddbf,_0x330c3d[_0x34e49f(0x256)][_0x34e49f(0x1fa)][_0x34e49f(0x20b)](_0x40756a[_0x34e49f(0x254)](0x5)),_0x330c3d[_0x34e49f(0x256)][_0x34e49f(0x1e1)][_0x34e49f(0x20b)](0x0),_0x330c3d['data'][_0x34e49f(0x1ea)]['push'](0x0);}for(let _0x140820=0x0;_0x140820<_0x33a029[_0x34e49f(0x1e7)];_0x140820++){let _0x381481=_0x164e53['fromISO'](_0x33a029[_0x140820][_0x34e49f(0x228)])['setZone'](_0x3ca93a);if(_0x381481[_0x34e49f(0x1dc)]==_0x2a63e9&&_0x381481[_0x34e49f(0x220)]==_0xd6b341){let _0x350bce=_0x330c3d[_0x34e49f(0x256)]['day']['findIndex'](_0x3bef86=>_0x3bef86==_0x381481['toISODate']()[_0x34e49f(0x254)](0x5)),_0x5e0514=_0x33a029[_0x140820][_0x34e49f(0x1ea)];_0x330c3d[_0x34e49f(0x256)][_0x34e49f(0x1e1)][_0x350bce]+=0x1,_0x330c3d[_0x34e49f(0x256)][_0x34e49f(0x1ea)][_0x350bce]+=_0x5e0514;}}_0x330c3d['month']=_0x4c30eb+'-'+_0x1e6378;for(let _0x264276=0x0;_0x264276<_0x330c3d['data']['time'][_0x34e49f(0x1e7)];_0x264276++){_0x330c3d[_0x34e49f(0x256)][_0x34e49f(0x1ea)][_0x264276]=Math[_0x34e49f(0x1e3)](_0x330c3d[_0x34e49f(0x256)][_0x34e49f(0x1ea)][_0x264276]/0x3c);}return _0x330c3d;},_0x29d3d9=_0x51452a=>{const _0x2d692a=_0x362562;let _0x471d17=_0x51452a[_0x2d692a(0x256)],_0x3e18bd=0x0,_0x3102ea=0x0;for(let _0x5820c8=0x0;_0x5820c8<_0x471d17[_0x2d692a(0x1fa)][_0x2d692a(0x1e7)];_0x5820c8++){_0x3e18bd+=_0x471d17[_0x2d692a(0x1e1)][_0x5820c8],_0x3102ea+=_0x471d17[_0x2d692a(0x1ea)][_0x5820c8]*0x3c;}let _0x484731=document[_0x2d692a(0x235)](_0x2d692a(0x1f7)),_0x570231=document[_0x2d692a(0x235)](_0x2d692a(0x230)),_0x43e6f5=document[_0x2d692a(0x235)]('monthDetailRphTxt'),_0x424fdc=document['getElementById'](_0x2d692a(0x1e4));_0x424fdc[_0x2d692a(0x1ce)]=_0x51452a['month'],_0x484731[_0x2d692a(0x1ce)]=_0x3e18bd,_0x570231[_0x2d692a(0x1ce)]=_0x1a9a67(_0x3102ea),_0x43e6f5['innerText']=Math[_0x2d692a(0x1e3)](0xe10/(_0x3102ea/_0x3e18bd))+'';},_0x2b841a=()=>{const _0x30e986=_0x362562;let _0x16b6e3='',_0x489158='';for(let _0x561f6a=0x0;_0x561f6a<_0x1ae0bc[_0x30e986(0x1e7)];_0x561f6a++){let _0x2824d6=_0x1ae0bc[_0x561f6a][_0x30e986(0x1dc)];_0x16b6e3+=_0x30e986(0x222),_0x16b6e3+=_0x2824d6==_0x273d05[_0x30e986(0x1dc)]?'selected\x20':'\x20',_0x16b6e3+='<option\x20value=\x22'+_0x2824d6+'\x22>'+_0x2824d6+_0x30e986(0x248);if(_0x2824d6==_0x273d05[_0x30e986(0x1dc)])for(let _0xeb2f5c=0x0;_0xeb2f5c<_0x1ae0bc[_0x561f6a][_0x30e986(0x220)][_0x30e986(0x1e7)];_0xeb2f5c++){let _0x5230b4=_0x1ae0bc[_0x561f6a]['month'][_0xeb2f5c];_0x489158+=_0x30e986(0x222),_0x489158+=_0x5230b4==_0x273d05['month']?'selected\x20':'\x20',_0x489158+=_0x30e986(0x242)+_0x5230b4+'\x22>'+_0x5230b4+_0x30e986(0x248);}}let _0x149742=document['getElementById']('select-year-month');_0x149742[_0x30e986(0x232)]=_0x16b6e3;let _0x2750c8=document[_0x30e986(0x235)](_0x30e986(0x24e));_0x2750c8[_0x30e986(0x232)]=_0x489158;},_0xcef9bb=_0x419f05=>{const _0x1653cf=_0x362562;_0x3f9aaf=new Chart(_0x1653cf(0x210),{'type':'bar','data':{'labels':_0x419f05['data'][_0x1653cf(0x1fa)],'datasets':[{'label':_0x1653cf(0x1dd),'data':_0x419f05[_0x1653cf(0x256)][_0x1653cf(0x1e1)],'backgroundColor':'rgb(54,\x20162,\x20235)','borderColor':_0x1653cf(0x225)}]},'options':{'legend':{'display':![]},'maintainAspectRatio':![],'scales':{'x':{'beginAtZero':!![],'title':{'display':!![],'text':'Day'}},'y':{'beginAtZero':!![],'title':{'display':!![],'text':_0x1653cf(0x1dd)}}}}});},_0x2a40e9=_0xdf843=>{const _0x12f555=_0x362562;_0x27ef70=new Chart(_0x12f555(0x21d),{'type':_0x12f555(0x1f5),'data':{'labels':_0xdf843[_0x12f555(0x256)][_0x12f555(0x1fa)],'datasets':[{'label':_0x12f555(0x24f),'data':_0xdf843[_0x12f555(0x256)]['time'],'backgroundColor':_0x12f555(0x1d5),'borderColor':_0x12f555(0x1d5)}]},'options':{'legend':{'display':![]},'maintainAspectRatio':![],'scales':{'x':{'beginAtZero':!![],'title':{'display':!![],'text':_0x12f555(0x23d)}},'y':{'beginAtZero':!![],'title':{'display':!![],'text':'Time\x20(Minutes)'}}}}});};$(document)['on'](_0x362562(0x1e9),_0x362562(0x1ed),()=>{const _0x36322d=_0x362562;if(_0x33a029==undefined)return;if(_0x33a029==null)return;if(_0x33a029[_0x36322d(0x1e7)]==0x0)return;let _0x3286b7=parseInt($(_0x36322d(0x229))[_0x36322d(0x1fc)]()),_0x69d175='',_0x18c286=_0x1ae0bc[_0x36322d(0x236)](_0x122514=>_0x122514['year']==_0x3286b7);_0x69d175+=_0x36322d(0x24c);for(let _0x25b4dc=0x0;_0x25b4dc<_0x1ae0bc[_0x18c286][_0x36322d(0x220)][_0x36322d(0x1e7)];_0x25b4dc++){let _0x4a47fe=_0x1ae0bc[_0x18c286][_0x36322d(0x220)][_0x25b4dc];_0x69d175+=_0x36322d(0x1f8)+_0x4a47fe+'\x22>'+_0x4a47fe+'</option>';}let _0x8b6d4b=document[_0x36322d(0x235)](_0x36322d(0x24e));_0x8b6d4b[_0x36322d(0x232)]=_0x69d175;}),$(document)['on'](_0x362562(0x1e9),_0x362562(0x234),()=>{const _0x193b6e=_0x362562;if(_0x33a029==undefined)return;if(_0x33a029==null)return;if(_0x33a029[_0x193b6e(0x1e7)]==0x0)return;setTimeout(()=>{const _0x226e3c=_0x193b6e;let _0x5053a6=parseInt($(_0x226e3c(0x229))['val']()),_0x364f8e=parseInt($('#select-month\x20option:selected')[_0x226e3c(0x1fc)]());if(_0x364f8e==0x0){_0x2a06d8=![];return;}_0x3f9aaf!=null&&_0x3f9aaf[_0x226e3c(0x251)](),_0x27ef70!=null&&_0x27ef70[_0x226e3c(0x251)](),_0x340bd9(_0x5053a6,_0x364f8e);},0x64);}),await _0xd2b04();if(_0x33a029==[])return;if(_0x33a029==null)return;if(_0x33a029[_0x362562(0x1e7)]==0x0)return;_0x41d05b();const _0x2e85e7=_0x332c84=>{_0x2a06d8=!![],setTimeout(()=>{_0xcef3eb(_0x332c84),_0xb4a200(_0x332c84),_0x2138e5(_0x332c84),_0x2a06d8=![];},0x64);};_0x2e85e7(_0x273d05[_0x362562(0x1fe)]()),_0x7afd89();const _0x125664=(_0x3291e2,_0x408ec4)=>{_0x2a06d8=!![],setTimeout(()=>{let _0x2a83ad=_0x1cbc2c(_0x3291e2,_0x408ec4);_0x3f8a1e(_0x2a83ad),_0x409b4d(_0x2a83ad),_0x259177(_0x2a83ad),_0x2a06d8=![];},0x64);};_0x2b841a();const _0x340bd9=(_0x5f331b,_0x2efc6f)=>{_0x2a06d8=!![],setTimeout(()=>{let _0x26012f=_0x468cbe(_0x5f331b,_0x2efc6f);_0x29d3d9(_0x26012f),_0xcef9bb(_0x26012f),_0x2a40e9(_0x26012f),_0x2a06d8=![];},0x64);};$(document)['on'](_0x362562(0x23e),_0x362562(0x1d1),()=>{const _0x42df4e=_0x362562;_0x24532d==null&&_0x2e85e7(_0x273d05[_0x42df4e(0x1fe)]());}),$(document)['on']('click',_0x362562(0x20d),()=>{_0x18b3b0==null&&_0x125664(_0x273d05['year'],_0x273d05['weekNumber']);}),$(document)['on'](_0x362562(0x23e),_0x362562(0x240),()=>{const _0x2cd19c=_0x362562;_0x3f9aaf==null&&_0x340bd9(_0x273d05[_0x2cd19c(0x1dc)],_0x273d05[_0x2cd19c(0x220)]);});}));function _0x4e45(_0x28e7b8,_0x4ffb28){const _0x15990e=_0x1599();return _0x4e45=function(_0x4e45ba,_0x172556){_0x4e45ba=_0x4e45ba-0x1ce;let _0x4ced98=_0x15990e[_0x4e45ba];return _0x4ced98;},_0x4e45(_0x28e7b8,_0x4ffb28);}function _0x1599(){const _0x46e7bc=['get','innerText','action','</tr>','#day-tab','taskType','<td>','toFormat','rgb(226,\x20105,\x2049)','dataByTaskType','log','</td>','sync','#day-table-by-type','28YrBQje','year','Tasks','weekChartByType','\x20-\x20','DATETIME_FULL_WITH_SECONDS','tasks','local','round','month-title','DateTime','getURL','length','sendMessage','change','time','setZone','15607017LCMUSl','#select-year-month','selected\x20','day-table-body-by-type','create','<tr>','url','setBadgeBackgroundColor','fromISO','bar','Statistics\x20by\x20task\x20type','monthDetailTasksTxt','<option\x20value=\x22','set','day','weekDetailTimeTxt','val','<option\x20selected\x20value=\x220\x22>Select\x20week</option>','toISODate','red','-12-28','replace','DataTable','week-title','css','94017WoDjvU','toLocaleString','#week-table-by-type','query','border',')</option>','push','utc','#week-tab','default','includes','monthChartByTasks','dayChartByType','121350kbZNgA','taskTypeName','578875KCMBnj','670NHgdZi','105577fDGpDt','plus','#btn-search-by-day','pie','4201852gTzrzk','runtime','submitHistory','monthChartByTime','tabs','txt-real-time','month','storage','<option\x20','totalTasks','setBadgeText','rgb(54,\x20162,\x20235)','#spinner','Timezone','datetime','#select-year-month\x20option:selected','395DdjBGf','remove','dayDetailRphTxt','s</td>','spinner','status','monthDetailTimeTxt','weekNumber','innerHTML','#select-year-week\x20option:selected','#select-month','getElementById','findIndex','#select-week\x20option:selected','#date-picker','totalTime','removeClass','14suhxeY','7130584vpisSY','Day','click','Week\x20','#month-tab','dayDetailTimeTxt','value=\x22','contains','week','00:00','#D1F2EB','2px\x20solid\x20red','</option>','toISO','show','<option\x20selected\x20value=\x22','<option\x20selected\x20value=\x220\x22>Select\x20month</option>','txtTimezone','select-month','Time\x20(Minutes)','attr','destroy','day-title','message','substring','weekDetailTasksTxt','data'];_0x1599=function(){return _0x46e7bc;};return _0x1599();}
+$(document).ready(async function () {
+
+    await chrome.runtime.sendMessage({ "checkUserStatus": true }, async (res) => {
+        if (res.status != "ok" && res.message != "You have permission to use extension.") {
+            chrome.storage.session.set({
+                "userStatus": {
+                    status: "error",
+                    lastChecked: DateTime.utc().toISO()
+                }
+            });
+            chrome.action.setBadgeBackgroundColor({ color: "red" });
+            chrome.action.setBadgeText({ text: "!" });
+            let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
+            chrome.tabs.create({ url: errorPageUrl });
+            let statisticsPageUrl = chrome.runtime.getURL("/pages/statistics.html");
+            let tabs = await chrome.tabs.query({});
+            tabs.forEach((tab) => {
+                if (tab.url.includes(statisticsPageUrl)) {
+                    chrome.tabs.remove(tab.id, () => { });
+                }
+            });
+            return
+        }
+        else {
+            chrome.action.setBadgeBackgroundColor({ color: "#D1F2EB" });
+            chrome.action.setBadgeText({ text: "" });
+            chrome.storage.session.set({
+                "userStatus": {
+                    status: "ok",
+                    lastChecked: DateTime.utc().toISO()
+                }
+            });
+            chrome.runtime.sendMessage({ "setTaskSubmittedOnIcon": true }, (res) => { })
+        }
+    })
+
+    // Loading animation
+    var loading = false;
+    var spinner = document.getElementById("spinner");
+    setInterval(() => {
+        if (loading == false) {
+            $("#spinner").removeClass("show");
+        }
+        else if (loading == true) {
+            if (!spinner.classList.contains("show")) {
+                $("#spinner").addClass("show");
+            }
+        }
+    }, 100)
+
+    var DateTime = luxon.DateTime;
+    // Function convert time
+    const convertTime = (second) => {
+        if (second <= 0) {
+            return "00:00";
+        }
+        let time = "";
+        let hour = parseInt(second / 3600);
+        let min = parseInt((second % 3600) / 60);
+        let sec = (second % 3600) % 60;
+        // if (hour > 0) { // Hour
+        //     if (hour < 10 && hour >= 1) { time += "0" }
+        //     time += hour + ":";
+        // }
+        if (hour < 10 && hour >= 1) {
+            time += "0";
+        }
+        time += hour + ":";
+        if (min < 10) {
+            time += "0";
+        } // Minute
+        time += min + ":";
+        if (sec < 10) {
+            time += "0";
+        } // Second
+        time += sec;
+        return time;
+    };
+    //
+    var timezone = (await chrome.storage.sync.get(["DateTime"])).DateTime.Timezone;
+
+    let txtCurrentTimezone = document.getElementsByClassName("txt-current-timezone");
+    if (timezone == "default") { timezone = DateTime.local().zoneName; }
+    txtCurrentTimezone[0].innerText = timezone
+
+    if (timezone == "default") { timezone = DateTime.local().zoneName; }
+    //
+    var currentTime = DateTime.utc().setZone(timezone);
+    // var currentTime = DateTime.fromISO("2023-03-14").setZone(timezone);
+    //
+    var submitHistory = [];
+    var weekList = [];
+    var monthList = [];
+    var yearList = [];
+    var startHis = null;
+    var endHis = null;
+    // Day
+    var dayChartByType = null;
+    var dataTableDay = null;
+    // Week
+    var weekChartByTasks = null;
+    var weekChartByTime = null;
+    var weekChartByType = null;
+    // Month
+    var monthChartByTasks = null;
+    var monthChartByTime = null;
+    // Show timezone
+    var txtRealTime = document.getElementById("txt-real-time");
+    let timeStr = currentTime.toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS);
+    // txtRealTime.innerText = timeStr;
+    let txtTimezone = document.getElementById("txtTimezone")
+    // txtTimezone.innerText = "Statistics by " + timezone;
+
+    // Update real time clock
+    var blob = new Blob(["setInterval(function() {postMessage('');}, 1000); "]);
+    var counterWorker = new Worker(window.URL.createObjectURL(blob));
+    counterWorker.onmessage = () => {
+        let time = DateTime.utc().setZone(timezone);
+        let a = time.toLocaleString(DateTime.DATETIME_FULL_WITH_SECONDS);
+        txtRealTime.innerText = a;
+        // console.log(currentTime.toISO)
+    };
+
+    /* ======= GET DATA ======= */
+    const getSubmitHistory = async () => {
+        submitHistory = (await chrome.storage.local.get(["submitHistory"])).submitHistory;
+        // console.log(submitHistory)
+        //
+        if (submitHistory == []) { return }
+        if (submitHistory == null) { return }
+        if (submitHistory.length == 0) { return }
+        //
+        startHis = DateTime.fromISO(submitHistory[0].datetime).setZone(timezone);
+        console.log(startHis)
+        endHis = DateTime.fromISO(
+            submitHistory[submitHistory.length - 1].datetime
+        ).setZone(timezone);
+        // console.log(startHis.toISO())
+        // console.log(endHis.toISO())
+
+        for (let i = startHis.year; i <= endHis.year; i++) {
+            // push list year
+            yearList.push(i);
+            let startMonth = 1; // Init start month
+            let endMonth = 12; // Init end month
+            //
+            let startWeek = 1; // Init start week
+            let endWeek = parseInt(DateTime.fromISO(i + "-12-28").toFormat("WW"));
+            // If year = start year
+            if (i == startHis.year) {
+                startWeek = startHis.weekNumber;
+                startMonth = startHis.month;
+            }
+            // If year = end year
+            if (i == endHis.year) {
+                endMonth = endHis.month;
+                endWeek = endHis.weekNumber;
+            }
+
+            // Set list weeks of year
+            let weeks = [];
+            for (let k = startWeek; k <= endWeek; k++) {
+                weeks.push(k);
+            }
+            weekList.push({ year: i, week: weeks });
+
+            // Set list month of year
+            let months = [];
+            for (let k = startMonth; k <= endMonth; k++) {
+                months.push(k);
+            }
+            monthList.push({ year: i, month: months });
+        }
+
+        // console.log("YEAR list ====")
+        // console.log(yearList)
+        // console.log("WEEK list ====")
+        // console.log(weekList)
+        // console.log("MONTH list ====")
+        // console.log(monthList)
+    };
+
+    /* ======= SHOW CHART ======= */
+    // DAY
+    const getDataByDay = (date) => {
+        let dataByDay = {
+            date: date,
+            totalTasks: 0,
+            totalTime: 0,
+            data: { taskType: [], tasks: [], time: [] },
+            dataByTaskType: [],
+        };
+        //
+        let totalTasks = 0;
+        let totalTime = 0;
+        let dataByTaskType = [];
+
+        // Get data
+        for (let i = 0; i < submitHistory.length; i++) {
+            let taskDate = DateTime.fromISO(submitHistory[i].datetime).setZone(
+                timezone
+            );
+            // console.log(taskDate.toISODate())
+
+            if (taskDate.toISODate() == date) {
+                totalTasks += 1;
+                totalTime += submitHistory[i].time;
+                //
+                let idx = dataByTaskType.findIndex(
+                    (e) => e.taskType == submitHistory[i].taskType
+                );
+                if (idx == -1) {
+                    dataByTaskType.push({
+                        taskType: submitHistory[i].taskType,
+                        tasks: 0,
+                        time: 0,
+                    });
+                    idx = dataByTaskType.length - 1;
+                }
+                // Total tasks and time work
+                dataByTaskType[idx].tasks += 1;
+                dataByTaskType[idx].time += submitHistory[i].time;
+            }
+        }
+        //
+        dataByDay.totalTasks = totalTasks;
+        dataByDay.totalTime = totalTime;
+        dataByDay.dataByTaskType = dataByTaskType;
+        //
+        for (let i = 0; i < dataByTaskType.length; i++) {
+            dataByDay.data.taskType.push(dataByTaskType[i].taskType);
+            dataByDay.data.tasks.push(dataByTaskType[i].tasks);
+            dataByDay.data.time.push(Math.round(dataByTaskType[i].time / 60));
+        }
+        // console.log(dataByDay)
+        return dataByDay;
+    };
+    //
+
+    const showDatePicker = () => {
+        let datepicker = $("#date-picker");
+        let currentDate = currentTime.toISODate();
+        let startHistDate = startHis.toISODate();
+        let endHistDate = endHis.toISODate();
+        if (currentTime > endHis) {
+            endHistDate = currentTime.toISODate();
+        }
+        datepicker.val(currentDate);
+        datepicker.attr({ min: startHistDate });
+        datepicker.attr({ max: endHistDate });
+    };
+    //
+
+    const showDayTable = (d) => {
+        let data = getDataByDay(d).dataByTaskType;
+        // data = await data.sort((a,b) => b.tasks - a.tasks);
+        let tableContent = "";
+        for (let i = 0; i < data.length; i++) {
+            tableContent +=
+                "<tr>" +
+                "<td>" +
+                data[i].taskType +
+                "</td>" +
+                "<td>" +
+                data[i].tasks +
+                "</td>" +
+                "<td>" +
+                convertTime(data[i].time) +
+                "</td>" +
+                "<td>" +
+                Math.round(3600 / (data[i].time / data[i].tasks)) +
+                "</td>" +
+                "<td>" +
+                Math.round(data[i].time / data[i].tasks) +
+                "s</td>" +
+                "</tr>";
+        }
+        let table = document.getElementById("day-table-body-by-type");
+        table.innerHTML = tableContent;
+        dataTableDay = $("#day-table-by-type").DataTable();
+    };
+    //
+    const showDetailDay = (d) => {
+        let data = getDataByDay(d);
+        let tasks = 0;
+        let time = 0;
+        for (let i = 0; i < data.dataByTaskType.length; i++) {
+            tasks += data.dataByTaskType[i].tasks;
+            time += data.dataByTaskType[i].time;
+        }
+        let taskTxt = document.getElementById("dayDetailTasksTxt");
+        let timeTxt = document.getElementById("dayDetailTimeTxt");
+        let rphTxt = document.getElementById("dayDetailRphTxt");
+        let dayTitle = document.getElementById("day-title");
+        //
+        dayTitle.innerText = d;
+        taskTxt.innerText = tasks;
+        timeTxt.innerText = convertTime(time);
+        rphTxt.innerText = Math.round(3600 / (time / tasks)) + "";
+    };
+    //
+    const showDayChartByType = (d) => {
+        let dataPerDay = getDataByDay(d);
+        let dataByTaskType = { taskType: [], tasks: [], time: [] };
+        for (let i = 0; i < dataPerDay.dataByTaskType.length; i++) {
+            dataByTaskType.taskType.push(dataPerDay.dataByTaskType[i].taskType);
+            dataByTaskType.tasks.push(dataPerDay.dataByTaskType[i].tasks);
+            dataByTaskType.time.push(dataPerDay.dataByTaskType[i].time);
+        }
+        dayChartByType = new Chart("dayChartByType", {
+            type: "pie",
+            data: {
+                labels: dataByTaskType.taskType,
+                datasets: [{ label: "Tasks", data: dataByTaskType.tasks }],
+            },
+            options: {
+                legend: { display: true },
+                plugins: { title: { display: true, text: "Statistics by task type" } },
+                maintainAspectRatio: false,
+            },
+        });
+    };
+    //
+
+    $(document).on("click", "#btn-search-by-day", () => {
+        if (submitHistory == undefined) { return }
+        if (submitHistory == null) { return }
+        if (submitHistory.length == 0) { return }
+        let datePick = DateTime.fromISO($("#date-picker").val());
+        let startHistDate = startHis.toISODate();
+        let endHisDate = endHis.toISODate();
+        if (currentTime > endHis) { endHisDate = currentTime; }
+        if (datePick < startHistDate || datePick > endHisDate) {
+            $("#date-picker").css("border", "2px solid red");
+            return;
+        }
+        $("#date-picker").css("border", "1px solid rgb(187, 187, 187)");
+        // Destroy
+        if (dataTableDay != null) { dataTableDay.destroy(); }
+        if (dayChartByType != null) { dayChartByType.destroy(); }
+        let table = document.getElementById("day-table-body-by-type");
+        table.innerHTML = "";
+        showDay(datePick.toISODate())
+    });
+
+
+
+    // =========== WEEK ===========
+    const getDataByWeek = (y, w) => {
+        let dataPerWeek = {
+            week: "",
+            data: { day: [], tasks: [], time: [] },
+            dataByTaskType: [],
+        };
+        // return
+        let year = parseInt(y);
+        let week = parseInt(w);
+        let weekString = week < 10 ? year + "W0" + week : year + "W" + week;
+        let startDay = DateTime.fromISO(weekString);
+        for (let i = 0; i < 7; i++) {
+            let day = startDay.plus({ days: i }).toISODate();
+            dataPerWeek.data.day.push(day.substring(5));
+            dataPerWeek.data.tasks.push(0);
+            dataPerWeek.data.time.push(0);
+        }
+        // 
+        for (let i = 0; i < submitHistory.length; i++) {
+
+            let submitDate = DateTime.fromISO(submitHistory[i].datetime).setZone(
+                timezone
+            );
+            //
+            if (submitDate.year == year && submitDate.weekNumber == week) {
+                let idx = dataPerWeek.data.day.findIndex(e => e == submitDate.toISODate().substring(5))
+
+                let time = submitHistory[i].time
+                dataPerWeek.data.tasks[idx] += 1;
+                dataPerWeek.data.time[idx] += time;
+
+            }
+        }
+        dataPerWeek.week = weekString;
+        for (let k = 0; k < dataPerWeek.data.time.length; k++) {
+            dataPerWeek.data.time[k] = Math.round(dataPerWeek.data.time[k] / 60);
+        }
+
+        // console.log(dataPerWeek);
+        return dataPerWeek;
+    };
+    //
+
+    const showDetailWeek = (wData) => {
+        let data = wData.data;
+        let tasks = 0;
+        let time = 0;
+        for (let i = 0; i < data.day.length; i++) {
+            tasks += data.tasks[i];
+            time += data.time[i] * 60;
+        }
+        let taskTxt = document.getElementById("weekDetailTasksTxt");
+        let timeTxt = document.getElementById("weekDetailTimeTxt");
+        let rphTxt = document.getElementById("weekDetailRphTxt");
+        let weekTitle = document.getElementById("week-title");
+        //
+        let startDay = DateTime.fromISO(wData.week);
+        let endDay = startDay.plus({ day: 6 });
+        //
+        let startDayStr = startDay.toISODate().replace(/-/g, "/");
+        let endDayStr = endDay.toISODate().replace(/-/g, "/");
+        //
+        weekTitle.innerText =
+            "Week " + wData.week.substring(5)
+            + " - " + wData.week.substring(0, 4)
+            + " (" + startDayStr
+            + " - " + endDayStr + ")";
+        taskTxt.innerText = tasks;
+        timeTxt.innerText = convertTime(time);
+        rphTxt.innerText = Math.round(3600 / (time / tasks)) + "";
+    };
+    //
+
+    const showSelectWeek = () => {
+        let selectYearWeekContent = "";
+        let selectWeekContent = "";
+        for (let i = 0; i < weekList.length; i++) {
+            let year = weekList[i].year;
+            // Year select
+            if (year == currentTime.year) {
+                selectYearWeekContent +=
+                    '<option selected value="' + year + '">' + year + "</option>";
+                // Week select
+                for (let k = 0; k < weekList[i].week.length; k++) {
+                    let week = weekList[i].week[k];
+                    let weekString = week < 10 ? year + "W0" + week : year + "W" + week;
+                    let startDay = DateTime.fromISO(weekString);
+                    let endDay = startDay.plus({ day: 6 });
+                    let startDayStr = startDay.toISODate().replace(/-/g, "/");
+                    let endDayStr = endDay.toISODate().replace(/-/g, "/");
+                    selectWeekContent += "<option ";
+                    selectWeekContent +=
+                        week == currentTime.weekNumber ? "selected " : " ";
+                    selectWeekContent +=
+                        'value="' +
+                        week +
+                        '">' +
+                        week +
+                        " (" +
+                        startDayStr +
+                        " - " +
+                        endDayStr +
+                        ")</option>";
+                }
+                continue;
+            }
+            selectYearWeekContent +=
+                '<option value="' + year + '">' + year + "</option>";
+        }
+        let selectYearWeek = document.getElementById("select-year-week");
+        selectYearWeek.innerHTML = selectYearWeekContent;
+        let selectWeek = document.getElementById("select-week");
+        selectWeek.innerHTML = selectWeekContent;
+    };
+    //
+
+    const showWeekTable = (y, w) => {
+        let data = getDataByWeek(y, w).dataByTaskType;
+        // data = await data.sort((a,b) => b.tasks - a.tasks);
+        let tableContent = "";
+        for (let i = 0; i < data.length; i++) {
+            tableContent +=
+                "<tr>" +
+                "<td>" +
+                data[i].taskTypeName +
+                "</td>" +
+                "<td>" +
+                data[i].tasks +
+                "</td>" +
+                "<td>" +
+                convertTime(data[i].time) +
+                "</td>" +
+                "<td>" +
+                Math.round(3600 / (data[i].time / data[i].tasks)) +
+                "</td>" +
+                "<td>" +
+                Math.round(data[i].time / data[i].tasks) +
+                "s</td>" +
+                "</tr>";
+        }
+        let table = document.getElementById("week-table-body-by-type");
+        table.innerHTML = tableContent;
+        let tablea = new DataTable("#week-table-by-type");
+    };
+    //
+
+    const showWeekChartByType = (y, w) => {
+        let dataPerWeek = getDataByWeek(y, w);
+        let dataByTaskType = { taskType: [], tasks: [], time: [] };
+        for (let i = 0; i < dataPerWeek.dataByTaskType.length; i++) {
+            dataByTaskType.taskType.push(dataPerWeek.dataByTaskType[i].taskTypeName);
+            dataByTaskType.tasks.push(dataPerWeek.dataByTaskType[i].tasks);
+            dataByTaskType.time.push(dataPerWeek.dataByTaskType[i].time);
+        }
+        weekChartByType = new Chart("weekChartByType", {
+            type: "pie",
+            data: {
+                labels: dataByTaskType.taskType,
+                datasets: [{ label: "Tasks", data: dataByTaskType.tasks }],
+            },
+            options: {
+                legend: { display: true },
+                plugins: { title: { display: true, text: "Statistics by task type" } },
+                maintainAspectRatio: false,
+            },
+        });
+    };
+    //
+
+    const showWeekChartByTasks = (wData) => {
+        // let data = wData.data;
+
+        weekChartByTasks = new Chart("weekChartByTasks", {
+            type: "bar",
+            data: {
+                labels: wData.data.day,
+                datasets: [
+                    {
+                        label: "Tasks",
+                        backgroundColor: "rgb(54, 162, 235)",
+                        borderColor: "rgb(54, 162, 235)",
+                        data: wData.data.tasks,
+                    },
+                ],
+            },
+            options: {
+                legend: { display: false },
+                plugins: { title: { display: true, text: wData.week } },
+                maxBarThickness: 45,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { beginAtZero: true, title: { display: true, text: "Day" } },
+                    y: { beginAtZero: true, title: { display: true, text: "Tasks" } },
+                },
+            },
+        });
+    };
+    //
+
+    const showWeekChartByTime = (wData) => {
+        // let data = wData.data;
+        weekChartByTime = new Chart("weekChartByTime", {
+            type: "bar",
+            data: {
+                labels: wData.data.day,
+                datasets: [
+                    {
+                        label: "Time (Minutes)",
+                        data: wData.data.time,
+                        backgroundColor: "rgb(226, 105, 49)",
+                        borderColor: "rgb(226, 105, 49)",
+                    },
+                ],
+            },
+            options: {
+                legend: { display: false },
+                plugins: { title: { display: true, text: wData.week } },
+                maxBarThickness: 45,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { beginAtZero: true, title: { display: true, text: "Day" } },
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: "Time (Minutes)" },
+                    },
+                },
+            },
+        });
+    };
+    //
+
+    $(document).on("change", "#select-year-week", () => {
+        if (submitHistory == undefined) { return }
+        if (submitHistory == null) { return }
+        if (submitHistory.length == 0) { return }
+        let year = parseInt($("#select-year-week option:selected").val());
+        let selectWeekContent = "";
+        let idx = weekList.findIndex((e) => e.year == year);
+        // Week select
+        selectWeekContent += '<option selected value="0">Select week</option>';
+        for (let k = 0; k < weekList[idx].week.length; k++) {
+            let week = weekList[idx].week[k];
+            let weekString = week < 10 ? year + "W0" + week : year + "W" + week;
+            let startDay = DateTime.fromISO(weekString);
+            let endDay = startDay.plus({ day: 6 });
+            let startDayStr = startDay.toISODate().replace(/-/g, "/");
+            let endDayStr = endDay.toISODate().replace(/-/g, "/");
+            selectWeekContent +=
+                '<option value="' +
+                week +
+                '">' +
+                week +
+                " (" +
+                startDayStr +
+                " - " +
+                endDayStr +
+                ")</option>";
+        }
+        //
+        let selectWeek = document.getElementById("select-week");
+        selectWeek.innerHTML = selectWeekContent;
+    });
+    //
+    $(document).on("change", "#select-week", () => {
+        if (submitHistory == undefined) { return }
+        if (submitHistory == null) { return }
+        if (submitHistory.length == 0) { return }
+        setTimeout(() => {
+            let year = parseInt($("#select-year-week option:selected").val());
+            let week = parseInt($("#select-week option:selected").val());
+            if (week == 0) { return; }
+
+            if (weekChartByTasks != null) { weekChartByTasks.destroy(); }
+            if (weekChartByTime != null) { weekChartByTime.destroy(); }
+            // if (weekChartByType != null) { weekChartByType.destroy(); }
+            //
+            showWeek(year, week)
+
+        }, 100)
+    });
+
+
+
+    //  ============= MONTH ============= //
+    const getDataByMonth = (y, m) => {
+        let dataPerMonth = { month: "", data: { day: [], tasks: [], time: [] } };
+        let year = parseInt(y);
+        let month = parseInt(m);
+        let monthString = month < 10 ? y + "-0" + m : y + "-" + m;
+        let numDay = DateTime.fromISO(monthString).endOf("month").day;
+
+        // Init empty data
+        for (let i = 1; i <= numDay; i++) {
+            let dateString = "";
+            if (i < 10) {
+                dateString = monthString + "-0" + i;
+            } else {
+                dateString = monthString + "-" + i;
+            }
+            dataPerMonth.data.day.push(dateString.substring(5));
+            dataPerMonth.data.tasks.push(0);
+            dataPerMonth.data.time.push(0);
+        }
+        // Get data
+        for (let i = 0; i < submitHistory.length; i++) {
+            let submitDate = DateTime.fromISO(submitHistory[i].datetime).setZone(
+                timezone
+            );
+
+            if (submitDate.year == year && submitDate.month == month) {
+                let idx = dataPerMonth.data.day.findIndex(e => e == submitDate.toISODate().substring(5))
+                let time = submitHistory[i].time
+                dataPerMonth.data.tasks[idx] += 1;
+                dataPerMonth.data.time[idx] += time;
+            }
+        }
+        dataPerMonth.month = y + "-" + m;
+        // Round time work
+        for (let k = 0; k < dataPerMonth.data.time.length; k++) {
+            dataPerMonth.data.time[k] = Math.round(dataPerMonth.data.time[k] / 60);
+        }
+        // console.log(dataPerMonth)
+        return dataPerMonth;
+    };
+    //
+
+    const showDetailMonth = (mData) => {
+        // let data = getDataByMonth(y, m).data;
+        let data = mData.data;
+        let tasks = 0;
+        let time = 0;
+        for (let i = 0; i < data.day.length; i++) {
+            tasks += data.tasks[i];
+            time += data.time[i] * 60;
+        }
+        let taskTxt = document.getElementById("monthDetailTasksTxt");
+        let timeTxt = document.getElementById("monthDetailTimeTxt");
+        let rphTxt = document.getElementById("monthDetailRphTxt");
+        let monthTitle = document.getElementById("month-title");
+        //
+        monthTitle.innerText = mData.month;
+        taskTxt.innerText = tasks;
+        timeTxt.innerText = convertTime(time);
+        rphTxt.innerText = Math.round(3600 / (time / tasks)) + "";
+    };
+    //
+
+    const showSelectMonth = () => {
+        let selectYearMonthContent = "";
+        let selectMonthContent = "";
+        for (let i = 0; i < monthList.length; i++) {
+            let year = monthList[i].year;
+            // Year select
+            selectYearMonthContent += "<option ";
+            selectYearMonthContent += year == currentTime.year ? "selected " : " ";
+            selectYearMonthContent +=
+                '<option value="' + year + '">' + year + "</option>";
+            if (year == currentTime.year) {
+                // Week select
+                for (let k = 0; k < monthList[i].month.length; k++) {
+                    let month = monthList[i].month[k];
+                    selectMonthContent += "<option ";
+                    selectMonthContent += month == currentTime.month ? "selected " : " ";
+                    selectMonthContent += 'value="' + month + '">' + month + "</option>";
+                }
+            }
+        }
+        let selectMonthWeek = document.getElementById("select-year-month");
+        selectMonthWeek.innerHTML = selectYearMonthContent;
+        let selectMonth = document.getElementById("select-month");
+        selectMonth.innerHTML = selectMonthContent;
+    };
+    //
+
+    const showMonthChartByTasks = (mData) => {
+        // let dataPerMonth = getDataByMonth(y, m);
+        // let data = mData;
+        monthChartByTasks = new Chart("monthChartByTasks", {
+            type: "bar",
+            data: {
+                labels: mData.data.day,
+                datasets: [
+                    {
+                        label: "Tasks",
+                        data: mData.data.tasks,
+                        backgroundColor: "rgb(54, 162, 235)",
+                        borderColor: "rgb(54, 162, 235)",
+                    },
+                ],
+            },
+            options: {
+                legend: { display: false },
+                maintainAspectRatio: false,
+                scales: {
+                    x: { beginAtZero: true, title: { display: true, text: "Day" } },
+                    y: { beginAtZero: true, title: { display: true, text: "Tasks" } },
+                },
+            },
+        });
+    };
+    //
+
+    const showMonthChartByTime = (mData) => {
+        // let dataPerMonth = getDataByMonth(y, m);
+        // let data = mData;
+        monthChartByTime = new Chart("monthChartByTime", {
+            type: "bar",
+            data: {
+                labels: mData.data.day,
+                datasets: [
+                    {
+                        label: "Time (Minutes)",
+                        data: mData.data.time,
+                        backgroundColor: "rgb(226, 105, 49)",
+                        borderColor: "rgb(226, 105, 49)",
+                    },
+                ],
+            },
+            options: {
+                legend: { display: false },
+                maintainAspectRatio: false,
+                scales: {
+                    x: { beginAtZero: true, title: { display: true, text: "Day" } },
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: "Time (Minutes)" },
+                    },
+                },
+            },
+        });
+    };
+    //
+    $(document).on("change", "#select-year-month", () => {
+        if (submitHistory == undefined) { return }
+        if (submitHistory == null) { return }
+        if (submitHistory.length == 0) { return }
+        let year = parseInt($("#select-year-month option:selected").val());
+        let selectMonthContent = "";
+        let idx = monthList.findIndex((e) => e.year == year);
+        // Week select
+        selectMonthContent += '<option selected value="0">Select month</option>';
+        for (let k = 0; k < monthList[idx].month.length; k++) {
+            let month = monthList[idx].month[k];
+            selectMonthContent +=
+                '<option value="' + month + '">' + month + "</option>";
+        }
+        let selectMonth = document.getElementById("select-month");
+        selectMonth.innerHTML = selectMonthContent;
+    });
+    //
+    $(document).on("change", "#select-month", () => {
+        if (submitHistory == undefined) { return }
+        if (submitHistory == null) { return }
+        if (submitHistory.length == 0) { return }
+        setTimeout(() => {
+            let year = parseInt($("#select-year-month option:selected").val());
+            let month = parseInt($("#select-month option:selected").val());
+            if (month == 0) { loading = false; return; }
+
+            if (monthChartByTasks != null) { monthChartByTasks.destroy() }
+            if (monthChartByTime != null) { monthChartByTime.destroy() }
+            showMonth(year, month)
+        }, 100)
+    });
+
+
+
+
+    /**********************************************************************/
+    // ================= GET DATA ==================
+    await getSubmitHistory();
+    if (submitHistory == []) { return }
+    if (submitHistory == null) { return }
+    if (submitHistory.length == 0) { return }
+
+    // console.log(submitHistory)
+
+    // DAY
+    showDatePicker()
+    const showDay = (date) => {
+        loading = true
+        setTimeout(() => {
+            showDetailDay(date);
+            showDayTable(date);
+            showDayChartByType(date);
+            loading = false;
+        }, 100)
+    }
+    showDay(currentTime.toISODate())
+
+    // WEEK
+    showSelectWeek();
+    const showWeek = (year, week) => {
+        loading = true
+        setTimeout(() => {
+            let wData = getDataByWeek(year, week)
+            showDetailWeek(wData);
+            showWeekChartByTasks(wData);
+            showWeekChartByTime(wData);
+            // showWeekTable(wData);
+            // showWeekChartByType(wData);
+            loading = false;
+        }, 100)
+    }
+    // showWeek(currentTime.year, currentTime.weekNumber)
+
+    // MONTH
+    showSelectMonth();
+    const showMonth = (year, month) => {
+        loading = true
+        setTimeout(() => {
+            let mData = getDataByMonth(year, month)
+            showDetailMonth(mData)
+            showMonthChartByTasks(mData);
+            showMonthChartByTime(mData);
+            loading = false;
+        }, 100)
+    }
+    // showMonth(currentTime.year, currentTime.month)
+
+    /******************* Click tab **************/
+    $(document).on("click", "#day-tab", () => {
+        if (dayChartByType == null) {
+            showDay(currentTime.toISODate())
+        }
+    })
+    $(document).on("click", "#week-tab", () => {
+        if (weekChartByTasks == null) {
+            showWeek(currentTime.year, currentTime.weekNumber)
+        }
+    })
+    $(document).on("click", "#month-tab", () => {
+        if (monthChartByTasks == null) {
+            showMonth(currentTime.year, currentTime.month)
+        }
+    })
+
+
+});
