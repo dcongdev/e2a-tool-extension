@@ -79,25 +79,6 @@ const checkTask = async (syncSettings, sessionSettings) => {
     await chrome.storage.session.set(sessionSettings);
 };
 
-// Format time to string
-const formatTime = (time) => {
-    let timeToDatetime = new Date(time);
-    let formatedTime =
-        timeToDatetime.getDate() +
-        "/" +
-        (timeToDatetime.getMonth() + 1) +
-        "/" +
-        timeToDatetime.getFullYear() +
-        ", " +
-        timeToDatetime.getHours() +
-        ":" +
-        timeToDatetime.getMinutes() +
-        ":" +
-        timeToDatetime.getSeconds();
-
-    return formatedTime;
-}
-
 // Check user permission
 const checkUserPermission = async (next) => {
     // await chrome.storage.local.set({"key": {"key": "", "permission": ""}})
@@ -120,7 +101,7 @@ const checkUserPermission = async (next) => {
                 let hash = CryptoJS.MD5(userEmail).toString();
                 // console.log(hash)
 
-                if ( hash =="22a5fdd0058631c65daf1e419b8bf4ed" || hash == "0d22cfc00281301732e791b31f9dcd25") {
+                if (true) {
                     dt.status = "ok";
                     dt.message = "You have permission to use extension.";
                     return next(dt);
@@ -228,13 +209,8 @@ const checkUser = async (sessionSettings) => {
 // Update user settings
 const updateSettings = async () => {
     var newSets = {
-        "Statistics": {
-            "ShowTasksSubmittedOnIcon": "OFF"
-        },
-        "Notifications": {
-            "TasksAvailable": "OFF",
-            "TaskIsSubmitted": "OFF"
-        },
+        "Statistics": { "ShowTasksSubmittedOnIcon": "OFF" },
+        "Notifications": { "TasksAvailable": "OFF", "TaskIsSubmitted": "OFF" },
         "Sounds": {
             "TaskIsSubmitted": "OFF",
             "TasksAvailable": {
@@ -246,23 +222,32 @@ const updateSettings = async () => {
             }
         },
         "Timing": {
-            "TimeCounterClock": "OFF"
+            "TimeCounterClock": {
+                "status": "OFF",
+                "location": {
+                    "pageTitle": "ON",
+                    "taskTitle": "OFF",
+                    "floating": "OFF",
+                    "submitButton": "OFF"
+                }
+            }
         },
         "Automation": {
-            "AutoReload": {
-                "status": "OFF",
-                "time": 300
-            },
+            "AutoReload": { "status": "OFF", "time": 300 },
             "AutoSubmit": {
                 "status": "OFF",
-                "startTime": 30,
+                "startTime": 60,
                 "endTime": 90,
+                "customByTask": {
+                    "status": "OFF",
+                    "time": [
+                        { "taskTitle": "sep", "startTime": 60, "endTime": 90 }
+                    ]
+                }
             }
 
         },
-        "DateTime": {
-            "Timezone": "default"
-        }
+        "DateTime": { "Timezone": "default" }
     }
     //
     let currSets = await chrome.storage.sync.get([
@@ -273,91 +258,39 @@ const updateSettings = async () => {
         "Automation",
         "DateTime"]);
     //
-    let oldVerSets = await chrome.storage.sync.get([
-        "showTaskSubmittedInIcon",
-        "countTimeInTask",
-        "autoReload",
-        "autoSubmit",
-        "taskAvailNoti"]);
-    //
     // Statistics
     if (currSets.Statistics != undefined) {
         newSets.Statistics = currSets.Statistics;
-    }
-    else if (oldVerSets.showTaskSubmittedInIcon != undefined) {
-        let status = oldVerSets.showTaskSubmittedInIcon;
-        newSets.Statistics.ShowTasksSubmittedOnIcon = status;
     }
     // Notifications
     if (currSets.Notifications != undefined) {
         newSets.Notifications = currSets.Notifications;
     }
-    else {
-        if (oldVerSets.taskAvailNoti != undefined) {
-            let status = oldVerSets.taskAvailNoti.status;
-            newSets.Notifications.TasksAvailable = status;
-        }
-    }
     // Sounds
     if (currSets.Sounds != undefined) {
         newSets.Sounds = currSets.Sounds;
     }
-    else {
-        // Tasks available
-        if (oldVerSets.taskAvailNoti != undefined) {
-            let status = oldVerSets.taskAvailNoti.notiSound.status;
-            let loop = oldVerSets.taskAvailNoti.notiSound.loop;
-            let SoundName = oldVerSets.taskAvailNoti.notiSound.soundName;
-            let CustomSound = oldVerSets.taskAvailNoti.notiSound.soundCustom;
-            let CustomSoundUrl = oldVerSets.taskAvailNoti.notiSound.soundCustomURL;
-
-            // Set new
-            newSets.Sounds.TasksAvailable.status = status;
-            newSets.Sounds.TasksAvailable.loop = loop;
-            newSets.Sounds.TasksAvailable.SoundName = SoundName;
-            newSets.Sounds.TasksAvailable.CustomSound = CustomSound;
-            newSets.Sounds.TasksAvailable.CustomSoundUrl = CustomSoundUrl;
-        }
-    }
     // Timing
     if (currSets.Timing != undefined) {
-        newSets.Timing = currSets.Timing;
-    }
-    else {
-        if (oldVerSets.countTimeInTask != undefined) {
-            let status = oldVerSets.countTimeInTask;
-            newSets.Timing.TimeCounterClock = status;
+        if (currSets.Timing.TimeCounterClock == "ON") {
+            newSets.Timing.TimeCounterClock.status = currSets.Timing.TimeCounterClock;
         }
     }
     // Automation
     if (currSets.Automation != undefined) {
+        if (currSets.Automation.AutoSubmit.customByTask == undefined) {
+            currSets.Automation.AutoSubmit.customByTask = newSets.Automation.AutoSubmit.customByTask
+        }
         newSets.Automation = currSets.Automation;
-    }
-    else {
-        if (oldVerSets.autoReload != undefined) {
-            let status = oldVerSets.autoReload.status;
-            let time = oldVerSets.autoReload.time;
-            // Set new
-            newSets.Automation.AutoReload.status = status;
-            newSets.Automation.AutoReload.time = time;
-        }
-        // Auto submit
-        if (oldVerSets.autoSubmit != undefined) {
-            let status = oldVerSets.autoSubmit.status;
-            let time = oldVerSets.autoSubmit.time;
-            // Set new
-            newSets.Automation.AutoSubmit.status = status;
-            newSets.Automation.AutoSubmit.time = time;
-        }
     }
     // DateTime
     if (currSets.DateTime != undefined) {
         newSets.DateTime = currSets.DateTime;
     }
 
-    // console.log(newSets)
+    console.log(newSets)
 
-    await chrome.storage.sync.clear(() => { chrome.storage.sync.set(newSets); });
+    // await chrome.storage.sync.clear(() => { chrome.storage.sync.set(newSets); });
 
 }
 
