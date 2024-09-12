@@ -101,6 +101,8 @@ $(document).ready(async function () {
     var weekChartByTasks = null;
     var weekChartByTime = null;
     var weekChartByType = null;
+
+    var dataTableWeek = null;
     // Month
     var monthChartByTasks = null;
     var monthChartByTime = null;
@@ -131,7 +133,7 @@ $(document).ready(async function () {
         if (submitHistory.length == 0) { return }
         //
         startHis = DateTime.fromISO(submitHistory[0].datetime).setZone(timezone);
-        console.log(startHis)
+        // console.log(startHis)
         endHis = DateTime.fromISO(
             submitHistory[submitHistory.length - 1].datetime
         ).setZone(timezone);
@@ -253,6 +255,7 @@ $(document).ready(async function () {
 
     const showDayTable = (d) => {
         let data = getDataByDay(d).dataByTaskType;
+        console.log(data)
         // data = await data.sort((a,b) => b.tasks - a.tasks);
         let tableContent = "";
         for (let i = 0; i < data.length; i++) {
@@ -352,6 +355,10 @@ $(document).ready(async function () {
             data: { day: [], tasks: [], time: [] },
             dataByTaskType: [],
         };
+
+
+        let dataByTaskType = [];
+
         // return
         let year = parseInt(y);
         let week = parseInt(w);
@@ -377,9 +384,32 @@ $(document).ready(async function () {
                 dataPerWeek.data.tasks[idx] += 1;
                 dataPerWeek.data.time[idx] += time;
 
+                // Task type
+                let idxTT = dataByTaskType.findIndex(
+                    (e) => e.taskType == submitHistory[i].taskType
+                );
+                if (idxTT == -1) {
+                    dataByTaskType.push({
+                        taskType: submitHistory[i].taskType,
+                        tasks: 0,
+                        time: 0,
+                    });
+                    idxTT = dataByTaskType.length - 1;
+                }
+                // Total tasks and time work
+                dataByTaskType[idxTT].tasks += 1;
+                dataByTaskType[idxTT].time += submitHistory[i].time;
+                //
+
             }
+
+
         }
+
         dataPerWeek.week = weekString;
+        dataPerWeek.dataByTaskType = dataByTaskType
+        //
+
         for (let k = 0; k < dataPerWeek.data.time.length; k++) {
             dataPerWeek.data.time[k] = Math.round(dataPerWeek.data.time[k] / 60);
         }
@@ -462,15 +492,15 @@ $(document).ready(async function () {
     };
     //
 
-    const showWeekTable = (y, w) => {
-        let data = getDataByWeek(y, w).dataByTaskType;
+    const showWeekTable = (wData) => {
+        let data = wData.dataByTaskType;
         // data = await data.sort((a,b) => b.tasks - a.tasks);
         let tableContent = "";
         for (let i = 0; i < data.length; i++) {
             tableContent +=
                 "<tr>" +
                 "<td>" +
-                data[i].taskTypeName +
+                data[i].taskType +
                 "</td>" +
                 "<td>" +
                 data[i].tasks +
@@ -488,17 +518,19 @@ $(document).ready(async function () {
         }
         let table = document.getElementById("week-table-body-by-type");
         table.innerHTML = tableContent;
-        let tablea = new DataTable("#week-table-by-type");
+        dataTableWeek = $("#week-table-by-type").DataTable();
+        // let tablea = new DataTable("#week-table-by-type");
+        
     };
     //
 
-    const showWeekChartByType = (y, w) => {
-        let dataPerWeek = getDataByWeek(y, w);
+    const showWeekChartByType = (wData) => {
+        let data = wData.dataByTaskType;
         let dataByTaskType = { taskType: [], tasks: [], time: [] };
-        for (let i = 0; i < dataPerWeek.dataByTaskType.length; i++) {
-            dataByTaskType.taskType.push(dataPerWeek.dataByTaskType[i].taskTypeName);
-            dataByTaskType.tasks.push(dataPerWeek.dataByTaskType[i].tasks);
-            dataByTaskType.time.push(dataPerWeek.dataByTaskType[i].time);
+        for (let i = 0; i < data.length; i++) {
+            dataByTaskType.taskType.push(data[i].taskType);
+            dataByTaskType.tasks.push(data[i].tasks);
+            dataByTaskType.time.push(data[i].time);
         }
         weekChartByType = new Chart("weekChartByType", {
             type: "pie",
@@ -617,6 +649,11 @@ $(document).ready(async function () {
             let year = parseInt($("#select-year-week option:selected").val());
             let week = parseInt($("#select-week option:selected").val());
             if (week == 0) { return; }
+
+            // Destroy
+            if (dataTableWeek != null) { dataTableWeek.destroy(); }
+            let table = document.getElementById("week-table-body-by-type");
+            table.innerHTML = "";
 
             if (weekChartByTasks != null) { weekChartByTasks.destroy(); }
             if (weekChartByTime != null) { weekChartByTime.destroy(); }
@@ -845,8 +882,8 @@ $(document).ready(async function () {
             showDetailWeek(wData);
             showWeekChartByTasks(wData);
             showWeekChartByTime(wData);
-            // showWeekTable(wData);
-            // showWeekChartByType(wData);
+            showWeekTable(wData);
+            showWeekChartByType(wData);
             loading = false;
         }, 100)
     }

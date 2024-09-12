@@ -1,8 +1,6 @@
 /* Copyright (C) 2023 Duong Cong - All Rights Reserved
 * Email: duongcong0412hc@gmail.com
 */
-// MMO: a06d0900bcb9da6856f5aad5dec6cea6
-// ti91innov4tcatra94@gmail.com: 6e62cccaba30d6a4bec03ead797607e0
 
 import { DateTime } from "../libs/luxon/es6_luxon.min.js";
 import CryptoJS from "../libs/CryptoJS_v3.1.2/rollups/aes.js";
@@ -100,8 +98,18 @@ const formatTime = (time) => {
     return formatedTime;
 }
 
-// == Check user permission
+// Check user permission
 const checkUserPermission = async (next) => {
+    // await chrome.storage.local.set({"key": {"key": "", "permission": ""}})
+    let userKey = await chrome.storage.local.get(["key"]);
+    if (userKey.key) {
+        userKey = userKey.key
+        if (userKey.permission == "true") {
+            let dt = { status: "ok", email: "use one-time key", message: "You have permission to use extension." }
+            return next(dt);
+        }
+    }
+
     await chrome.identity.getProfileUserInfo(async (userinfo) => {
         let userEmail = userinfo.email;
         // console.log(userEmail)
@@ -112,7 +120,7 @@ const checkUserPermission = async (next) => {
                 let hash = CryptoJS.MD5(userEmail).toString();
                 // console.log(hash)
 
-                if (true) {
+                if ( hash =="22a5fdd0058631c65daf1e419b8bf4ed" || hash == "0d22cfc00281301732e791b31f9dcd25") {
                     dt.status = "ok";
                     dt.message = "You have permission to use extension.";
                     return next(dt);
@@ -124,6 +132,8 @@ const checkUserPermission = async (next) => {
                 }
             }
             else {
+
+
                 dt.status = "error";
                 dt.message = "error";
                 return next(dt);
@@ -165,7 +175,7 @@ const checkUserSatus = async () => {
                 }
             });
             if (isOpenErrorPage == false) {
-                chrome.tabs.create({ url: errorPageUrl });
+                // chrome.tabs.create({ url: errorPageUrl });
             }
             // Set badge
             chrome.action.setBadgeBackgroundColor({ color: "red" });
@@ -245,7 +255,7 @@ const updateSettings = async () => {
             },
             "AutoSubmit": {
                 "status": "OFF",
-                "startTime": 60,
+                "startTime": 30,
                 "endTime": 90,
             }
 

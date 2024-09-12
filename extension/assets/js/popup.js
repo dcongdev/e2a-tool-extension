@@ -106,6 +106,34 @@ $(document).ready(async function () {
         return time;
     };
 
+
+    /*************** UNLOCK ***************/
+    $("#btn-unlock").on("click", async () => {
+        let key = $("#one-time-key").val();
+        if (key == "") {
+            alert("The key is incorrect or has already been used, please try again.")
+            return
+        }
+
+        try {
+            let response = await fetch("https://verify-e2atool.vercel.app/request-key/" + key);
+            // console.log(response)
+            let data = await response.json();
+            if (data.permission == "true") {
+                await chrome.storage.local.set({ "key": { "key": key, "permission": "true" } })
+                alert("Unlock successfully!")
+                window.location.reload();
+            }
+            else {
+                alert("The key is incorrect or has already been used, please try again.")
+            }
+        } catch (error) {
+            alert("Error, please try again.")
+        }
+    });
+
+
+
     /*************** DASHBOARD ***************/
     // DAY
     const getDataByDay = async (date) => {
