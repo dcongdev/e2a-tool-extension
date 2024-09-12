@@ -1,45 +1,13 @@
 /* Copyright (C) 2023 Duong Cong - All Rights Reserved
 * Email: duongcong0412hc@gmail.com
 */
+// MMO: a06d0900bcb9da6856f5aad5dec6cea6
+// timistyforest9@gmail.com: 72d8447ba2c8b0e802bfdf8ae9a81a52
+// ti91innov4tcatra94@gmail.com: 6e62cccaba30d6a4bec03ead797607e0
 
 import { DateTime } from "../libs/luxon/es6_luxon.min.js";
+import CryptoJS from "../libs/CryptoJS_v3.1.2/rollups/aes.js";
 const extensionUrl = chrome.runtime.getURL("");
-
-//  =============================== TEST ===============================
-const reloadTestPage = async () => {
-    let url = "http://127.0.0.1:5500/test.html";
-    var tabs = await chrome.tabs.query({});
-    tabs.forEach((tab) => {
-        if (tab.url.includes(url)) {
-            // console.log(tab.id);
-            var code = 'window.location.reload();';
-            chrome.tabs.reload(tab.id);
-            // chrome.tabs.remove(tab.id, () => { });
-        }
-    });
-}
-// reloadTestPage();
-
-const openTestPage = () => {
-    let statisticsPageUrl = chrome.runtime.getURL("/pages/statistics.html");
-    let popupPageUrl = chrome.runtime.getURL("/pages/popup.html");
-    let errorPageUrl = chrome.runtime.getURL("/pages/error.html");
-    // chrome.tabs.create({ url: statisticsPageUrl });
-    // chrome.tabs.create({ url: popupPageUrl });
-    // chrome.tabs.create({ url: errorPageUrl });
-}
-// openTestPage();
-
-const setTestSubHis = async () => {
-    var response = await fetch("../testdata/testNew.json");
-    let testHis = await response.json();
-    console.log(testHis)
-    chrome.storage.local.set({
-        "submitHistory": testHis
-    })
-};
-// setTestSubHis()
-
 
 // ***************** FUNCTION *****************
 // Set settings to session storage
@@ -142,25 +110,15 @@ const checkUserPermission = async (next) => {
 
         try {
             if (userEmail != "") {
-                let response = await fetch("https://extension-api.e2atool.com/get-user-permission/" + userEmail);
-                let data = await response.json();
-                // console.log(response.status);
-                // console.log(data);
+                let hash = CryptoJS.MD5(userEmail).toString();
+                // console.log(hash)
 
-                if (response.status == 200) {
-                    if (data.status == "ok") {
-                        dt.status = "ok";
-                        dt.message = data.message;
-                        return next(dt);
-                    }
+                if (hash == "6e62cccaba30d6a4bec03ead797607e0") {
+                    dt.status = "ok";
+                    dt.message = "You have permission to use extension.";
+                    return next(dt);
                 }
-                else if (data.status == "error" || response.status == 403) {
-                    // if (dt.message == "Your account has been deleted.") { }
-                    // else if (dt.message == "Your account has been locked.") { }
-                    // else if (dt.message == "License expired.") { }
-                    // else if (dt.message == "Email has been deleted.") { }
-                    // else if (dt.message == "Email has been locked.") { }
-
+                else {
                     dt.status = "error";
                     dt.message = "error";
                     return next(dt);
