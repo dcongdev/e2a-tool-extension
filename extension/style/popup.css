@@ -30,7 +30,6 @@ body {
   font-size: 14px;
 }
 
-
 /* *********** ERROR *********** */
 * {
   -webkit-box-sizing: border-box;
@@ -73,7 +72,7 @@ body {
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
-  background: url("../images/error_page_bg.jpg") no-repeat;
+  background: url("../assets/images/error_page_bg.jpg") no-repeat;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: cover;
@@ -122,9 +121,6 @@ body {
   }
 }
 
-
-
-
 /* *********** LOADER *********** */
 /* (A) LOADING SPINNER */
 #spinner {
@@ -158,9 +154,6 @@ body {
   width: 150px;
 }
 
-
-
-
 /* *********** MAIN *********** */
 /* **** Header **** */
 .header {
@@ -178,8 +171,6 @@ body {
   display: flex;
   align-items: center;
 }
-
-
 
 /* **** Menu bar **** */
 .menu {
@@ -221,7 +212,6 @@ body {
   border-radius: 20px;
 }
 
-
 /* **** Main content **** */
 .main-content {
   height: 380px;
@@ -236,7 +226,6 @@ body {
   /* overflow-x: hidden; */
 }
 
-
 /** Dashboard **/
 .dashboard-card {
   /* margin: 20px; */
@@ -250,7 +239,6 @@ body {
   border-radius: 50px;
   border: none;
 }
-
 
 /** Settings **/
 /* Side bar */
@@ -317,5 +305,13 @@ body {
   border-radius: 5px;
 }
 
-
-
+/* Slider */
+.volume-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Arial, sans-serif;
+}
+.volume-slider {
+  width: 150px;
+}

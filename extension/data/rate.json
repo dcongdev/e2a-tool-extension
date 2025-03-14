@@ -1,0 +1,13 @@
+[
+    {
+        "local": "vi_VN",
+        "data":[
+            {"tier": 1, "name": "Tier 1", "rate": 0.049},
+            {"tier": 2, "name": "Tier 1", "rate": 0.087},
+            {"tier": 3, "name": "Tier 1", "rate": 0.131},
+            {"tier": 4, "name": "Tier 1", "rate": 0.174},
+            {"tier": 5, "name": "Tier 1", "rate": 0.210},
+            {"tier": 6, "name": "Tier 1", "rate": 0.262}
+        ]
+    }
+]

@@ -1,0 +1,55 @@
+{
+  "local": {
+    "extensionStatus": "ON",
+    "submitHistory": [],
+    "soundFiles": []
+  },
+  "sync": {
+    "statistics": {
+      "showTasksSubmittedOnIcon": "ON"
+    },
+    "notifications": {
+      "tasksAvailable": "OFF",
+      "taskIsSubmitted": "OFF"
+    },
+    "sounds": {
+      "taskIsSubmitted": {
+        "status": "ON",
+        "fileName": "Default.mp3",
+        "custom": "OFF",
+        "customUrl": "",
+        "volume": 1
+      },
+      "tasksAvailable": {
+        "status": "ON",
+        "loop": false,
+        "fileName": "default.mp3",
+        "custom": "OFF",
+        "customUrl": "",
+        "volume": 1
+      }
+    },
+    "timing": {
+      "timeCounterClock": {
+        "status":"ON",
+        "position": "in task"
+      }
+    },
+    "automation": {
+      "autoReload": {
+        "status": "ON",
+        "time": 300
+      },
+      "autoSubmit": {
+        "status": "OFF",
+        "min": 30,
+        "max": 90,
+        "custom": []
+      }
+    },
+    "dateTime": {
+      "timezone": "default",
+      "applyForAll": true
+    }
+  }
+}

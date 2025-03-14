@@ -10,12 +10,13 @@
     <link rel="stylesheet" href="../libs/google-fonts/Montserrat.css">
     <link rel="stylesheet" href="../libs/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../libs/bootstrap-icons-1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../assets/css/popup.css">
+    <link rel="stylesheet" href="../style/popup.css">
     <!-- JS -->
     <script src="../libs/jquery/jquery-3.7.0.min.js"></script>
     <script src="../libs/luxon/luxon.min.js"></script>
     <script src="../libs/chartjs/chart.umd.min.js"></script>
-    <script src="../assets/js/popup.js"></script>
+    <!--  -->
+    <script src="popup.js" type="module"></script>
 </head>
 
 <body>
@@ -53,7 +54,8 @@
         <div class="container-fluid col-12 header d-flex justify-content-between">
             <div class="logo">
                 <div>
-                    <img class="ps-2" src="../assets/icons/org/icon-black-shadow.png" alt="" style="height: 35px;">
+                    <img class="ps-2" src="../assets/images/icons/org/icon-black-shadow.png" alt=""
+                        style="height: 35px;">
                     <p class="d-inline fw-bold">E2A Tool</p>
                 </div>
             </div>
@@ -71,7 +73,7 @@
         <div class="container-fluid main-content tab-content p-0" id="myTabContent">
 
             <!-- Dashboard tab -->
-            <div class="tab-pane fade show active container-fluid" id="dashboard" role="tabpanel"
+            <div class="tab-pane fade container-fluid show active" id="dashboard" role="tabpanel"
                 aria-labelledby="dashboard-tab">
                 <div class="row">
 
@@ -203,6 +205,8 @@
                                     <span>Date & Time</span>
                                 </button>
                             </li>
+
+
                         </ul>
 
                     </div>
@@ -211,7 +215,7 @@
                     <div class="col-8 tab-content" style="width: 70%;">
 
                         <!-- Statistics tab -->
-                        <div class="tab-pane fade show active container-fluid p-0 pt-3" id="statistics" role="tabpanel"
+                        <div class="tab-pane fade container-fluid p-0 pt-3 show active" id="statistics" role="tabpanel"
                             aria-labelledby="statistics-tab">
                             <!-- <h4>Statistics</h4> -->
                             <div class="setting-options col-md-12 p-3 pb-1 setting-items container-fluid">
@@ -224,6 +228,42 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="setting-options col-md-12 p-3 pb-1 mt-2 setting-items container-fluid">
+                                <div class="row">
+                                    <div class="col-10 mt-2">
+                                        <p>Export submitted task history.</p>
+                                    </div>
+                                    <div class="col-2 mt-2 form-check form-switch d-flex justify-content-end">
+                                        <i class="btn btn-info bi bi-upload fs-6" id="btn-export-submit-history"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="setting-options col-md-12 p-3 pb-1 mt-2 setting-items container-fluid">
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <p>Import submitted task history.</p>
+                                    </div>
+                                    <div class="col-12 mt-2 form-check form-switch d-flex justify-content-between">
+
+                                        <div>
+                                            <input type="file" id="fileImportInput" class="d-none" accept=".json">
+                                            <label for="fileImportInput">
+                                                <i class="form-control btn btn-info bi bi-download"></i>
+                                            </label>
+                                        </div>
+
+                                        <div>
+                                            <span id="fileImportName">No file</span>
+                                            <button id="btn-import-submit-history" class="btn btn-danger">Confirm</button>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         <!-- Notifications tab -->
@@ -276,6 +316,25 @@
                                         <input class="form-check-input" id="btnChangeNotiSoundTaskSubmitted"
                                             type="checkbox">
                                     </div>
+                                    <div class="col-12 volume-container">
+                                        🔊 <input type="range" id="task-submit-volume-slider" class="volume-slider"
+                                            min="0" max="1" step="0.01" value="1">
+                                        <span id="task-submit-volume-label">100%</span>
+                                    </div>
+                                    <!--  -->
+                                    <div class="col-12 d-flex justify-content-center">
+                                        <hr class="mt-1" style="width: 90%;">
+                                    </div>
+
+                                    <!-- System -->
+                                    <div class="input-group mt-1 mb-2 d-flex justify-content-center">
+                                        <span class="input-group-text" style="height: 35px;">
+                                            <i class="bi bi-music-note"></i>
+                                        </span>
+                                        <select class="form-select d-inline" id="tickSoundSelect" style="height: 35px;">
+                                        </select>
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -289,6 +348,12 @@
                                         <input class="form-check-input" id="btnChangeNotiSoundTaskAvail"
                                             type="checkbox">
                                     </div>
+
+                                    <div class="col-12 volume-container">
+                                        🔊 <input type="range" id="task-available-volume-slider" class="volume-slider"
+                                            min="0" max="1" step="0.01" value="1">
+                                        <span id="task-available-volume-label">100%</span>
+                                    </div>
                                     <!--  -->
                                     <div class="taskAvailNotiSettings col-12">
                                         <div class="row container-fluid pe-0 ps-5 pe-4">
@@ -298,7 +363,7 @@
                                             <div class="row container-fluid pe-0">
                                                 <!-- System -->
                                                 <div class="form-check">
-                                                    <input disabled value="system" class="form-check-input" type="radio"
+                                                    <input value="system" class="form-check-input" type="radio"
                                                         name="radioChooseSound" id="radioChooseSoundSystem">
                                                     <label class="form-check-label" for="radioChooseSoundSystem">
                                                         System
@@ -306,23 +371,23 @@
                                                     <div class="input-group mt-1 mb-2">
                                                         <span class="input-group-text" style="height: 35px;"><i
                                                                 class="bi bi-music-note"></i></span>
-                                                        <select disabled class="form-select d-inline"
-                                                            id="notiSysSoundSelect" style="height: 35px;">
+                                                        <select class="form-select d-inline" id="notiSysSoundSelect"
+                                                            style="height: 35px;">
 
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <!-- Custom -->
                                                 <div class="form-check">
-                                                    <input disabled value="custom" class="form-check-input" type="radio"
+                                                    <input value="custom" class="form-check-input" type="radio"
                                                         name="radioChooseSound" id="radioChooseSoundCustom">
                                                     <label class="form-check-label" for="radioChooseSoundCustom">
                                                         Custom
                                                     </label>
                                                     <div class="input-group mt-1 mb-2">
                                                         <span class="input-group-text" style="height: 35px;">URL</span>
-                                                        <input disabled class="form-control d-inline"
-                                                            id="notiCusSoundInput" style="height: 35px;"></input>
+                                                        <input class="form-control d-inline" id="notiCusSoundInput"
+                                                            style="height: 35px;"></input>
                                                     </div>
                                                 </div>
                                             </div>
@@ -334,8 +399,8 @@
                                                 <div class="col-12 row d-flex justify-content-between">
                                                     <p>Mode</p>
                                                     <div class="form-check col mb-2 ps-5 ms-3">
-                                                        <input disabled class="form-check-input" type="checkbox"
-                                                            value="" id="checkBoxLoopMode">
+                                                        <input class="form-check-input" type="checkbox" value=""
+                                                            id="checkBoxLoopMode">
                                                         <label class="form-check-label" for="flexCheckDefault">
                                                             Loop
                                                         </label>
@@ -367,6 +432,27 @@
                                     <div class="col-2 mt-2 form-check form-switch d-flex justify-content-end">
                                         <input class="form-check-input" id="btnChangeTimeCounterClock" type="checkbox">
                                     </div>
+                                    <div class="col-12 d-flex justify-content-between">
+                                        <p>Position: </p>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="radioPositionClock"
+                                                value="all">
+                                            <label> All </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="radioPositionClock"
+                                                value="in task">
+                                            <label> In task </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="radioPositionClock"
+                                                value="website title">
+                                            <label> Website title </label>
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -386,12 +472,12 @@
                                         </div>
 
                                         <div class="col input-group mt-2">
-                                            <select disabled class="form-select" id="autoReloadSelectHour"
+                                            <select class="form-select" id="autoReloadSelectHour"
                                                 style="width: 50px;height: 35px;">
 
                                             </select>
                                             <u class="mt-1 ms-0 me-0">h</u>
-                                            <select disabled class="form-select" id="autoReloadSelectMin"
+                                            <select class="form-select" id="autoReloadSelectMin"
                                                 style="width: 45px;height: 35px;">
 
 
@@ -411,38 +497,7 @@
                                 <div class="row d-flex justify-content-between">
                                     <div class="col-11 row">
                                         <div class="col-12 pe-0 mt-1">
-                                            <p class="mt-1">Auto submit at(random):</p>
-                                            <!-- <div class="form-text mb-2" style="font-size: x-small ;">
-                                                Auto submit tasks at 12:20s
-                                            </div> -->
-                                        </div>
-                                        <!-- Start -->
-                                        <div class="col-12 input-group">
-                                            <strong class="text-danger me-2 pt-2">Start</strong>
-                                            <select disabled class="form-select pe-0 rounded"
-                                                id="autoSubmitStartSelectMin" style="width: 45px;height: 35px;">
-
-                                            </select>
-                                            <u class="mt-1 ms-0 me-2">min</u>
-                                            <select disabled class="form-select pe-0 rounded"
-                                                id="autoSubmitStartSelectSec" style="width: 50px;height: 35px;">
-
-                                            </select>
-                                            <u class="mt-1 ms-0">sec</u>
-                                        </div>
-                                        <!-- End -->
-                                        <div class="col-12 input-group mt-1">
-                                            <strong class="text-danger me-3 pt-2">End</strong>
-                                            <select disabled class="form-select pe-0 rounded"
-                                                id="autoSubmitEndSelectMin" style="width: 45px;height: 35px;">
-
-                                            </select>
-                                            <u class="mt-1 ms-0 me-2">min</u>
-                                            <select disabled class="form-select pe-0 rounded"
-                                                id="autoSubmitEndSelectSec" style="width: 50px;height: 35px;">
-
-                                            </select>
-                                            <u class="mt-1 ms-0">sec</u>
+                                            <p class="mt-1">Auto submit at random (secs):</p>
                                         </div>
                                     </div>
 
@@ -450,8 +505,67 @@
                                         class="col-1 mt-2 pe-0 ms-1 form-check form-switch d-flex justify-content-center">
                                         <input class="form-check-input" id="btnChangeAutoSubmitMode" type="checkbox">
                                     </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">min</span>
+                                        <input type="number" class="form-control" id="autoSubmitAllMin" min="0">
+                                        <span class="input-group-text">max</span>
+                                        <input type="number" class="form-control" id="autoSubmitAllMax" min="0">
+                                    </div>
+                                </div>
+                                <div class="col-12 nav nav-pills d-flex justify-content-center">
+                                    <button class="btn btn-secondary bi bi-sliders2 w-50" id="customAutoSubmit-tab"
+                                        data-bs-toggle="tab" data-bs-target="#customAutoSubmit" type="button">
+                                        Custom</button>
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Custom auto submit tab -->
+                        <div class="tab-pane fade container-fluid p-0 pt-3" id="customAutoSubmit" role="tabpanel"
+                            aria-labelledby="customAutoSubmit-tab">
+                            <h4>Custom Auto Submit</h4>
+
+                            <!-- ADD NEW -->
+                            <div class="setting-options col-md-12 pt-1 pb-2 mt-2 setting-items container-fluid"
+                                id="addCustomAutoSubmitCnt">
+                                <div class="col-12 d-flex justify-content-center">
+                                    <hr class="w-25 me-1">
+                                    <strong>ADD NEW</strong>
+                                    <hr class="w-25 ms-1">
+                                </div>
+                                <div class="col-12 pe-0 me-1">
+                                    <div class="input-group mb-3 col">
+                                        <span class="input-group-text">Name</span>
+                                        <input type="text" class="form-control" id="add-task-title" placeholder="...">
+                                    </div>
+                                </div>
+                                <div class="container-fluid d-flex justify-content-between col-12 mt-1">
+                                    <div class="input-group mb-3 col">
+                                        <span class="input-group-text">min</span>
+                                        <input type="number" class="form-control" id="addAutoSubmitCusMax" min="1"
+                                            placeholder="30">
+                                        <span class="input-group-text">max</span>
+                                        <input type="number" class="form-control" id="addAutoSubmitCusMin" min="1"
+                                            placeholder="60">
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-secondary bi bi-plus-circle-fill ms-1 text-light"
+                                            id="btn-add-custom-submit"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="col-12 d-flex justify-content-center mt-2">
+                                <hr class="w-50 me-1">
+                                <strong>EDIT</strong>
+                                <hr class="w-50 ms-1">
+                            </div>
+                            <!-- EDIT -->
+                            <div id="autoSubmitEdit">
+
+                            </div>
+
+
                         </div>
 
                         <!-- Date & Time tab -->

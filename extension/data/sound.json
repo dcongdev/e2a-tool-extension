@@ -1,0 +1,13 @@
+{
+  "sounds": [
+    "default.mp3",
+    "bell-ringing-1.mp3",
+    "bell-ringing-2.mp3",
+    "iphone.mp3",
+    "iphone-notification.mp3",
+    "old-telephone-ring.mp3",
+    "phone-off-hook.mp3",
+    "telephone-ring.mp3"
+  ],
+  "tick": ["Default.mp3", "tick-1.mp3"]
+}
