@@ -83,6 +83,19 @@ $(document).ready(async function () {
     }
     await loadData();
 
+
+    // HIDDEN FEATURES
+    var hiddenFeature = false;
+    var userIconClick = 0;
+    $("#txtExtensionStatus").on("click", () => {
+        userIconClick++;
+        if (userIconClick == 10) {
+            hiddenFeature = true;
+            $(".hidden-feature").toggleClass("d-none")
+            console.log("Active ultimate features!")
+        }
+    })
+
     /* =================================== GET DATA =================================== */
     const convertTimezone = (datetime, timezone = "UTC") =>
         DateTime.fromISO(datetime, { zone: "utc" }).setZone(timezone);

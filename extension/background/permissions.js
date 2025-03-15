@@ -2,7 +2,7 @@ import { DateTime } from "../libs/luxon/es6_luxon.min.js";
 import CryptoJS from "../libs/CryptoJS_v3.1.2/rollups/aes.js";
 import { getSettings, saveSettings } from "./storage.js";
 //
-const emailAuthorized = ["a06d0900bcb9da6856f5aad5dec6cea6A"]
+const emailAuthorized = ["a06d0900bcb9da6856f5aad5dec6cea6"]
 
 // Kiểm tra quyền sử dụng của người dùng
 export const checkUserPermission = async () => {

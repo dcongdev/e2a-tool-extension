@@ -62,8 +62,11 @@
             <div class="status">
                 <div class="col-6 form-check form-switch">
                     <!-- <input class="form-check-input mt-2" id="btnChangeExtensionStatus" type="checkbox"> -->
-                    <p class="d-inline fw-bolder text-success me-4" id="txtExtensionStatus"><span
-                            class="bi bi-person-fill-check fs-2"></span></p>
+                    <p class="d-inline fw-bolder text-success me-4">
+                        <span class="bi bi-person-fill-check fs-2"  id="txtExtensionStatus" style="cursor: pointer;">
+
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -229,7 +232,7 @@
                                 </div>
                             </div>
 
-                            <div class="setting-options col-md-12 p-3 pb-1 mt-2 setting-items container-fluid">
+                            <div class="hidden-feature d-none setting-options col-md-12 p-3 pb-1 mt-2 setting-items container-fluid">
                                 <div class="row">
                                     <div class="col-10 mt-2">
                                         <p>Export submitted task history.</p>
@@ -240,7 +243,7 @@
                                 </div>
                             </div>
 
-                            <div class="setting-options col-md-12 p-3 pb-1 mt-2 setting-items container-fluid">
+                            <div class="hidden-feature d-none setting-options col-md-12 p-3 pb-1 mt-2 setting-items container-fluid">
                                 <div class="row">
                                     <div class="col-12 mt-2">
                                         <p>Import submitted task history.</p>
@@ -256,7 +259,8 @@
 
                                         <div>
                                             <span id="fileImportName">No file</span>
-                                            <button id="btn-import-submit-history" class="btn btn-danger">Confirm</button>
+                                            <button id="btn-import-submit-history"
+                                                class="btn btn-danger">Confirm</button>
 
                                         </div>
 

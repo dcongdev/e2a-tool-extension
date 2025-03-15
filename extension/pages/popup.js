@@ -8,7 +8,6 @@ const extensionUrl = chrome.runtime.getURL("");
 import { saveSettings, getSubmitHistoryByDay, getSettings, setSessionSubmitHistory } from "../background/storage.js";
 import { checkUserAndTask, setTasksSubmittedOnIcon } from "../background/ui.js";
 
-
 $(document).ready(async function () {
 
     // Timezone
@@ -54,6 +53,7 @@ $(document).ready(async function () {
 
 
     // Check user status
+    await setSessionSubmitHistory();
     let userStatus = (await checkUserAndTask())
     // console.log(userStatus)
     if (!userStatus) {
@@ -62,6 +62,18 @@ $(document).ready(async function () {
         return
     }
     else { showLoading(false) };
+
+    // HIDDEN FEATURES
+    var hiddenFeature = false;
+    var userIconClick = 0;
+    $("#txtExtensionStatus").on("click", () => {
+        userIconClick++;
+        if (userIconClick == 10) {
+            hiddenFeature = true;
+            $(".hidden-feature").toggleClass("d-none")
+            console.log("Active ultimate features!")
+        }
+    })
 
 
     //
@@ -121,6 +133,7 @@ $(document).ready(async function () {
 
     // Export submit history
     $(document).on("click", "#btn-export-submit-history", async () => {
+        if (!hiddenFeature) { return }
         let { submitHistory } = await getSettings("local", "submitHistory");
         let currTime = DateTime.now().setZone(timezone).toFormat('yyyy-MM-dd_HH-mm-ss');
         let fileName = "backup-data_" + currTime + ".json"
@@ -135,6 +148,7 @@ $(document).ready(async function () {
     // Import submit history
     var selectedFile = null;
     document.getElementById("fileImportInput").addEventListener("change", function (event) {
+        if (!hiddenFeature) { return }
         selectedFile = event.target.files[0];
         if (selectedFile) {
             document.getElementById("fileImportName").textContent = selectedFile.name;
@@ -143,14 +157,15 @@ $(document).ready(async function () {
 
     // Confirm
     document.getElementById("btn-import-submit-history").addEventListener("click", function () {
+        if (!hiddenFeature) { return }
         if (!selectedFile) { alert("Please select file first"); return; }
         let reader = new FileReader();
         reader.onload = async (e) => {
             try {
                 let jsonData = JSON.parse(e.target.result);
                 await saveSettings("local", "submitHistory", jsonData).then(() => { alert("Imported!") })
-                await setSessionSubmitHistory()
-                await setTasksSubmittedOnIcon()
+                await setSessionSubmitHistory();
+                await checkUserAndTask();
             } catch { alert("Error"); }
         };
         reader.readAsText(selectedFile);
@@ -501,6 +516,9 @@ $(document).ready(async function () {
         let timezoneSelect = $("#timezoneSelect").val()
         dateTime.timezone = timezoneSelect;
         await saveSettings("sync", "dateTime", dateTime).then(async () => {
+            await setSessionSubmitHistory()
+            await checkUserAndTask();
+
             window.location.reload();
             // Reload statistics page
             let tabs = await chrome.tabs.query({});
