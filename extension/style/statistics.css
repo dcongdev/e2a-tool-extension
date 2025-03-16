@@ -84,6 +84,15 @@ body {
   margin-top: 10px;
 }
 
+.day-chart-by-hour-box {
+  min-height: 30%;
+  width: 95%;
+  border: solid 1px;
+  border-radius: 20px;
+  border-color: rgba(153, 153, 153, 0.404);
+  margin-top: 10px;
+}
+
 /* WEEK */
 .week-sta-by-type-container {
   border: solid 1px;

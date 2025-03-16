@@ -115,35 +115,67 @@ $(document).ready(async function () {
             .map(({ date, ...task }) => task);
     };
     //
-    const processData = (data) => {
+
+    const processData = (data, timezone) => {
         let totalTasks = data.length;
         let totalTime = data.reduce((sum, task) => sum + task.time, 0);
-        //
-        let tasksByDate, timeByDate, tasksByName = [];
+
         let dateMap = new Map();
         let timeMap = new Map();
         let nameMap = new Map();
-        //
+
+        let minDate = null, maxDate = null;
+
+        // Thu thập dữ liệu và tìm minDate, maxDate
         data.forEach(task => {
-            let taskDate = DateTime.fromISO(task.datetime).toISODate();
-            dateMap.set(taskDate, (dateMap.get(taskDate) || 0) + 1); // Tasks by date
-            timeMap.set(taskDate, (timeMap.get(taskDate) || 0) + task.time); // Time by date
-            // nameMap.set(task.name, (nameMap.get(task.name) || 0) + 1); // Tasks by name
+            const taskDate = convertTimezone(task.datetime, timezone).toISODate();
+
+            if (!minDate || taskDate < minDate) minDate = taskDate;
+            if (!maxDate || taskDate > maxDate) maxDate = taskDate;
+
+            dateMap.set(taskDate, (dateMap.get(taskDate) || 0) + 1);
+            timeMap.set(taskDate, (timeMap.get(taskDate) || 0) + task.time);
+
             if (!nameMap.has(task.name)) {
                 nameMap.set(task.name, { tasks: 0, time: 0 });
             }
             nameMap.get(task.name).tasks += 1;
             nameMap.get(task.name).time += task.time;
         });
-        //
-        tasksByDate = Array.from(dateMap, ([date, tasks]) => ({ date, tasks }));
-        timeByDate = Array.from(timeMap, ([date, totalTime]) => ({ date, totalTime }));
-        // Sort
-        tasksByName = Array.from(nameMap, ([name, value]) => ({ name, tasks: value.tasks, time: value.time }))
+
+
+
+        // Nếu không có dữ liệu, return sớm
+        if (!minDate || !maxDate) {
+            return { totalTasks, totalTime, tasksByDate: [], timeByDate: [], tasksByName: [] };
+        }
+
+        // Đảm bảo currentDate và endDate là đối tượng DateTime hợp lệ
+        let currentDate = DateTime.fromISO(minDate);
+        let endDate = DateTime.fromISO(maxDate);
+
+        // Duyệt từ minDate đến maxDate và đảm bảo tất cả các ngày đều có trong map
+        while (currentDate <= endDate) {
+            let dateStr = currentDate.toISODate();
+
+            if (!dateMap.has(dateStr)) dateMap.set(dateStr, 0);
+            if (!timeMap.has(dateStr)) timeMap.set(dateStr, 0);
+
+            currentDate = currentDate.plus({ days: 1 }); // Cộng thêm 1 ngày
+        }
+
+        // Chuyển đổi map thành mảng và sắp xếp theo ngày
+        let tasksByDate = Array.from(dateMap.entries()).map(([date, tasks]) => ({ date, tasks })).sort((a, b) => a.date.localeCompare(b.date));
+        let timeByDate = Array.from(timeMap.entries()).map(([date, totalTime]) => ({ date, totalTime })).sort((a, b) => a.date.localeCompare(b.date));
+
+        // Sắp xếp tasks theo số lần xuất hiện
+        let tasksByName = Array.from(nameMap.entries()).map(([name, value]) => ({ name, tasks: value.tasks, time: value.time }))
             .sort((a, b) => b.tasks - a.tasks);
-        //
+
         return { totalTasks, totalTime, tasksByDate, timeByDate, tasksByName };
     };
+
+
 
     const convertForChartJS = (data) => {
         return {
@@ -180,6 +212,40 @@ $(document).ready(async function () {
         };
     };
 
+    //
+    const convertDataForChartByHour = (data, timezone) => {
+        let hourMap = new Map();
+
+        // Khởi tạo dữ liệu với 24 giờ, đảm bảo mọi giờ có giá trị mặc định = 0
+        for (let i = 0; i < 24; i++) {
+            hourMap.set(i, 0);
+        }
+
+        // Lặp qua dữ liệu và tính tổng số task theo giờ
+        data.forEach(task => {
+            const taskHour = convertTimezone(task.datetime, timezone).hour; // Lấy giờ theo múi giờ
+            hourMap.set(taskHour, (hourMap.get(taskHour) || 0) + 1);
+        });
+
+        // Chuyển Map thành mảng labels (giờ) và data (tổng task)
+        let labels = Array.from(hourMap.keys()).map(h => `${h}:00`); // Nhãn trục X (0:00 - 23:00)
+        let values = Array.from(hourMap.values()); // Dữ liệu số task theo giờ
+
+        return {
+            labels,
+            datasets: [
+                {
+                    label: "Total tasks",
+                    data: values,
+                    backgroundColor: "rgba(75, 192, 192, 0.6)",
+                    borderColor: "rgba(75, 192, 192, 1)",
+                    borderWidth: 1
+                }
+            ]
+        };
+    };
+
+
     // Show table
     const showTable = (data, tableCnt, tableBody) => {
         data = data.tasksByName;
@@ -209,6 +275,7 @@ $(document).ready(async function () {
         if (statisticType === "task name") { data = chartData.tasksByName; }
         else if (statisticType === "date") { data = chartData.tasksByDate; }
         else if (statisticType === "time") { data = chartData.timeByDate; }
+        else if (statisticType === "hour") { data = chartData; }
 
         // Nếu biểu đồ của `chartElm` đã tồn tại, destroy trước khi tạo mới
         if (chartInstances[chartElm]) {
@@ -311,13 +378,18 @@ $(document).ready(async function () {
         $("#dayDetailRphTxt").text(rph);
     };
 
+
+
     // Show all
     const showDay = (date, timezone) => {
-        let data = processData(getData(date, date, timezone));
+        let rawData = getData(date, date, timezone)
+        let data = processData(rawData, timezone);
+        let dataByHour = convertDataForChartByHour(rawData, timezone);
         showDetailDate(date, data);
         showTable(data, "day-table-by-type", "day-table-body-by-type");
-        showChart("dayChartByType", convertForChartJS(data), "pie", "task name");
-        loadAmountData(data, "day-amount")
+        showChart("dayChartByType", convertForChartJS(data), "doughnut", "task name");
+        showChart("dayChartByHour", dataByHour, "bar", "hour");
+        loadAmountData(data, "day-amount");
     }
 
     /* ===================== SHOW DAY ===================== */
@@ -427,7 +499,8 @@ $(document).ready(async function () {
 
     // Show all 
     const showWeek = (weekInfo, timezone) => {
-        let data = processData(getData(weekInfo.start, weekInfo.end, timezone));
+        let rawData = getData(weekInfo.start, weekInfo.end, timezone)
+        let data = processData(rawData, timezone);
         showDetailWeek(weekInfo, data)
         //
         showTable(data, "week-table-by-type", "week-table-body-by-type");
@@ -522,8 +595,6 @@ $(document).ready(async function () {
     }
 
 
-
-
     //
     $(document).on("change", "#select-year-month", () => {
         let year = parseInt($("#select-year-month option:selected").val());
@@ -540,7 +611,8 @@ $(document).ready(async function () {
 
     // Show all 
     const showMonth = (monthInfo, timezone) => {
-        let data = processData(getData(monthInfo.start, monthInfo.end, timezone));
+        let rawData = getData(monthInfo.start, monthInfo.end, timezone)
+        let data = processData(rawData, timezone);
         showDetailMonth(monthInfo, data)
         //
         showTable(data, "month-table-by-type", "month-table-body-by-type");
