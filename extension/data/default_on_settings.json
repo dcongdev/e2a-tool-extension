@@ -5,9 +5,7 @@
     "soundFiles": []
   },
   "sync": {
-    "statistics": {
-      "showTasksSubmittedOnIcon": "ON"
-    },
+    "statistics": { "record": "ON" },
     "notifications": {
       "tasksAvailable": "ON",
       "taskIsSubmitted": "ON"
@@ -31,7 +29,7 @@
     },
     "timing": {
       "timeCounterClock": {
-        "status":"ON",
+        "status": "ON",
         "position": "in task"
       }
     },

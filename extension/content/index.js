@@ -28,7 +28,7 @@ window.addEventListener("load", async () => {
 
     // Get settings and when change
     var settings = await sendMessageToBackground({ action: "getSettings", storage: "sync" });
-    var { notifications, sounds, timing, automation } = settings;
+    var { statistics, notifications, sounds, timing, automation } = settings;
 
     // Update setting on change
     chrome.storage.onChanged.addListener(async (changes, areaName) => {
@@ -202,8 +202,10 @@ window.addEventListener("load", async () => {
         let submitButton = event.target.closest(".submit-button");
         if (submitButton && buttonStatus.submitButton == "enabled") {
             // console.log("submitted");
-            let taskData = { name: taskTitle, time: counter };
-            sendMessageToBackground({ action: "submit", data: taskData });
+            if (statistics.record == "ON") {
+                let taskData = { name: taskTitle, time: counter };
+                sendMessageToBackground({ action: "submit", data: taskData });
+            }
             resetStatus();
             resetAlertStatus();
 

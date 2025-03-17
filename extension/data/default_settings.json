@@ -6,7 +6,7 @@
   },
   "sync": {
     "statistics": {
-      "showTasksSubmittedOnIcon": "ON"
+      "record": "OFF"
     },
     "notifications": {
       "tasksAvailable": "OFF",

@@ -124,9 +124,9 @@ $(document).ready(async function () {
     var { statistics, notifications, sounds, timing, automation, dateTime } = syncSettings;
 
     // =================================== Statistics =================================== //
-    $("#btnChangeShowTasksOnIcon").prop("checked", statistics.showTasksSubmittedOnIcon === "ON");
-    $(document).on("click", "#btnChangeShowTasksOnIcon", async () => {
-        statistics.showTasksSubmittedOnIcon = $("#btnChangeShowTasksOnIcon").is(":checked") ? "ON" : "OFF";
+    $("#btnChangeRecord").prop("checked", statistics.record === "ON");
+    $(document).on("click", "#btnChangeRecord", async () => {
+        statistics.record = $("#btnChangeRecord").is(":checked") ? "ON" : "OFF";
         await saveSettings("sync", "statistics", statistics)
         await setTasksSubmittedOnIcon()
     });

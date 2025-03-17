@@ -15,7 +15,7 @@ export const sendNotification = (title, message) => {
 // Set badge text
 export const setTasksSubmittedOnIcon = async () => {
     let syncSettings = await getSettings("sync")
-    if (syncSettings.statistics.showTasksSubmittedOnIcon == "OFF") {
+    if (syncSettings.statistics.record == "OFF") {
         chrome.action.setBadgeText({ text: "" });
         return;
     }

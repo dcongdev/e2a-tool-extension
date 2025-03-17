@@ -71,8 +71,12 @@ chrome.runtime.onMessage.addListener((req, res, sendResponse) => {
     }
     // Submit
     if (req.action == "submit") {
-        addNewTask(req.data.name, req.data.time).then(() => {
-            setTasksSubmittedOnIcon()
+        getSettings("sync", "statistics").then((settings) => {
+            if (settings.statistics.record == "ON") {
+                addNewTask(req.data.name, req.data.time).then(() => {
+                    setTasksSubmittedOnIcon();
+                })
+            }
         })
         sendResponse(true)
         return true
