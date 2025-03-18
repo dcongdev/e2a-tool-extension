@@ -33,6 +33,7 @@ window.addEventListener("load", async () => {
     // Update setting on change
     chrome.storage.onChanged.addListener(async (changes, areaName) => {
         if (areaName == "sync") { // On change settings
+            if (changes.statistics) statistics = changes.statistics.newValue;
             if (changes.notifications) notifications = changes.notifications.newValue;
             if (changes.sounds) sounds = changes.sounds.newValue;
             if (changes.timing) timing = changes.timing.newValue;
@@ -56,7 +57,7 @@ window.addEventListener("load", async () => {
         audioElement.loop = loop;
         //
         try { await audioElement.play(); }
-        catch (error) { console.error("Error while play audio:", error); }
+        catch { console.log("ERROR PLAY AUDIO!") }
         //
         if (typeof onendedCallback === "function") {
             audioElement.onended = onendedCallback;
