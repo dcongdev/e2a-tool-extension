@@ -111,47 +111,49 @@ const createMenu = () => {
 
     // 7 change settings
     chrome.contextMenus.create({ id: "7", title: "Change settings", contexts: ["action"] });
+
+
+    // ================================ Context menu click event
+    chrome.contextMenus.onClicked.addListener((id, tab) => {
+        // ====== TEST ======= permission.js 
+        // 3. Reload / set email true
+        if (id.menuItemId == 3) {
+            // saveSettings("local", "userEmail", "mmohc0412@gmail.com")
+            // console.log("Set email true")
+            chrome.runtime.reload()
+            console.log("Set Submit History")
+        }
+        // 4. set email false
+        if (id.menuItemId == 4) {
+            saveSettings("local", "userEmail", "sdvsf@ok.com")
+            console.log("Set email false")
+        }
+
+        // 5. set once time key True
+        if (id.menuItemId == 5) {
+            saveSettings("local", "onceTimeKey", { key: "abc", permission: true })
+            console.log("Set key true")
+        }
+
+        // 6. set once time key False
+        if (id.menuItemId == 6) {
+            saveSettings("local", "onceTimeKey", { key: "", permission: false })
+            console.log("Set key false")
+        }
+
+        // 6. set once time key False
+        if (id.menuItemId == 7) {
+
+            let currentTime = DateTime.now().toISO()
+            // saveSettings("local", "notifications", curr)
+            // saveSettings("sync", "test", curr)
+            console.log(currentTime)
+        }
+    });
+
 }
 
-setTimeout(() => { createMenu() }, 500)
-
-// Context menu click event
-chrome.contextMenus.onClicked.addListener((id, tab) => {
-    // ====== TEST ======= permission.js 
-    // 3. Reload / set email true
-    if (id.menuItemId == 3) {
-        // saveSettings("local", "userEmail", "mmohc0412@gmail.com")
-        // console.log("Set email true")
-        chrome.runtime.reload()
-        console.log("Set Submit History")
-    }
-    // 4. set email false
-    if (id.menuItemId == 4) {
-        saveSettings("local", "userEmail", "sdvsf@ok.com")
-        console.log("Set email false")
-    }
-
-    // 5. set once time key True
-    if (id.menuItemId == 5) {
-        saveSettings("local", "onceTimeKey", { key: "abc", permission: true })
-        console.log("Set key true")
-    }
-
-    // 6. set once time key False
-    if (id.menuItemId == 6) {
-        saveSettings("local", "onceTimeKey", { key: "", permission: false })
-        console.log("Set key false")
-    }
-
-    // 6. set once time key False
-    if (id.menuItemId == 7) {
-
-        let currentTime = DateTime.now().toISO()
-        // saveSettings("local", "notifications", curr)
-        // saveSettings("sync", "test", curr)
-        console.log(currentTime)
-    }
-});
+setTimeout(() => { createMenu() }, 500);
 
 
 const openTestPage = () => {
@@ -163,18 +165,14 @@ const openTestPage = () => {
     // chrome.tabs.create({ url: errorPageUrl });
 }
 
-var count = 0;
-chrome.action.onClicked.addListener(async () => {
-    count++
-    // openTestPage()
-})
 
-
-// === Reload test ===
-chrome.runtime.onMessage.addListener((req, res, sendRes) => {
-    if (Object.getOwnPropertyNames(req) == "reload") {
-        chrome.runtime.reload();
-        sendRes(true)
-        return true;
-    }
-})
+const messageReload = () => {
+    // === Reload test ===
+    chrome.runtime.onMessage.addListener((req, res, sendRes) => {
+        if (Object.getOwnPropertyNames(req) == "reload") {
+            chrome.runtime.reload();
+            sendRes(true)
+            return true;
+        }
+    })
+}

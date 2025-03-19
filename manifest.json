@@ -1,8 +1,8 @@
 {
   "name": "E2A Tool - EWOQ time tracker and more...",
   "manifest_version": 3,
-  "version": "3.3.0",
-  "version_name": "3.3.0",
+  "version": "3.2.0",
+  "version_name": "3.2.0",
   "description": "E2A Tool is a task counter and time tracker for Arrow Project, PIAA project, ...",
   "action": { "default_popup": "./pages/popup.html" },
   "icons": {
