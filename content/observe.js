@@ -3,6 +3,9 @@ var currentPage = "home"; // home, instruction, in task
 var buttonStatus = { startButton: null, submitButton: null }
 var taskTitle = "EWOQ";
 
+
+var autoSubmitStatus = { time: null, isCanceled: false }
+
 // ================== ON LOAD ===================
 window.addEventListener("load", () => {
 

@@ -2,7 +2,6 @@
 const extensionUrl = chrome.runtime.getURL("");
 
 window.addEventListener("load", async () => {
-    var autoSubmitStatus = { time: null, isCanceled: false }
     var counter = -1; // Only increase when counting reload, in task
     var audioElement = document.createElement('audio');
     //
@@ -225,13 +224,6 @@ window.addEventListener("load", async () => {
                 sendMessageToBackground({ action: "send notification", title: "Task submitted!", message: "Name: " + taskTitle })
             }
 
-        }
-
-        // Cancel Auto Submit Button
-        if (event.target.id == "cancelAutoSubmitBtn") {
-            // console.log("Cancel auto submit")
-            autoSubmitStatus = { time: null, isCanceled: true };
-            hideAutoSubmitBox();
         }
 
         // Continue Button

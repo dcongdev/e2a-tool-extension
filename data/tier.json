@@ -14,7 +14,7 @@
   { "name": "SemanticContainmentV2_2021-09-13", "tier": 2 },
   { "name": "User Interest Evaluation", "tier": 2 },
   { "name": "Video Ad Break Evaluation", "tier": 2 },
-  { "name": "YouTube Video Inappropriateness Evaluation", "tier": 2 },
+  { "name": "YouTube Video Inappropriateness Evaluation", "tier": 1 },
   { "name": "-" },
   { "name": "Ad Targeting Evaluation", "tier": 3 },
   { "name": "Search Experience to Ad Usefulness", "tier": 3 },

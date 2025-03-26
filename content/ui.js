@@ -223,6 +223,11 @@ const showAutoSubmitBox = (time) => {
         autoSubmitBox.appendChild(clockBox);
         autoSubmitBox.appendChild(cancelButton);
         //
+        cancelButton.addEventListener("click", () => {
+            autoSubmitStatus = { time: null, isCanceled: true };
+            hideAutoSubmitBox();
+        })
+        //
         let submitButton = document.querySelector(".submitTaskButton");
         if (submitButton) {
             submitButton.insertAdjacentElement("afterend", autoSubmitBox);
