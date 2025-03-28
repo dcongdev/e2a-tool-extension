@@ -6,7 +6,7 @@
   },
   "sync": {
     "statistics": {
-      "record": "OFF"
+      "record": "ON"
     },
     "notifications": {
       "tasksAvailable": "OFF",
